@@ -15,7 +15,7 @@ const socialLinks = [
   },
   {
     name: 'Email',
-    url: 'mailto:aicodingclub@gmail.com',
+    url: 'mailto:kecaicodingclub@gmail.com',
     icon: <FaEnvelope size={30} />,
   }
 ];
@@ -108,7 +108,7 @@ export default function Footer() {
           </h4>
           <ul className={`${isDark ? "text-blue-100" : "text-gray-700"} space-y-2`}>
             <li><b>Faculty Coordinators:</b></li>
-            <li className="ml-6">Dr.K.LOGESWARAN : +91 98765 43210</li>
+            <li className="ml-6">Dr.K.Logeswaran : +91 98765 43210</li>
             <li className="ml-6">Ms. Balasanthi : +91 93448 60238</li>
 
             <li className="mt-3"><b>Secretaries:</b></li>
