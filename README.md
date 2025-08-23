@@ -13,8 +13,7 @@ This is the official website for the AI Coding Club, built with React + Vite, an
 
 ## Contributing
 
-Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
-
+Developed by AICC Website team
 ## License
 
 This project is licensed under the MIT License.
