@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Cyber neon text */
+.neon-text {
+  color: #0ff; /* cyan neon */
+  text-shadow:
+    0 0 5px #0ff,
+    0 0 10px #0ff,
+    0 0 20px #0ff,
+    0 0 40px #0ff;
+}
+
+/* Neon border (for navbar bottom line) */
+.border-neon {
+  border-color: #0ff;
+}
+
+/* in index.css or global.css */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* index.css */
+.nav-shadow {
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2); /* subtle blue glow */
+  transition: box-shadow 0.3s ease;
+}
+/* Black glow text */
+/* Black glow for typing text */
+/* Black glow only on hover */
+.hover-glow-black:hover {
+  text-shadow:
+    0 0 4px rgba(0, 0, 0, 0.5),
+    0 0 6px rgba(0, 0, 0, 0.3);
+}
+/* Floating animation */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Cyan Highlight Effect */
+.nav-item {
+  position: relative;
+  padding: 8px 16px;
+  color: #333;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Glow effect on hover or active */
+.nav-item:hover,
+.nav-item.active {
+  color: #00e5ff; /* cyan text */
+  text-shadow: 0 0 5px #00e5ff,
+               0 0 10px #00e5ff,
+               0 0 20px #00e5ff;
+}
+/* Subtle Black Glow Effect */
+.glow-black-hover:hover {
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.5),
+               0 0 8px rgba(0, 0, 0, 0.4);
+  transition: text-shadow 0.3s ease-in-out;
+}
+
+/* Subtle black glow for headings */
+.glowing-black {
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  transition: text-shadow 0.3s ease;
+}
+
+.glowing-black:hover {
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+}
+
+
+@keyframes gradient-x {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 6s ease infinite;
+}
+/* Hide scrollbars for carousel */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+/* Optional: smooth text hover glow for entire paragraph */
+.hover-glow:hover {
+  text-shadow: 0 0 8px rgba(59, 130, 246, 0.8); /* blue glow */
+}
+
+/* Smooth carousel image transitions */
+img {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Optional: smooth transitions for motion elements */
+.motion-element {
+  transition: all 0.3s ease;
+}
+
