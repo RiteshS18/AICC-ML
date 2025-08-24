@@ -1,6 +1,7 @@
 import { FaLinkedin, FaInstagram, FaMapMarkerAlt, FaEnvelope } from 'react-icons/fa';
 import { useContext } from "react";
 import { ThemeContext } from "../ThemeContext";
+import { useNavigate } from "react-router-dom";
 
 const socialLinks = [
   {
@@ -23,6 +24,13 @@ const socialLinks = [
 export default function Footer() {
   const { theme } = useContext(ThemeContext);
   const isDark = theme === "dark";
+  const navigate = useNavigate();
+
+  // Navigate to Members page
+  const goToMembersPage = () => {
+    navigate("/members");
+  };
+
   return (
     <footer
       className={`w-full py-12 px-6 md:px-16 relative overflow-hidden transition-colors duration-300
@@ -34,20 +42,19 @@ export default function Footer() {
       <div className={`absolute top-0 left-0 w-full h-1 
         ${isDark
           ? "bg-gradient-to-r from-blue-400 to-purple-500"
-          : "bg-gradient-to-r from-blue-500 to-purple-600"}
-      `}></div>
+          : "bg-gradient-to-r from-blue-500 to-purple-600"}`}
+      ></div>
 
       {/* Decorative Circles */}
       <div className={`absolute -top-10 -right-10 w-40 h-40 rounded-full 
-        ${isDark ? "bg-blue-400 opacity-10" : "bg-blue-300 opacity-20"}
-      `}></div>
+        ${isDark ? "bg-blue-400 opacity-10" : "bg-blue-300 opacity-20"}`}
+      ></div>
       <div className={`absolute -bottom-10 -left-10 w-40 h-40 rounded-full 
-        ${isDark ? "bg-purple-500 opacity-10" : "bg-purple-400 opacity-20"}
-      `}></div>
+        ${isDark ? "bg-purple-500 opacity-10" : "bg-purple-400 opacity-20"}`}
+      ></div>
 
       {/* Grid Content */}
       <div className="grid md:grid-cols-[350px_450px_400px] gap-8 max-w-[1200px] mx-auto relative z-10">
-        
         {/* Logo & Info */}
         <div>
           <div className="flex items-center mb-3">
@@ -76,8 +83,7 @@ export default function Footer() {
 
           {/* Social Icons */}
           <div className="p-4">
-            <h3 className={`mb-2 font-semibold 
-              ${isDark ? "text-white" : "text-gray-800"}`}>
+            <h3 className={`mb-2 font-semibold ${isDark ? "text-white" : "text-gray-800"}`}>
               Connect with us
             </h3>
             <div className="flex gap-4 mt-2">
@@ -96,13 +102,23 @@ export default function Footer() {
                 </a>
               ))}
             </div>
+
+            {/* View Members Button */}
+            <button
+              onClick={goToMembersPage}
+              className={`mt-4 px-4 py-2 rounded-lg font-semibold transition transform hover:scale-105
+                ${isDark
+                  ? "bg-gradient-to-r from-cyan-400 to-blue-500 text-white"
+                  : "bg-gradient-to-r from-blue-500 to-cyan-400 text-white"}`}
+            >
+              View Members
+            </button>
           </div>
         </div>
 
         {/* Contact Section */}
         <div>
-          <h4 className={`text-lg font-semibold mb-1.5 flex items-center 
-            ${isDark ? "text-white" : "text-gray-900"}`}>
+          <h4 className={`text-lg font-semibold mb-1.5 flex items-center ${isDark ? "text-white" : "text-gray-900"}`}>
             <span className="mr-2">📱</span> Contact
           </h4>
           <ul className={`${isDark ? "text-blue-100" : "text-gray-700"} space-y-2`}>
@@ -118,8 +134,7 @@ export default function Footer() {
 
         {/* Quick Links */}
         <div>
-          <h4 className={`text-lg font-semibold mb-2 flex items-center 
-            ${isDark ? "text-white" : "text-gray-900"}`}>
+          <h4 className={`text-lg font-semibold mb-2 flex items-center ${isDark ? "text-white" : "text-gray-900"}`}>
             <span className="mr-2">🔗</span> Quick Links
           </h4>
           <ul className="space-y-2">
@@ -127,7 +142,6 @@ export default function Footer() {
               { name: "Home", href: "#home" },
               { name: "About", href: "#about" },
               { name: "Events", href: "#events" },
-              { name: "Members", href: "#members" },
               { name: "Life@AICC", href: "#life" },
               { name: "Contact", href: "#contact" }
             ].map((link, index) => (
@@ -138,7 +152,6 @@ export default function Footer() {
                     ${isDark ? "text-blue-100 hover:text-white" : "text-gray-700 hover:text-gray-900"}`}
                 >
                   {link.name}
-                  
                 </a>
               </li>
             ))}

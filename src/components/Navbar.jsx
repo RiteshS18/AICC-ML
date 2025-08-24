@@ -8,8 +8,8 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [active, setActive] = useState("Home");
 
-  // Updated menu items: Added Members next to Events
-  const menuItems = ["Home", "About", "Events", "Members", "Life@AICC"];
+  // Removed "Members"
+  const menuItems = ["Home", "About", "Events", "Life@AICC"];
   const logoText = "AI Coding Club";
 
   // Smooth scroll + active section tracking

@@ -1,12 +1,13 @@
 import { motion } from "framer-motion";
-import { useContext, useRef, useEffect, useState } from "react";
+import { useContext, useRef, useState, useEffect } from "react";
 import { ThemeContext } from "../ThemeContext";
+import { useNavigate } from "react-router-dom";
 
 // Members Data
 const membersData = [
-  { name: "Sanjay R", position: "Secretary", image: "/members/sanjai.jpg" },
+  { name: "Sanjai R", position: "Secretary", image: "/members/sanjai_r.jpg" },
   { name: "Rashmika K R", position: "Secretary", image: "/members/rashmika.jpg" },
-  { name: "Jayasurya M", position: "Additional Secretary", image: "/members/jayasurya.jpg" },
+  { name: "JayaSurya M", position: "Additional Secretary", image: "/members/jayasuriya.jpg" },
   { name: "Sowbharanika Janani J S", position: "Additional Secretary", image: "/members/sowbharanika.jpg" },
   { name: "Hairunisha A", position: "Joint Secretary", image: "/members/hairunisha.jpg" },
   { name: "Jenesha Malar S", position: "Joint Secretary", image: "/members/jenesha.jpg" },
@@ -14,14 +15,14 @@ const membersData = [
   { name: "Sudhan N", position: "Joint Secretary", image: "/members/sudhan.jpg" },
   { name: "Sreenithy S", position: "Joint Secretary", image: "/members/sreenithy.jpg" },
   { name: "Haryni A S", position: "Joint Secretary", image: "/members/haryini.jpg" },
-  { name: "Divyadharshini J", position: "Treasurer", image: "/members/divyadharshini.jpg" },
-  { name: "Srianish Rameshwaran", position: "Treasurer", image: "/members/anish.jpg" },
+  { name: "DivyaDharshini J", position: "Treasurer", image: "/members/divyadharshini.jpg" },
+  { name: "SriAnish Rameshwaran", position: "Treasurer", image: "/members/anish.jpg" },
   { name: "Jaisanth K", position: "Treasurer", image: "/members/jaisanth.jpg" },
   { name: "Nagumeena Udayappan", position: "Treasurer", image: "/members/nagumeena.jpg" },
   { name: "Dinesh K", position: "Technical Head", image: "/members/dinesh.jpg" },
   { name: "Poornima R K", position: "Technical Head", image: "/members/poornima.jpg" },
   { name: "Rahul K", position: "Technical Head", image: "/members/rahul.jpg" },
-  { name: "Madan Prasant N V", position: "Technical Head", image: "/members/madan.jpg" },
+  { name: "MadanPrasant N V", position: "Technical Head", image: "/members/madan.jpg" },
   { name: "Tawfeeq B", position: "Technical Head", image: "/members/tawfeeq.jpg" },
   { name: "Sanjay Ramesh I", position: "Multimedia Team", image: "/members/sanjay_ramesh.jpg" },
   { name: "Dharun Kumar S", position: "Multimedia Team", image: "/members/dharun.jpg" },
@@ -34,119 +35,159 @@ const membersData = [
   { name: "Kavin P", position: "Executive Member", image: "/members/kavin.jpg" },
   { name: "Mithra T", position: "Executive Member", image: "/members/mithra.jpg" },
   { name: "Iniyasri S V", position: "Executive Member", image: "/members/iniyasri.jpg" },
-  { name: "Deepika S B", position: "Executive Member", image: "/members/deepika.jpg" },
+  { name: "Deepika S D", position: "Executive Member", image: "/members/deepika.jpg" },
   { name: "Yamuna K", position: "Executive Member", image: "/members/yamuna.jpg" },
-  { name: "Yoga Sree S", position: "Executive Member", image: "/members/yoga_shree.jpg" },
+  { name: "Yoga Sree S", position: "Executive Member", image: "/members/yoga_sree.jpg" },
 ];
 
-export default function Members() {
-  const { theme } = useContext(ThemeContext);
-  const sliderRef = useRef(null);
+// Group members by position
+const groupedMembers = membersData.reduce((acc, member) => {
+  if (!acc[member.position]) acc[member.position] = [];
+  acc[member.position].push(member);
+  return acc;
+}, {});
+
+// Auto-scroll container
+function AutoScrollContainer({ children }) {
+  const containerRef = useRef(null);
   const [paused, setPaused] = useState(false);
-  const pauseTimeout = useRef(null);
-
-  const loopedMembers = [...membersData, ...membersData];
-
-  const triggerPause = () => {
-    setPaused(true);
-    if (pauseTimeout.current) clearTimeout(pauseTimeout.current);
-    pauseTimeout.current = setTimeout(() => setPaused(false), 4000);
-  };
 
   useEffect(() => {
-    if (paused) return;
-    const container = sliderRef.current;
+    const container = containerRef.current;
     if (!container) return;
 
-    const scrollSpeed = 1;
-    let animationFrame;
-
-    const step = () => {
-      container.scrollLeft += scrollSpeed;
-      if (container.scrollLeft >= container.scrollWidth / 2) {
-        container.scrollLeft = 0;
+    let frameId;
+    const scrollStep = () => {
+      if (!paused) {
+        container.scrollLeft += 0.5;
+        if (container.scrollLeft >= container.scrollWidth / 2) container.scrollLeft = 0;
       }
-      animationFrame = requestAnimationFrame(step);
+      frameId = requestAnimationFrame(scrollStep);
     };
-
-    animationFrame = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(animationFrame);
+    frameId = requestAnimationFrame(scrollStep);
+    return () => cancelAnimationFrame(frameId);
   }, [paused]);
 
-  const containerBg =
-    theme === "dark"
-      ? "bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900"
-      : "bg-gradient-to-r from-white via-blue-50 to-white";
-  const cardBg =
-    theme === "dark" ? "bg-gray-800 text-gray-100" : "bg-white text-gray-900";
-  const titleColor = theme === "dark" ? "#FFFFFF" : "#3B82F6";
-  const titleShadow =
-    theme === "dark"
-      ? "0 0 8px rgba(255,255,255,0.3)"
-      : "0 0 8px rgba(59,130,246,0.3)";
+  return (
+    <div
+      ref={containerRef}
+      className="flex gap-6 py-4 px-2 overflow-x-auto scrollbar-hide scroll-smooth"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      {children}
+    </div>
+  );
+}
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
-  };
-  const letterVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { type: "spring", stiffness: 200, damping: 15 },
-    },
+// Single member card
+function MemberCard({ member, cardBg, idx }) {
+  return (
+    <motion.div
+      className={`${cardBg} w-[250px] min-w-[250px] rounded-lg shadow-md flex-shrink-0 flex flex-col cursor-pointer overflow-hidden border border-transparent hover:border-cyan-400 transition-all duration-300`}
+      whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(6,182,212,0.5)" }}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: idx * 0.05 }}
+      viewport={{ once: true }}
+    >
+      <img src={member.image} alt={member.name} className="h-56 w-full object-cover rounded-t-lg" />
+      <div className="p-4 flex flex-col items-center text-center">
+        <h3 className="font-semibold text-lg">{member.name}</h3>
+        <p className="text-sm text-gray-500">{member.position}</p>
+      </div>
+    </motion.div>
+  );
+}
+
+// Members Page
+export default function MembersPage() {
+  const { theme } = useContext(ThemeContext);
+  const navigate = useNavigate();
+
+  const containerBg = theme === "dark"
+    ? "bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900"
+    : "bg-gradient-to-r from-white via-blue-50 to-white";
+  const cardBg = theme === "dark" ? "bg-gray-800 text-gray-100" : "bg-white text-gray-900";
+
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  // Back to footer (navigate first, then scroll)
+  const handleBackToFooter = () => {
+    navigate("/", { replace: false });
+    setTimeout(() => {
+      const footer = document.querySelector("footer");
+      if (footer) footer.scrollIntoView({ behavior: "smooth" });
+    }, 200); // wait for home page render
   };
 
   return (
-    <section
-      id="members"
-      className={`py-16 relative ${containerBg} transition-colors duration-500 select-none`}
-    >
+    <section className={`py-16 relative ${containerBg} transition-colors duration-500 select-none`}>
       <div className="max-w-7xl mx-auto px-6">
+        {/* Back Button */}
+        <div className="mb-8">
+          <button
+            onClick={handleBackToFooter}
+            className={`px-4 py-2 rounded-lg font-semibold transition transform hover:scale-105
+              ${theme === "dark"
+                ? "bg-gradient-to-r from-cyan-400 to-blue-500 text-white"
+                : "bg-gradient-to-r from-blue-500 to-cyan-400 text-white"}`}
+          >
+            ← Back
+          </button>
+        </div>
+
+        {/* Page Title */}
         <div className="flex justify-center mb-12">
           <motion.h2
-            className="flex flex-wrap justify-center font-bold text-[clamp(2rem,6vw,4rem)] relative cursor-pointer"
-            style={{ color: titleColor, textShadow: titleShadow }}
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
+            initial={{ opacity: 0, y: -50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="flex flex-wrap justify-center font-bold text-[clamp(2rem,6vw,4rem)]"
+            style={{
+              color: theme === "dark" ? "#fff" : "#3B82F6",
+              textShadow: theme === "dark"
+                ? "0 0 8px rgba(255,255,255,0.3)"
+                : "0 0 8px rgba(59,130,246,0.3)"
+            }}
           >
-            {"Members".split("").map((letter, idx) => (
-              <motion.span key={idx} variants={letterVariants}>
-                {letter}
-              </motion.span>
-            ))}
+            Members
           </motion.h2>
         </div>
 
-        <div
-          ref={sliderRef}
-          className="flex gap-6 overflow-x-auto scrollbar-hide py-4 px-2 cursor-grab active:cursor-grabbing"
-          onMouseEnter={triggerPause}
-          onTouchStart={triggerPause}
-        >
-          {loopedMembers.map((member, idx) => (
-            <motion.div
-              key={idx}
-              className={`${cardBg} w-[250px] min-w-[250px] rounded-lg shadow-md flex-shrink-0 flex flex-col cursor-pointer overflow-hidden border border-transparent hover:border-blue-500 transition-all duration-300`}
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 0 20px rgba(0,0,0,0.5)",
-              }}
-            >
-              <img
-                src={member.image}
-                alt={member.name}
-                className="h-56 w-full object-cover rounded-t-lg"
-              />
-              <div className="p-4 flex flex-col items-center text-center">
-                <h3 className="font-semibold text-lg">{member.name}</h3>
-                <p className="text-sm text-gray-500">{member.position}</p>
-              </div>
+        {/* Render grouped members */}
+        {Object.entries(groupedMembers).map(([position, members]) => {
+          const isScrolling = ["Joint Secretary", "Technical Head", "Executive Member"].includes(position);
+          return (
+            <motion.div key={position} className="mb-12">
+              <motion.h3
+                className="text-3xl font-extrabold mb-4 text-center tracking-wide"
+                style={{ color: "#06B6D4", textShadow: "0 0 10px rgba(6,182,212,0.6)" }}
+                initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
+                whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                transition={{ duration: 0.7, ease: "easeOut", type: "spring", stiffness: 100 }}
+                whileHover={{ scale: 1.1, rotate: 2 }}
+                viewport={{ once: true }}
+              >
+                {position}
+              </motion.h3>
+
+              {isScrolling ? (
+                <AutoScrollContainer>
+                  {members.map((m, i) => <MemberCard key={i} member={m} cardBg={cardBg} idx={i} />)}
+                </AutoScrollContainer>
+              ) : (
+                <div className="flex flex-wrap justify-center gap-6 py-4 px-2">
+                  {members.map((m, i) => <MemberCard key={i} member={m} cardBg={cardBg} idx={i} />)}
+                </div>
+              )}
             </motion.div>
-          ))}
-        </div>
+          );
+        })}
       </div>
 
       <style>{`

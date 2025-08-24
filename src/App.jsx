@@ -11,14 +11,14 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import About from "./components/About";
 import Events from "./components/Events";
-import Members from "./components/Members";
+import MembersPage from "./components/Members";
 import Life from "./components/Life";
 import Footer from "./components/Footer";
 import EventDetails from "./components/Eventdetails";
 import Popup from "./components/Popup";
 import { eventsData } from "./data/events";
 
-// 🔹 Layout to show Navbar/Footer only on Home
+// 🔹 Layout to conditionally show Navbar/Footer
 function Layout({ children }) {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
@@ -60,7 +60,7 @@ function PopupHandler() {
       isOpen={showPopup}
       onClose={() => setShowPopup(false)}
       onClick={goToHackvotrix}
-      image="/poster/HACKVOTRIX-poster.png" // ✅ Make sure 'Poster' folder is capitalized
+      image="/poster/HACKVOTRIX-poster.png"
     />
   );
 }
@@ -81,7 +81,6 @@ function App() {
                   <Home />
                   <About />
                   <Events />
-                  <Members /> {/* ✅ Added Members here */}
                   <Life />
                 </>
               }
@@ -90,8 +89,8 @@ function App() {
             {/* Event Details Page */}
             <Route path="/event/:id" element={<EventDetails />} />
 
-            {/* Optional: Separate Members Route */}
-            <Route path="/members" element={<Members />} />
+            {/* Separate Members Page */}
+            <Route path="/members" element={<MembersPage />} />
           </Routes>
         </Layout>
       </Router>
