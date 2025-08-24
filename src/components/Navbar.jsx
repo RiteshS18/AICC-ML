@@ -8,7 +8,8 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [active, setActive] = useState("Home");
 
-  const menuItems = ["Home", "About", "Events", "Life@AICC"];
+  // Updated menu items: Added Members next to Events
+  const menuItems = ["Home", "About", "Events", "Members", "Life@AICC"];
   const logoText = "AI Coding Club";
 
   // Smooth scroll + active section tracking
@@ -48,7 +49,10 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <motion.div className="flex items-center space-x-2 cursor-pointer" onClick={() => scrollToSection("home")}>
+        <motion.div
+          className="flex items-center space-x-2 cursor-pointer"
+          onClick={() => scrollToSection("home")}
+        >
           <motion.img
             src="/logo.jpg"
             alt="AICC Logo"
@@ -60,7 +64,11 @@ export default function Navbar() {
             {logoText.split("").map((letter, index) => (
               <motion.span
                 key={index}
-                whileHover={{ textShadow: "0 0 8px #2563EB, 0 0 16px #2563EB", color: "#2563EB", scale: 1.2 }}
+                whileHover={{
+                  textShadow: "0 0 8px #2563EB, 0 0 16px #2563EB",
+                  color: "#2563EB",
+                  scale: 1.2,
+                }}
                 style={{ color: theme === "dark" ? "#fff" : "#111827" }}
                 transition={{ duration: 0.3 }}
               >
@@ -100,7 +108,7 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu Button */}
         <button
           className={`md:hidden ${theme === "dark" ? "text-white" : "text-gray-900"}`}
           onClick={() => setIsOpen(!isOpen)}
