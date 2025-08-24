@@ -96,12 +96,22 @@ export default function RegistrationDeadline({ className = '' }) {
           className="flex justify-center"
         >
          <button
-  onClick={goToHackvotrix}
-  className={`px-8 py-3 ${theme === 'dark' ? 'bg-blue-600' : 'bg-blue-600'} 
-  text-white font-bold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-lg cursor-pointer`}
->
-  REGISTER NOW
-</button>
+            onClick={goToHackvotrix}
+            className={`group relative px-8 py-3 text-lg font-bold rounded-lg
+              overflow-hidden bg-transparent border-2 border-blue-500/50
+              hover:border-blue-400 transition-all duration-300
+              before:absolute before:inset-0 
+              before:bg-gradient-to-r before:from-blue-600 before:to-blue-500
+              before:transition-transform before:duration-500
+              before:translate-x-[-100%] hover:before:translate-x-0 before:-z-10
+              hover:shadow-[0_0_20px_rgba(59,130,246,0.5)]
+              hover:scale-105 active:scale-95`}
+          >
+            <span className="relative z-10 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent group-hover:text-white transition-colors duration-300">
+              REGISTER NOW
+            </span>
+            <div className="absolute inset-0 -z-20 bg-gradient-to-r from-blue-600/20 to-blue-500/20 backdrop-blur-[2px]"></div>
+          </button>
 
         </motion.div>
 

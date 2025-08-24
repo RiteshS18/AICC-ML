@@ -60,7 +60,7 @@ export default function Navbar() {
             whileHover={{ rotate: 360, scale: 1.1 }}
             transition={{ duration: 1 }}
           />
-          <div className="flex space-x-0.5 font-mono text-xl font-bold tracking-wide">
+          <div className="flex space-x-0.5 text-xl font-bold tracking-wide" style={{ fontFamily: "'Gentium Basic', serif" }}>
             {logoText.split("").map((letter, index) => (
               <motion.span
                 key={index}
@@ -86,13 +86,13 @@ export default function Navbar() {
               <button
                 key={item}
                 onClick={() => scrollToSection(sectionId)}
-                className={`px-3 py-1 rounded-lg transition-all ${
-                  active === item
-                    ? "bg-gradient-to-r from-cyan-400 to-blue-500 text-white shadow-md"
-                    : theme === "dark"
+                className={`px-3 py-1 transition-all relative ${
+                  theme === "dark"
                     ? "text-white hover:text-blue-400"
                     : "text-gray-900 hover:text-blue-600"
-                }`}
+                } ${
+                  active === item && "after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-blue-600 after:animate-underlineEffect after:shadow-[0_0_5px_#2563eb] after:rounded-full"
+                } group`}
               >
                 {item}
               </button>
