@@ -12,7 +12,7 @@ This is the official website for the AI Coding Club, built with React + Vite, an
 
 ## Contributing
 
-Developed by AICC Website team
+Developed by AICC Website team.
 
 ## License
 
