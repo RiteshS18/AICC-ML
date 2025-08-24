@@ -23,7 +23,6 @@ const socialLinks = [
 export default function Footer() {
   const { theme } = useContext(ThemeContext);
   const isDark = theme === "dark";
-
   return (
     <footer
       className={`w-full py-12 px-6 md:px-16 relative overflow-hidden transition-colors duration-300
@@ -109,7 +108,7 @@ export default function Footer() {
           <ul className={`${isDark ? "text-blue-100" : "text-gray-700"} space-y-2`}>
             <li><b>Faculty Coordinators:</b></li>
             <li className="ml-6">Dr.K Logeswaran : +91 96985 13850</li>
-            <li className="ml-6">Balasanthi  : +91 93448 60238</li>
+            <li className="ml-6">Ms Balasanthi  : +91 93448 60238</li>
 
             <li className="mt-3"><b>Secretaries:</b></li>
             <li className="ml-6">Sanjai R      : +91 99422 35410</li>
