@@ -4,9 +4,9 @@ import { ThemeContext } from "../ThemeContext";
 
 // Members Data
 const membersData = [
-  { name: "Sanjay R", position: "Secretary", image: "/members/sanjay_r.jpg" },
+  { name: "Sanjay R", position: "Secretary", image: "/members/sanjai.jpg" },
   { name: "Rashmika K R", position: "Secretary", image: "/members/rashmika.jpg" },
-  { name: "JayaSurya M", position: "Additional Secretary", image: "/members/jayasuriya.jpg" },
+  { name: "Jayasurya M", position: "Additional Secretary", image: "/members/jayasurya.jpg" },
   { name: "Sowbharanika Janani J S", position: "Additional Secretary", image: "/members/sowbharanika.jpg" },
   { name: "Hairunisha A", position: "Joint Secretary", image: "/members/hairunisha.jpg" },
   { name: "Jenesha Malar S", position: "Joint Secretary", image: "/members/jenesha.jpg" },
@@ -21,7 +21,7 @@ const membersData = [
   { name: "Dinesh K", position: "Technical Head", image: "/members/dinesh.jpg" },
   { name: "Poornima R K", position: "Technical Head", image: "/members/poornima.jpg" },
   { name: "Rahul K", position: "Technical Head", image: "/members/rahul.jpg" },
-  { name: "Madanprasant R K", position: "Technical Head", image: "/members/madan.jpg" },
+  { name: "Madan Prasant N V", position: "Technical Head", image: "/members/madan.jpg" },
   { name: "Tawfeeq B", position: "Technical Head", image: "/members/tawfeeq.jpg" },
   { name: "Sanjay Ramesh I", position: "Multimedia Team", image: "/members/sanjay_ramesh.jpg" },
   { name: "Dharun Kumar S", position: "Multimedia Team", image: "/members/dharun.jpg" },
@@ -36,7 +36,7 @@ const membersData = [
   { name: "Iniyasri S V", position: "Executive Member", image: "/members/iniyasri.jpg" },
   { name: "Deepika S B", position: "Executive Member", image: "/members/deepika.jpg" },
   { name: "Yamuna K", position: "Executive Member", image: "/members/yamuna.jpg" },
-  { name: "Yoga Sree S", position: "Executive Member", image: "/members/yoga_sree.jpg" },
+  { name: "Yoga Sree S", position: "Executive Member", image: "/members/yoga_shree.jpg" },
 ];
 
 export default function Members() {
