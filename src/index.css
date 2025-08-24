@@ -1,7 +1,15 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Gentium+Basic&display=swap');
 @import "tailwindcss";
 
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+html, body {
+  font-family: 'Gentium Basic', serif;
+}
 
 /* Cyber neon text */
 .neon-text {

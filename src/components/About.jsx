@@ -1,10 +1,19 @@
-import { motion } from "framer-motion";
-import { useContext } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useContext, useState, useEffect } from "react";
 import { ThemeContext } from "../ThemeContext";
-import "../index.css"; // keep for global styles
+import "../index.css";
 
 export default function About() {
   const { theme } = useContext(ThemeContext);
+  const [expanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    // Trigger expansion after "AI" animates in
+    const timer = setTimeout(() => {
+      setExpanded(true);
+    }, 2000); // Increased delay to make the "AI" more noticeable before expansion
+    return () => clearTimeout(timer);
+  }, []);
 
   const paragraphText = `AI Coding Club (AICC) is dedicated to empowering students to learn, build, and
   innovate in the fields of Artificial Intelligence and software development.
@@ -30,7 +39,7 @@ export default function About() {
       ? "bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900"
       : "bg-gradient-to-r from-white via-blue-50 to-white";
 
-  const headingColor = theme === "dark" ? "#FFFFFF" : "#3B82F6"; // blue-500
+  const headingColor = theme === "dark" ? "#FFFFFF" : "#3B82F6";
   const paragraphColor = theme === "dark" ? "text-gray-300" : "text-gray-600";
 
   return (
@@ -55,13 +64,30 @@ export default function About() {
             About
           </motion.span>
 
-          <motion.span
-            initial={{ y: -100, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            AI
-          </motion.span>
+          {/* Expanding AI */}
+          <AnimatePresence mode="wait">
+            {!expanded ? (
+              <motion.span
+                key="AI"
+                initial={{ y: -100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+              >
+                AI
+              </motion.span>
+            ) : (
+              <motion.span
+                key="ArtificialIntelligence"
+                initial={{ scale: 0.5, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1, type: "spring", bounce: 0.3 }}
+              >
+                Artificial Intelligence
+              </motion.span>
+            )}
+          </AnimatePresence>
 
           <motion.span
             initial={{ x: 100, opacity: 0 }}
