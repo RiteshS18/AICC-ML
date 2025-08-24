@@ -2,6 +2,7 @@ import { Typewriter } from "react-simple-typewriter";
 import { motion } from "framer-motion";
 import { useContext } from "react";
 import { ThemeContext } from "../ThemeContext";
+  import RegistrationDeadline from "./RegistrationDeadline";
 
 export default function Home() {
   const { theme } = useContext(ThemeContext);
@@ -32,13 +33,14 @@ export default function Home() {
       id="home"
       className={`w-full min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-16 lg:px-24 ${bgGradient}`}
     >
-      <div className="max-w-5xl mx-auto text-center space-y-6">
+      <div className="max-w-5xl mx-auto text-center space-y-6 pt-16 md:pt-24">
         {/* Typewriter Heading */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
           <div
-            className="text-[2rem] sm:text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem] font-sans font-bold leading-tight"
+            className="text-[2rem] sm:text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem] font-bold leading-tight"
             style={{
               color: headingColor,
+              fontFamily: "'Gentium Basic', serif",
               textShadow:
                 theme === "dark"
                   ? "0 0 8px rgba(255,255,255,0.2), 0 0 16px rgba(255,255,255,0.1)"
@@ -58,7 +60,7 @@ export default function Home() {
               typeSpeed={80}
               deleteSpeed={50}
               delaySpeed={2000}
-              textStyle={{ fontFamily: "monospace" }}
+              textStyle={{ fontFamily: "'Gentium Basic', serif" }}
             />
           </div>
         </motion.div>
@@ -77,6 +79,9 @@ export default function Home() {
             </motion.span>
           ))}
         </motion.p>
+
+        {/* Registration Deadline */}
+        <RegistrationDeadline className="my-12" />
 
         <motion.div
   initial={{ opacity: 0 }}

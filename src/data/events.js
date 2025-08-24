@@ -6,7 +6,7 @@ export const eventsData = [
     time: "September-12, 2025 - 09:00 AM",
     venue: "AI BLOCK",
     status: "register",
-    registrationLink: "https://example.com/register/techfest",
+    registrationLink: "https://forms.gle/XhaX4KWLJsoDCJfMA",
     description:
       "Hackvotrix 2k25 is the premier inter-departmental hackathon open to students from all years and departments! Assemble your team, battle through a preliminary round, and code your way to the finale to win from a massive ₹30,000 prize pool.",
     how:
