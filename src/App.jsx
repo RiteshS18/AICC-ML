@@ -60,7 +60,7 @@ function PopupHandler() {
       isOpen={showPopup}
       onClose={() => setShowPopup(false)}
       onClick={goToHackvotrix}
-      image="/poster/hackvotrix.png" // ✅ Make sure 'Poster' folder is capitalized
+      image="/poster/HACKVOTRIX-poster.png" // ✅ Make sure 'Poster' folder is capitalized
     />
   );
 }
