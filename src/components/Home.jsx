@@ -2,7 +2,6 @@ import { Typewriter } from "react-simple-typewriter";
 import { motion } from "framer-motion";
 import { useContext } from "react";
 import { ThemeContext } from "../ThemeContext";
-  import RegistrationDeadline from "./RegistrationDeadline";
 
 export default function Home() {
   const { theme } = useContext(ThemeContext);
@@ -79,9 +78,6 @@ export default function Home() {
             </motion.span>
           ))}
         </motion.p>
-
-        {/* Registration Deadline */}
-        <RegistrationDeadline className="my-12" />
 
         <motion.div
   initial={{ opacity: 0 }}

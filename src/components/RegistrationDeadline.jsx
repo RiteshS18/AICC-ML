@@ -61,7 +61,7 @@ export default function RegistrationDeadline({ className = '' }) {
         initial={{ scale: 1 }}
         animate={{ scale: [1, 1.1, 1] }}
         transition={{ duration: 1, repeat: Infinity, repeatDelay: 1 }}
-        className={`w-20 h-20 ${bgColor} rounded-full flex items-center justify-center mb-2 shadow-lg`}
+        className={`w-20 h-20 ${theme === 'dark' ? 'bg-gray-800/10' : 'bg-white/10'} backdrop-blur-sm border ${theme === 'dark' ? 'border-blue-500/30' : 'border-blue-400/30'} rounded-full flex items-center justify-center mb-2 shadow-lg ring-2 ring-blue-500/20 ring-offset-2 ring-offset-transparent`}
       >
         <span className={`text-3xl font-bold ${accentColor}`}>
           {value.toString().padStart(2, '0')}
@@ -79,7 +79,7 @@ export default function RegistrationDeadline({ className = '' }) {
         transition={{ duration: 0.8 }}
         className="max-w-4xl mx-auto px-4"
       >
-        <h2 className={`text-3xl md:text-4xl font-bold ${accentColor} text-center mb-8`}>
+        <h2 className={`text-3xl md:text-4xl font-bold text-blue-500 text-center mb-8 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]`}>
           REGISTRATION DEADLINE
         </h2>
         

@@ -8,6 +8,8 @@
 
 html, body {
   font-family: 'Gentium Basic', serif;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 /* Cyber neon text */
