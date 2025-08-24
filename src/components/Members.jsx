@@ -6,7 +6,7 @@ import { ThemeContext } from "../ThemeContext";
 const membersData = [
   { name: "Sanjay R", position: "Secretary", image: "/members/sanjay_r.jpg" },
   { name: "Rashmika K R", position: "Secretary", image: "/members/rashmika.jpg" },
-  { name: "JayaSurya M", position: "Additional Secretary", image: "/members/jayasuriya.jpg" },
+  { name: "Jayasurya M", position: "Additional Secretary", image: "/members/jayasuriya.jpg" },
   { name: "Sowbharanika Janani J S", position: "Additional Secretary", image: "/members/sowbharanika.jpg" },
   { name: "Hairunisha A", position: "Joint Secretary", image: "/members/hairunisha.jpg" },
   { name: "Jenesha Malar S", position: "Joint Secretary", image: "/members/jenesha.jpg" },
