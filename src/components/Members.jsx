@@ -15,7 +15,7 @@ const membersData = [
   { name: "Sudhan N", position: "Joint Secretary", image: "/members/sudhan.jpg" },
   { name: "Sreenithy S", position: "Joint Secretary", image: "/members/sreenithy.jpg" },
   { name: "Haryni A S", position: "Joint Secretary", image: "/members/haryini.jpg" },
-  { name: "DivyaDharshini J", position: "Treasurer", image: "/members/divyadharshini.jpg" },
+  { name: "DivyaDharshini J", position: "Treasurer", image: "/members/Divyadharshini.jpg" },
   { name: "SriAnish Rameshwaran", position: "Treasurer", image: "/members/anish.jpg" },
   { name: "Jaisanth K", position: "Treasurer", image: "/members/jaisanth.jpg" },
   { name: "Nagumeena Udayappan", position: "Treasurer", image: "/members/nagumeena.jpg" },

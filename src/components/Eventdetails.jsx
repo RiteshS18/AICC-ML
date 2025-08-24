@@ -93,14 +93,27 @@ export default function EventDetails() {
             {event.venue && <p className="font-semibold text-lg">📍 {event.venue}</p>}
 
             {event.status === "register" && event.registrationLink ? (
-              <a
+              <motion.a
                 href={event.registrationLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block mt-3 px-6 py-2 rounded-lg bg-blue-600 text-white shadow-md hover:bg-blue-700 transition"
+                className={`group relative inline-block mt-3 px-8 py-3 text-lg font-bold rounded-lg
+                  overflow-hidden bg-transparent border-2 border-blue-500/50
+                  hover:border-blue-400 transition-all duration-300
+                  before:absolute before:inset-0 
+                  before:bg-gradient-to-r before:from-blue-600 before:to-blue-500
+                  before:transition-transform before:duration-500
+                  before:translate-x-[-100%] hover:before:translate-x-0 before:-z-10
+                  hover:shadow-[0_0_20px_rgba(59,130,246,0.5)]
+                  hover:scale-105 active:scale-95`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                Register Now
-              </a>
+                <span className="relative z-10 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent group-hover:text-white transition-colors duration-300">
+                  REGISTER NOW
+                </span>
+                <div className="absolute inset-0 -z-20 bg-gradient-to-r from-blue-600/20 to-blue-500/20 backdrop-blur-[2px]"></div>
+              </motion.a>
             ) : event.status === "live" ? (
               <span className="mt-3 inline-block px-4 py-1 rounded-full bg-red-600 text-white text-sm font-bold shadow-md animate-pulse">
                 🔴 LIVE
@@ -133,7 +146,7 @@ export default function EventDetails() {
           <motion.div
             className={`p-6 ${cardBg} rounded-3xl border transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-200 text-center flex-1 min-h-[150px] h-[400px]`}
           >
-            <h2 className="text-2xl font-bold mb-2 text-green-600">How It’s Conducted</h2>
+            <h2 className="text-2xl font-bold mb-2 text-green-600">How It's Conducted</h2>
             <p className="text-base sm:text-lg leading-relaxed overflow-auto">
               {event.how || "Interactive coding sessions, workshops, and peer learning."}
             </p>
@@ -155,7 +168,7 @@ export default function EventDetails() {
               alt={`Past ${currentIndex + 1}`}
               className="w-full h-full object-cover transition-all duration-500"
               key={currentIndex}
-              initial={{ y: -50, opacity: 0 }}  // start from top on first load
+              initial={{ y: -50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5 }}
             />
