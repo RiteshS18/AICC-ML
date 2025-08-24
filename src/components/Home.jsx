@@ -36,9 +36,10 @@ export default function Home() {
         {/* Typewriter Heading */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
           <div
-            className="text-[2rem] sm:text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem] font-sans font-bold leading-tight"
+            className="text-[2rem] sm:text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem] font-bold leading-tight"
             style={{
               color: headingColor,
+              fontFamily: "'Gentium Basic', serif",
               textShadow:
                 theme === "dark"
                   ? "0 0 8px rgba(255,255,255,0.2), 0 0 16px rgba(255,255,255,0.1)"
@@ -58,7 +59,7 @@ export default function Home() {
               typeSpeed={80}
               deleteSpeed={50}
               delaySpeed={2000}
-              textStyle={{ fontFamily: "monospace" }}
+              textStyle={{ fontFamily: "'Gentium Basic', serif" }}
             />
           </div>
         </motion.div>
