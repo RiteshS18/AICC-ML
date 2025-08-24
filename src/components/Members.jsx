@@ -21,7 +21,7 @@ const membersData = [
   { name: "Dinesh K", position: "Technical Head", image: "/members/dinesh.jpg" },
   { name: "Poornima R K", position: "Technical Head", image: "/members/poornima.jpg" },
   { name: "Rahul K", position: "Technical Head", image: "/members/rahul.jpg" },
-  { name: "Madan Prasant R K", position: "Technical Head", image: "/members/madan.jpg" },
+  { name: "Madan Prasant N V", position: "Technical Head", image: "/members/madan.jpg" },
   { name: "Tawfeeq B", position: "Technical Head", image: "/members/tawfeeq.jpg" },
   { name: "Sanjay Ramesh I", position: "Multimedia Team", image: "/members/sanjay_ramesh.jpg" },
   { name: "Dharun Kumar S", position: "Multimedia Team", image: "/members/dharun.jpg" },
