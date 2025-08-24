@@ -28,15 +28,15 @@ export default function Popup({ isOpen, onClose, onClick, image }) {
               stiffness: 200,
               damping: 15,
             }}
-            className="relative flex gap-8 bg-white/30 dark:bg-gray-800/20 backdrop-blur-sm p-8 rounded-2xl shadow-2xl max-w-[90vw] max-h-[80vh]"
+            className="relative flex flex-col md:flex-row gap-6 md:gap-8 bg-white/30 dark:bg-gray-800/20 backdrop-blur-sm p-4 md:p-8 rounded-2xl shadow-2xl max-w-[95vw] md:max-w-[90vw] max-h-[90vh] md:max-h-[80vh] overflow-y-auto"
           >
-            {/* Left Side - Animated Poster */}
-            <div className="flex-1">
+            {/* Poster */}
+            <div className="w-full md:w-1/2 md:flex-1">
               <motion.img
                 src={image}
                 alt="Hackvotrix Poster"
                 onClick={onClick}
-                className="w-full h-full object-contain rounded-xl shadow-lg cursor-pointer"
+                className="w-full h-auto max-h-[50vh] md:max-h-[65vh] object-contain rounded-xl shadow-lg cursor-pointer"
                 animate={{
                   rotate: [0, -1, 1, -1, 1, 0],
                 }}
@@ -52,19 +52,22 @@ export default function Popup({ isOpen, onClose, onClick, image }) {
               />
             </div>
 
-            {/* Right Side - Registration Deadline */}
-            <div className="flex-1 flex items-center">
+            {/* Registration Deadline */}
+            <div className="w-full md:w-1/2 md:flex-1 flex items-center justify-center">
               <RegistrationDeadline />
             </div>
 
             {/* Close Button */}
             <motion.button
               onClick={onClose}
-              className="absolute -top-3 -right-3 bg-white/80 text-black p-2 rounded-full shadow-md hover:bg-white transition"
+              className="absolute top-2 right-2 text-white p-2 rounded-full transition z-10 text-xl overflow-hidden"
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0 }}
-              whileHover={{ scale: 1.2, rotate: 90 }}
+              whileHover={{ 
+                scale: 1.2,
+                color: '#60A5FA'
+              }}
             >
               ✖
             </motion.button>
