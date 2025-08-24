@@ -54,7 +54,7 @@ export default function Navbar() {
           onClick={() => scrollToSection("home")}
         >
           <motion.img
-            src="/logo.jpg"
+            src="/aicc-logo.png"
             alt="AICC Logo"
             className="h-10 w-10 rounded-full"
             whileHover={{ rotate: 360, scale: 1.1 }}

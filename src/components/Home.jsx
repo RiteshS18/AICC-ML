@@ -32,7 +32,7 @@ export default function Home() {
       id="home"
       className={`w-full min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-16 lg:px-24 ${bgGradient}`}
     >
-      <div className="max-w-5xl mx-auto text-center space-y-6">
+      <div className="max-w-5xl mx-auto text-center space-y-6 pt-16 md:pt-24">
         {/* Typewriter Heading */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
           <div
