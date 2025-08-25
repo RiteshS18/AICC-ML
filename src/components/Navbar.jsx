@@ -77,19 +77,7 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Mobile Theme Toggle */}
-      <motion.button
-        onClick={toggleTheme}
-        className={`md:hidden fixed left-4 top-4 z-[51] text-xl p-2 rounded-full transition shadow-lg
-          ${theme === "dark" 
-            ? "bg-gray-800 text-yellow-300 hover:bg-gray-700" 
-            : "bg-white text-gray-800 hover:bg-gray-100"
-          }`}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        {theme === "dark" ? <FaSun /> : <FaMoon />}
-      </motion.button>
+
 
       <motion.nav
         className={`fixed w-full top-0 left-0 z-50 transition-all shadow-md md:block ${
@@ -99,39 +87,64 @@ export default function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <div className="max-w-7xl mx-auto px-6 py-2 md:flex md:justify-between md:items-center">
-          {/* Logo */}
-          <motion.div
-            className="flex items-center justify-center md:justify-start space-x-2 cursor-pointer mb-4 md:mb-0"
-            onClick={() => scrollToSection("home")}
-          >
-            <motion.img
-              src="/aicc-logo.png"
-              alt="AICC Logo"
-              className="h-10 w-10 rounded-full"
-              whileHover={{ rotate: 360, scale: 1.1 }}
-              transition={{ duration: 1 }}
-            />
-            <div className="flex space-x-0.5 text-2xl lg:text-3xl font-bold tracking-wide" style={{ fontFamily: "'Gentium Basic', serif" }}>
-              {logoText.split("").map((letter, index) => (
-                <motion.span
-                  key={index}
-                  whileHover={{
-                    textShadow: "0 0 8px #2563EB, 0 0 16px #2563EB",
-                    color: "#2563EB",
-                    scale: 1.2,
-                  }}
-                  style={{ color: theme === "dark" ? "#fff" : "#111827" }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {letter === " " ? "\u00A0" : letter}
-                </motion.span>
-              ))}
-            </div>
-          </motion.div>
 
-          {/* Menu Items (Desktop and Mobile) */}
-          <div className={`flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-6 font-medium ${isOpen ? 'block' : 'hidden md:flex'}`}>
+
+        <div className="max-w-7xl mx-auto px-6 py-2 md:flex md:justify-between md:items-center relative">
+          {/* Top Row: Logo (left), Theme & Menu Buttons (right, mobile only) */}
+          <div className="flex w-full justify-between items-center mb-2 md:mb-0">
+            <motion.div
+              className="flex items-center cursor-pointer hide-logo-below-300"
+              onClick={() => scrollToSection("home")}
+            >
+              <motion.img
+                src="/aicc-logo.png"
+                alt="AICC Logo"
+                className="h-10 w-10 rounded-full"
+                whileHover={{ rotate: 360, scale: 1.1 }}
+                transition={{ duration: 1 }}
+              />
+              <div className="flex space-x-0.5 text-2xl lg:text-3xl font-bold tracking-wide" style={{ fontFamily: "'Gentium Basic', serif" }}>
+                {logoText.split("").map((letter, index) => (
+                  <motion.span
+                    key={index}
+                    whileHover={{
+                      textShadow: "0 0 8px #2563EB, 0 0 16px #2563EB",
+                      color: "#2563EB",
+                      scale: 1.2,
+                    }}
+                    style={{ color: theme === "dark" ? "#fff" : "#111827" }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {letter === " " ? "\u00A0" : letter}
+                  </motion.span>
+                ))}
+              </div>
+            </motion.div>
+            {/* Theme & Menu Buttons (right, mobile only) */}
+            <div className="flex items-center md:hidden navbar-btn-group">
+              <motion.button
+                onClick={toggleTheme}
+                className={`ml-2 text-xl p-2 rounded-full transition shadow-lg
+                  ${theme === "dark" 
+                    ? "bg-gray-800 text-yellow-300 hover:bg-gray-700" 
+                    : "bg-white text-gray-800 hover:bg-gray-100"
+                  }`}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {theme === "dark" ? <FaSun /> : <FaMoon />}
+              </motion.button>
+              <button
+                className={`ml-2 text-2xl ${theme === "dark" ? "text-white" : "text-gray-900"}`}
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                {isOpen ? "✖" : "☰"}
+              </button>
+            </div>
+          </div>
+
+          {/* Menu Items (Desktop and Mobile) - always below top row in mobile */}
+          <div className={`w-full ${isOpen ? 'flex' : 'hidden'} flex-col md:flex md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-6 font-medium`}>
             {menuItems.map((item) => {
               const sectionId = item.toLowerCase().replace(/[^a-z0-9]/g, "");
               return (
@@ -162,13 +175,6 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className={`md:hidden absolute right-6 top-6 ${theme === "dark" ? "text-white" : "text-gray-900"}`}
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? "✖" : "☰"}
-          </button>
         </div>
       </motion.nav>
     </>
