@@ -84,7 +84,6 @@ export default function MembersPage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-<<<<<<< HEAD
   const handleBackToFooter = () => {
     navigate("/", { replace: false });
     setTimeout(() => {
@@ -93,8 +92,6 @@ export default function MembersPage() {
     }, 200);
   };
 
-=======
->>>>>>> d429ab94811ce53ddc53ba2d6e701ba5302ce58b
   return (
     <div>
       <Navbar />
