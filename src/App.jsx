@@ -1,4 +1,5 @@
 import { ThemeProvider } from "./ThemeContext";
+import { PopupProvider, usePopup } from "./PopupContext";
 import {
   BrowserRouter as Router,
   Routes,
@@ -24,11 +25,13 @@ function Layout({ children }) {
   const isHomePage = location.pathname === "/";
 
   return (
-    <>
+    <div className="min-h-screen w-screen overflow-x-hidden">
       {isHomePage && <Navbar />}
-      {children}
+      <div className="w-full overflow-x-hidden">
+        {children}
+      </div>
       {isHomePage && <Footer />}
-    </>
+    </div>
   );
 }
 
@@ -37,6 +40,7 @@ function PopupHandler() {
   const [showPopup, setShowPopup] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
+  const { setIsPopupOpen } = usePopup();
 
   // Find Hackvotrix event
   const hackvotrixEvent = eventsData.find((event) =>
@@ -46,6 +50,7 @@ function PopupHandler() {
   const goToHackvotrix = () => {
     if (hackvotrixEvent) {
       setShowPopup(false);
+      setIsPopupOpen(false);
       navigate(`/event/${hackvotrixEvent.id}`, {
         state: { event: hackvotrixEvent },
       });
@@ -69,31 +74,33 @@ function PopupHandler() {
 function App() {
   return (
     <ThemeProvider>
-      <Router>
-        <PopupHandler />
-        <Layout>
-          <Routes>
-            {/* Home Page */}
-            <Route
-              path="/"
-              element={
-                <>
-                  <Home />
-                  <About />
-                  <Events />
-                  <Life />
-                </>
-              }
-            />
+      <PopupProvider>
+        <Router>
+          <PopupHandler />
+          <Layout>
+            <Routes>
+              {/* Home Page */}
+              <Route
+                path="/"
+                element={
+                  <>
+                    <Home />
+                    <About />
+                    <Events />
+                    <Life />
+                  </>
+                }
+              />
 
-            {/* Event Details Page */}
-            <Route path="/event/:id" element={<EventDetails />} />
+              {/* Event Details Page */}
+              <Route path="/event/:id" element={<EventDetails />} />
 
-            {/* Separate Members Page */}
-            <Route path="/members" element={<MembersPage />} />
-          </Routes>
-        </Layout>
-      </Router>
+              {/* Separate Members Page */}
+              <Route path="/members" element={<MembersPage />} />
+            </Routes>
+          </Layout>
+        </Router>
+      </PopupProvider>
     </ThemeProvider>
   );
 }

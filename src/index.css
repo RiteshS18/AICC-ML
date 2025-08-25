@@ -10,6 +10,15 @@ html, body {
   font-family: 'Gentium Basic', serif;
   scroll-behavior: smooth;
   overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
 }
 
 /* Cyber neon text */

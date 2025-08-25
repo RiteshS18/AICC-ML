@@ -83,7 +83,7 @@ export default function RegistrationDeadline({ className = '' }) {
           REGISTRATION DEADLINE
         </h2>
         
-        <div className="flex flex-wrap justify-center gap-8 mb-8">
+        <div className="flex flex-wrap md:flex-nowrap justify-center gap-4 md:gap-8 mb-8">
           <TimeUnit value={timeLeft.days} label="DAYS" />
           <TimeUnit value={timeLeft.hours} label="HOURS" />
           <TimeUnit value={timeLeft.minutes} label="MINS" />

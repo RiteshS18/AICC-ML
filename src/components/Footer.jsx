@@ -62,7 +62,7 @@ export default function Footer() {
               <img src="/aicc-logo.png" alt="AICC Logo" className="h-10 w-10 rounded-lg" />
             </div>
             <h3
-              className={`text-xl font-bold font-serif ml-3
+              className={`text-2xl lg:text-3xl font-bold font-serif ml-3
                 ${isDark
                   ? "text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300"
                   : "text-gray-900"}`}
@@ -71,7 +71,7 @@ export default function Footer() {
             </h3>
           </div>
 
-          <div className={`mt-2 flex items-start gap-2 leading-relaxed font-light 
+          <div className={`mt-2 flex items-start gap-2 leading-relaxed font-light text-lg 
             ${isDark ? "text-blue-100" : "text-gray-700"}`}>
             <FaMapMarkerAlt className="text-blue-400 mt-1" size={28} />
             <span>
@@ -83,7 +83,7 @@ export default function Footer() {
 
           {/* Social Icons */}
           <div className="p-4">
-            <h3 className={`mb-2 font-semibold ${isDark ? "text-white" : "text-gray-800"}`}>
+            <h3 className={`mb-2 font-semibold text-xl ${isDark ? "text-white" : "text-gray-800"}`}>
               Connect with us
             </h3>
             <div className="flex gap-4 mt-2">
@@ -106,10 +106,10 @@ export default function Footer() {
             {/* View Members Button */}
             <button
               onClick={goToMembersPage}
-              className={`mt-4 px-4 py-2 rounded-lg font-semibold transition transform hover:scale-105
+              className={`mt-4 px-4 py-2 rounded-lg font-semibold
                 ${isDark
-                  ? "bg-gradient-to-r from-cyan-400 to-blue-500 text-white"
-                  : "bg-gradient-to-r from-blue-500 to-cyan-400 text-white"}`}
+                  ? "bg-blue-500 text-white hover:bg-blue-600"
+                  : "bg-blue-500 text-white hover:bg-blue-600"}`}
             >
               View Members
             </button>

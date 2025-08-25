@@ -1,11 +1,15 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
 import RegistrationDeadline from "./RegistrationDeadline";
+import { usePopup } from "../PopupContext";
 
 export default function Popup({ isOpen, onClose, onClick, image }) {
+  const { setIsPopupOpen } = usePopup();
+  
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "auto";
-  }, [isOpen]);
+    setIsPopupOpen(isOpen);
+  }, [isOpen, setIsPopupOpen]);
 
   return (
     <AnimatePresence>

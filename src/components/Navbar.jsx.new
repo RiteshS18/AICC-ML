@@ -3,21 +3,16 @@ import { motion } from "framer-motion";
 import { FaSun, FaMoon } from "react-icons/fa";
 import { ThemeContext } from "../ThemeContext";
 import { usePopup } from "../PopupContext";
-import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
-  
-  const goToMembersPage = () => {
-    navigate("/members");
-  };
   const [active, setActive] = useState("Home");
-  const menuItems = ["Home", "About", "Events", "Life@AICC", "Members"];
+  const { isPopupOpen } = usePopup();
+
+  const menuItems = ["Home", "About", "Events", "Life@AICC"];
   const logoText = "AI Coding Club";
 
-  // Smooth scroll + active section tracking
   useEffect(() => {
     const handleScroll = () => {
       menuItems.forEach((item) => {
@@ -37,33 +32,29 @@ export default function Navbar() {
   }, []);
 
   const scrollToSection = (id) => {
-    if (id === "members") {
-      goToMembersPage();
-      return;
-    }
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
     }
   };
 
-  const { isPopupOpen } = usePopup();
-
   return (
     <>
       {/* Mobile Theme Toggle */}
-      <motion.button
-        onClick={toggleTheme}
-        className={`md:hidden fixed left-4 top-4 z-[51] text-xl p-2 rounded-full transition shadow-lg
-          ${theme === "dark" 
-            ? "bg-gray-800 text-yellow-300 hover:bg-gray-700" 
-            : "bg-white text-gray-800 hover:bg-gray-100"
-          }`}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        {theme === "dark" ? <FaSun /> : <FaMoon />}
-      </motion.button>
+      {!isPopupOpen && (
+        <motion.button
+          onClick={toggleTheme}
+          className={`md:hidden fixed left-4 top-4 z-[51] text-xl p-2 rounded-full transition shadow-lg
+            ${theme === "dark" 
+              ? "bg-gray-800 text-yellow-300 hover:bg-gray-700" 
+              : "bg-white text-gray-800 hover:bg-gray-100"
+            }`}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {theme === "dark" ? <FaSun /> : <FaMoon />}
+        </motion.button>
+      )}
 
       <motion.nav
         className={`fixed w-full top-0 left-0 z-50 transition-all shadow-md md:block ${
@@ -73,7 +64,7 @@ export default function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <div className="max-w-7xl mx-auto px-6 py-2 md:flex md:justify-between md:items-center">
+        <div className="max-w-7xl mx-auto px-6 py-4">
           {/* Logo */}
           <motion.div
             className="flex items-center justify-center md:justify-start space-x-2 cursor-pointer mb-4 md:mb-0"
@@ -105,7 +96,7 @@ export default function Navbar() {
           </motion.div>
 
           {/* Menu Items (Desktop and Mobile) */}
-          <div className={`flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-6 font-medium ${isOpen ? 'block' : 'hidden md:flex'}`}>
+          <div className={`flex flex-col md:flex-row items-center justify-center space-y-3 md:space-y-0 md:space-x-6 font-medium ${isOpen ? 'block' : 'hidden md:flex'}`}>
             {menuItems.map((item) => {
               const sectionId = item.toLowerCase().replace(/[^a-z0-9]/g, "");
               return (
@@ -129,7 +120,7 @@ export default function Navbar() {
             {/* Desktop Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="hidden md:block text-xl p-2 rounded-full hover:bg-gray-700 hover:text-yellow-300 transition"
+              className="hidden md:block ml-4 text-xl p-2 rounded-full hover:bg-gray-700 hover:text-yellow-300 transition"
             >
               {theme === "dark" ? <FaSun /> : <FaMoon />}
             </button>
