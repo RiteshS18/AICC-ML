@@ -3,12 +3,13 @@ import { motion } from "framer-motion";
 import { FaSun, FaMoon } from "react-icons/fa";
 import { ThemeContext } from "../ThemeContext";
 import { usePopup } from "../PopupContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Navbar() {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   
   const goToMembersPage = () => {
     navigate("/members");
@@ -19,6 +20,12 @@ export default function Navbar() {
 
   // Smooth scroll + active section tracking
   useEffect(() => {
+    // If we're on the members page, set active to Members
+    if (location.pathname === "/members") {
+      setActive("Members");
+      return;
+    }
+
     const handleScroll = () => {
       menuItems.forEach((item) => {
         const sectionId = item.toLowerCase().replace(/[^a-z0-9]/g, "");
@@ -34,28 +41,35 @@ export default function Navbar() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [location.pathname]);
 
-  const handleNavigation = (item) => {
-    const id = item.toLowerCase().replace(/[^a-z0-9]/g, "");
+  const scrollToSection = (id) => {
     if (id === "members") {
       goToMembersPage();
+      setActive("Members");
       return;
     }
-    if (window.location.pathname !== "/") {
+
+    // If we're on the members page, navigate to home first
+    if (location.pathname === "/members") {
       navigate("/");
-      // Add a small delay to allow the main page to load before scrolling
+      // Wait for navigation to complete before scrolling
       setTimeout(() => {
         const section = document.getElementById(id);
         if (section) {
           section.scrollIntoView({ behavior: "smooth" });
+          setActive(menuItems.find(item => 
+            item.toLowerCase().replace(/[^a-z0-9]/g, "") === id
+          ));
         }
       }, 100);
-    } else {
-      const section = document.getElementById(id);
-      if (section) {
-        section.scrollIntoView({ behavior: "smooth" });
-      }
+      return;
+    }
+
+    // Normal scrolling on home page
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -80,7 +94,7 @@ export default function Navbar() {
       <motion.nav
         className={`fixed w-full top-0 left-0 z-50 transition-all shadow-md md:block ${
           theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-gray-900"
-        }`}
+        } ${isPopupOpen ? 'hidden' : 'block'}`}
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
@@ -89,7 +103,7 @@ export default function Navbar() {
           {/* Logo */}
           <motion.div
             className="flex items-center justify-center md:justify-start space-x-2 cursor-pointer mb-4 md:mb-0"
-            onClick={() => navigate("/")}
+            onClick={() => scrollToSection("home")}
           >
             <motion.img
               src="/aicc-logo.png"
@@ -124,7 +138,8 @@ export default function Navbar() {
                 <button
                   key={item}
                   onClick={() => {
-                    handleNavigation(item);
+                    setActive(item);
+                    scrollToSection(sectionId);
                     setIsOpen(false);
                   }}
                   className={`px-3 py-2 md:py-1 transition-all relative text-lg lg:text-xl

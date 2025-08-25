@@ -1,28 +1,28 @@
 import { motion } from "framer-motion";
 import { useContext, useRef, useState, useEffect } from "react";
 import { ThemeContext } from "../ThemeContext";
-import { useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
 
 // Members Data
 const membersData = [
   { name: "Sanjai R", position: "Secretary", image: "/members/sanjai_r.jpg" },
   { name: "Rashmika K R", position: "Secretary", image: "/members/rashmika.jpg" },
-  { name: "JayaSurya M", position: "Additional Secretary", image: "/members/jayasuriya.jpg" },
   { name: "Sowbharanika Janani J S", position: "Additional Secretary", image: "/members/sowbharanika.jpg" },
+  { name: "JayaSurya M", position: "Additional Secretary", image: "/members/jayasuriya.jpg" },
   { name: "Hairunisha A", position: "Joint Secretary", image: "/members/hairunisha.jpg" },
   { name: "Jenesha Malar S", position: "Joint Secretary", image: "/members/jenesha.jpg" },
   { name: "Hariharan J", position: "Joint Secretary", image: "/members/hariharan.jpg" },
   { name: "Sudhan N", position: "Joint Secretary", image: "/members/sudhan.jpg" },
   { name: "Sreenithy S", position: "Joint Secretary", image: "/members/sreenithy.jpg" },
   { name: "Haryni A S", position: "Joint Secretary", image: "/members/haryini.jpg" },
-  { name: "DivyaDharshini J", position: "Treasurer", image: "/members/Divyadharshini.jpg" },
-  { name: "SriAnish Rameshwaran", position: "Treasurer", image: "/members/anish.jpg" },
   { name: "Jaisanth K", position: "Treasurer", image: "/members/jaisanth.jpg" },
   { name: "Nagumeena Udayappan", position: "Treasurer", image: "/members/nagumeena.jpg" },
+  { name: "DivyaDharshini J", position: "Treasurer", image: "/members/Divyadharshini.jpg" },
+  { name: "SriAnish Rameshwaran", position: "Treasurer", image: "/members/anish.jpg" },
   { name: "Dinesh K", position: "Technical Head", image: "/members/dinesh.jpg" },
-  { name: "Poornima R K", position: "Technical Head", image: "/members/poornima.jpg" },
   { name: "Rahul K", position: "Technical Head", image: "/members/rahul.jpg" },
-  { name: "MadanPrasant N V", position: "Technical Head", image: "/members/madan.jpg" },
+  { name: "Poornima R K", position: "Technical Head", image: "/members/poornima.jpg" },
+  { name: "Madan Prasant N V", position: "Technical Head", image: "/members/madan.jpg" },
   { name: "Tawfeeq B", position: "Technical Head", image: "/members/tawfeeq.jpg" },
   { name: "Sanjay Ramesh I", position: "Multimedia Team", image: "/members/sanjay_ramesh.jpg" },
   { name: "Dharun Kumar S", position: "Multimedia Team", image: "/members/dharun.jpg" },
@@ -103,7 +103,6 @@ function MemberCard({ member, cardBg, idx }) {
 // Members Page
 export default function MembersPage() {
   const { theme } = useContext(ThemeContext);
-  const navigate = useNavigate();
 
   const containerBg = theme === "dark"
     ? "bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900"
@@ -115,30 +114,11 @@ export default function MembersPage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  // Back to footer (navigate first, then scroll)
-  const handleBackToFooter = () => {
-    navigate("/", { replace: false });
-    setTimeout(() => {
-      const footer = document.querySelector("footer");
-      if (footer) footer.scrollIntoView({ behavior: "smooth" });
-    }, 200); // wait for home page render
-  };
-
   return (
-    <section className={`py-16 relative ${containerBg} transition-colors duration-500 select-none`}>
-      <div className="max-w-7xl mx-auto px-6">
-        {/* Back Button */}
-        <div className="mb-8">
-          <button
-            onClick={handleBackToFooter}
-            className={`px-4 py-2 rounded-lg font-semibold transition transform hover:scale-105
-              ${theme === "dark"
-                ? "bg-gradient-to-r from-cyan-400 to-blue-500 text-white"
-                : "bg-gradient-to-r from-blue-500 to-cyan-400 text-white"}`}
-          >
-            ← Back
-          </button>
-        </div>
+    <div>
+      <Navbar />
+      <section className={`pt-24 pb-16 relative ${containerBg} transition-colors duration-500 select-none`}>
+        <div className="max-w-7xl mx-auto px-6">
 
         {/* Page Title */}
         <div className="flex justify-center mb-12">
@@ -195,5 +175,6 @@ export default function MembersPage() {
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
     </section>
+    </div>
   );
 }
