@@ -65,7 +65,7 @@ function PopupHandler() {
       isOpen={showPopup}
       onClose={() => setShowPopup(false)}
       onClick={goToHackvotrix}
-      image="/poster/HACKVOTRIX-poster.png"
+      image="/poster/HACKVOTRIX-poster.webp"
     />
   );
 }

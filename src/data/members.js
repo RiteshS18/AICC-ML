@@ -1,4 +1,4 @@
-const membersData = [
+export const membersData = [
   { name: "Sanjai R", position: "Secretary", image: "/members/sanjai_r.webp" },
   { name: "Rashmika K R", position: "Secretary", image: "/members/rashmika.webp" },
   { name: "Sowbharanika Janani J S", position: "Additional Secretary", image: "/members/sowbharanika.webp" },
