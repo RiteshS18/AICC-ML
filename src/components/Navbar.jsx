@@ -14,19 +14,21 @@ export default function Navbar() {
   const goToMembersPage = () => {
     navigate("/members");
   };
+
   const [active, setActive] = useState("Home");
+  const [isScrolling, setIsScrolling] = useState(false); // disable listener while smooth scrolling
   const menuItems = ["Home", "About", "Events", "Life@AICC", "Members"];
   const logoText = "AI Coding Club";
 
   // Smooth scroll + active section tracking
   useEffect(() => {
-    // If we're on the members page, set active to Members
     if (location.pathname === "/members") {
       setActive("Members");
       return;
     }
 
     const handleScroll = () => {
+      if (isScrolling) return; // ignore scroll updates during smooth scroll
       menuItems.forEach((item) => {
         const sectionId = item.toLowerCase().replace(/[^a-z0-9]/g, "");
         const section = document.getElementById(sectionId);
@@ -41,7 +43,7 @@ export default function Navbar() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [location.pathname]);
+  }, [location.pathname, isScrolling]);
 
   const scrollToSection = (id) => {
     if (id === "members") {
@@ -53,23 +55,25 @@ export default function Navbar() {
     // If we're on the members page, navigate to home first
     if (location.pathname === "/members") {
       navigate("/");
-      // Wait for navigation to complete before scrolling
       setTimeout(() => {
         const section = document.getElementById(id);
         if (section) {
+          setIsScrolling(true);
           section.scrollIntoView({ behavior: "smooth" });
           setActive(menuItems.find(item => 
             item.toLowerCase().replace(/[^a-z0-9]/g, "") === id
           ));
+          setTimeout(() => setIsScrolling(false), 800); // match scroll duration
         }
       }, 100);
       return;
     }
 
-    // Normal scrolling on home page
     const section = document.getElementById(id);
     if (section) {
+      setIsScrolling(true);
       section.scrollIntoView({ behavior: "smooth" });
+      setTimeout(() => setIsScrolling(false), 800);
     }
   };
 
@@ -77,8 +81,6 @@ export default function Navbar() {
 
   return (
     <>
-
-
       <motion.nav
         className={`fixed w-full top-0 left-0 z-50 transition-all shadow-md md:block ${
           theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-gray-900"
@@ -87,17 +89,15 @@ export default function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-
-
         <div className="max-w-7xl mx-auto px-6 py-2 md:flex md:justify-between md:items-center relative">
-          {/* Top Row: Logo (left), Theme & Menu Buttons (right, mobile only) */}
+          {/* Logo */}
           <div className="flex w-full justify-between items-center mb-2 md:mb-0">
             <motion.div
               className="flex items-center cursor-pointer hide-logo-below-300"
               onClick={() => scrollToSection("home")}
             >
               <motion.img
-                src="/aicc-logo.png"
+                src="/aicc-logo.webp"
                 alt="AICC Logo"
                 className="h-10 w-10 rounded-full"
                 whileHover={{ rotate: 360, scale: 1.1 }}
@@ -120,7 +120,8 @@ export default function Navbar() {
                 ))}
               </div>
             </motion.div>
-            {/* Theme & Menu Buttons (right, mobile only) */}
+
+            {/* Theme & Menu (mobile) */}
             <div className="flex items-center md:hidden navbar-btn-group">
               <motion.button
                 onClick={toggleTheme}
@@ -143,7 +144,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Menu Items (Desktop and Mobile) - always below top row in mobile */}
+          {/* Menu Items */}
           <div className={`w-full ${isOpen ? 'flex' : 'hidden'} flex-col md:flex md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-6 font-medium`}>
             {menuItems.map((item) => {
               const sectionId = item.toLowerCase().replace(/[^a-z0-9]/g, "");
@@ -174,7 +175,6 @@ export default function Navbar() {
               {theme === "dark" ? <FaSun /> : <FaMoon />}
             </button>
           </div>
-
         </div>
       </motion.nav>
     </>
