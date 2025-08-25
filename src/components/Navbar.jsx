@@ -36,14 +36,26 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (id) => {
+  const handleNavigation = (item) => {
+    const id = item.toLowerCase().replace(/[^a-z0-9]/g, "");
     if (id === "members") {
       goToMembersPage();
       return;
     }
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
+    if (window.location.pathname !== "/") {
+      navigate("/");
+      // Add a small delay to allow the main page to load before scrolling
+      setTimeout(() => {
+        const section = document.getElementById(id);
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+    } else {
+      const section = document.getElementById(id);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
 
@@ -68,7 +80,7 @@ export default function Navbar() {
       <motion.nav
         className={`fixed w-full top-0 left-0 z-50 transition-all shadow-md md:block ${
           theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-gray-900"
-        } ${isPopupOpen ? 'hidden' : 'block'}`}
+        }`}
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
@@ -77,7 +89,7 @@ export default function Navbar() {
           {/* Logo */}
           <motion.div
             className="flex items-center justify-center md:justify-start space-x-2 cursor-pointer mb-4 md:mb-0"
-            onClick={() => scrollToSection("home")}
+            onClick={() => navigate("/")}
           >
             <motion.img
               src="/aicc-logo.png"
@@ -112,7 +124,7 @@ export default function Navbar() {
                 <button
                   key={item}
                   onClick={() => {
-                    scrollToSection(sectionId);
+                    handleNavigation(item);
                     setIsOpen(false);
                   }}
                   className={`px-3 py-2 md:py-1 transition-all relative text-lg lg:text-xl
