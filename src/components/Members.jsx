@@ -47,7 +47,7 @@ const groupedMembers = membersData.reduce((acc, member) => {
   return acc;
 }, {});
 
-// Auto-scroll container
+// 🔥 Auto-scroll container
 function AutoScrollContainer({ children }) {
   const containerRef = useRef(null);
   const [paused, setPaused] = useState(false);
@@ -80,7 +80,7 @@ function AutoScrollContainer({ children }) {
   );
 }
 
-// Single member card
+// 🔥 Member Card (Images with SAME height)
 function MemberCard({ member, cardBg, idx }) {
   return (
     <motion.div
@@ -91,7 +91,13 @@ function MemberCard({ member, cardBg, idx }) {
       transition={{ duration: 0.5, delay: idx * 0.05 }}
       viewport={{ once: true }}
     >
-      <img src={member.image} alt={member.name} className="h-56 w-full object-cover rounded-t-lg" />
+      <div className="w-full h-80 overflow-hidden flex justify-center items-center">
+        <img
+          src={member.image}
+          alt={member.name}
+          className="w-full h-full object-cover"
+        />
+      </div>
       <div className="p-4 flex flex-col items-center text-center">
         <h3 className="font-semibold text-lg">{member.name}</h3>
         <p className="text-sm text-gray-500">{member.position}</p>
@@ -100,28 +106,27 @@ function MemberCard({ member, cardBg, idx }) {
   );
 }
 
-// Members Page
+// 🔥 Members Page
 export default function MembersPage() {
   const { theme } = useContext(ThemeContext);
   const navigate = useNavigate();
 
-  const containerBg = theme === "dark"
-    ? "bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900"
-    : "bg-gradient-to-r from-white via-blue-50 to-white";
+  const containerBg =
+    theme === "dark"
+      ? "bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900"
+      : "bg-gradient-to-r from-white via-blue-50 to-white";
   const cardBg = theme === "dark" ? "bg-gray-800 text-gray-100" : "bg-white text-gray-900";
 
-  // Scroll to top on mount
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  // Back to footer (navigate first, then scroll)
   const handleBackToFooter = () => {
     navigate("/", { replace: false });
     setTimeout(() => {
       const footer = document.querySelector("footer");
       if (footer) footer.scrollIntoView({ behavior: "smooth" });
-    }, 200); // wait for home page render
+    }, 200);
   };
 
   return (
