@@ -102,17 +102,6 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-
-            {/* View Members Button */}
-            <button
-              onClick={goToMembersPage}
-              className={`mt-4 px-4 py-2 rounded-lg font-semibold
-                ${isDark
-                  ? "bg-blue-500 text-white hover:bg-blue-600"
-                  : "bg-blue-500 text-white hover:bg-blue-600"}`}
-            >
-              View Members
-            </button>
           </div>
         </div>
 
@@ -130,6 +119,17 @@ export default function Footer() {
             <li className="ml-6">Sanjai R      : +91 99422 35410</li>
             <li className="ml-6">Rashmika K R  : +91 76676 90991</li>
           </ul>
+          
+            {/* View Members Button */}
+            <button
+              onClick={goToMembersPage}
+              className={`mt-4 px-4 py-2 rounded-lg font-semibold
+                ${isDark
+                  ? "bg-blue-500 text-white hover:bg-blue-600"
+                  : "bg-blue-500 text-white hover:bg-blue-600"}`}
+            >
+              View Members
+            </button>
         </div>
 
         {/* Quick Links */}
