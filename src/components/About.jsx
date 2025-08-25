@@ -15,11 +15,7 @@ export default function About() {
     return () => clearTimeout(timer);
   }, []);
 
-  const paragraphText = `AI Coding Club (AICC) is dedicated to empowering students to learn, build, and
-  innovate in the fields of Artificial Intelligence and software development.
-  We provide hands on learning opportunities through workshops, hackathons, and
-  collaborative projects. Our goal is to help students gain real world experience by
-  working on practical problems. We encourage teamwork, creativity, and continuous learning. AICC empowers growth and innovation.`;
+  const paragraphText = `AI Coding Club (AICC) is dedicated to empowering students to learn, build, and innovate in the fields of Artificial Intelligence and software development. We provide hands on learning opportunities through workshops, hackathons, and collaborative projects. Our goal is to help students gain real world experience by working on practical problems. We encourage teamwork, creativity, and continuous learning. AICC empowers growth and innovation.`;
 
   const container = {
     hidden: { opacity: 0 },

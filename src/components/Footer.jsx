@@ -59,10 +59,10 @@ export default function Footer() {
         <div>
           <div className="flex items-center mb-3">
             <div className="bg-gradient-to-br from-blue-400 to-purple-500 p-1 rounded-xl shadow-lg">
-              <img src="/aicc-logo.png" alt="AICC Logo" className="h-10 w-10 rounded-lg" />
+              <img src="/aicc-logo.webp" alt="AICC Logo" className="h-10 w-10 rounded-lg" />
             </div>
             <h3
-              className={`text-xl font-bold font-serif ml-3
+              className={`text-2xl lg:text-3xl font-bold font-serif ml-3
                 ${isDark
                   ? "text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300"
                   : "text-gray-900"}`}
@@ -71,7 +71,7 @@ export default function Footer() {
             </h3>
           </div>
 
-          <div className={`mt-2 flex items-start gap-2 leading-relaxed font-light 
+          <div className={`mt-2 flex items-start gap-2 leading-relaxed font-light text-lg 
             ${isDark ? "text-blue-100" : "text-gray-700"}`}>
             <FaMapMarkerAlt className="text-blue-400 mt-1" size={28} />
             <span>
@@ -83,7 +83,7 @@ export default function Footer() {
 
           {/* Social Icons */}
           <div className="p-4">
-            <h3 className={`mb-2 font-semibold ${isDark ? "text-white" : "text-gray-800"}`}>
+            <h3 className={`mb-2 font-semibold text-xl ${isDark ? "text-white" : "text-gray-800"}`}>
               Connect with us
             </h3>
             <div className="flex gap-4 mt-2">
@@ -102,17 +102,6 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-
-            {/* View Members Button */}
-            <button
-              onClick={goToMembersPage}
-              className={`mt-4 px-4 py-2 rounded-lg font-semibold transition transform hover:scale-105
-                ${isDark
-                  ? "bg-gradient-to-r from-cyan-400 to-blue-500 text-white"
-                  : "bg-gradient-to-r from-blue-500 to-cyan-400 text-white"}`}
-            >
-              View Members
-            </button>
           </div>
         </div>
 
@@ -130,6 +119,17 @@ export default function Footer() {
             <li className="ml-6">Sanjai R      : +91 99422 35410</li>
             <li className="ml-6">Rashmika K R  : +91 76676 90991</li>
           </ul>
+          
+            {/* View Members Button */}
+            <button
+              onClick={goToMembersPage}
+              className={`mt-4 px-4 py-2 rounded-lg font-semibold
+                ${isDark
+                  ? "bg-blue-500 text-white hover:bg-blue-600"
+                  : "bg-blue-500 text-white hover:bg-blue-600"}`}
+            >
+              View Members
+            </button>
         </div>
 
         {/* Quick Links */}

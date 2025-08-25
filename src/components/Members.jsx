@@ -1,44 +1,8 @@
 import { motion } from "framer-motion";
 import { useContext, useRef, useState, useEffect } from "react";
 import { ThemeContext } from "../ThemeContext";
-import { useNavigate } from "react-router-dom";
-
-// Members Data
-const membersData = [
-  { name: "Sanjai R", position: "Secretary", image: "/members/sanjai_r.jpg" },
-  { name: "Rashmika K R", position: "Secretary", image: "/members/rashmika.jpg" },
-  { name: "JayaSurya M", position: "Additional Secretary", image: "/members/jayasuriya.jpg" },
-  { name: "Sowbharanika Janani J S", position: "Additional Secretary", image: "/members/sowbharanika.jpg" },
-  { name: "Hairunisha A", position: "Joint Secretary", image: "/members/hairunisha.jpg" },
-  { name: "Jenesha Malar S", position: "Joint Secretary", image: "/members/jenesha.jpg" },
-  { name: "Hariharan J", position: "Joint Secretary", image: "/members/hariharan.jpg" },
-  { name: "Sudhan N", position: "Joint Secretary", image: "/members/sudhan.jpg" },
-  { name: "Sreenithy S", position: "Joint Secretary", image: "/members/sreenithy.jpg" },
-  { name: "Haryni A S", position: "Joint Secretary", image: "/members/haryini.jpg" },
-  { name: "DivyaDharshini J", position: "Treasurer", image: "/members/Divyadharshini.jpg" },
-  { name: "SriAnish Rameshwaran", position: "Treasurer", image: "/members/anish.jpg" },
-  { name: "Jaisanth K", position: "Treasurer", image: "/members/jaisanth.jpg" },
-  { name: "Nagumeena Udayappan", position: "Treasurer", image: "/members/nagumeena.jpg" },
-  { name: "Dinesh K", position: "Technical Head", image: "/members/dinesh.jpg" },
-  { name: "Poornima R K", position: "Technical Head", image: "/members/poornima.jpg" },
-  { name: "Rahul K", position: "Technical Head", image: "/members/rahul.jpg" },
-  { name: "MadanPrasant N V", position: "Technical Head", image: "/members/madan.jpg" },
-  { name: "Tawfeeq B", position: "Technical Head", image: "/members/tawfeeq.jpg" },
-  { name: "Sanjay Ramesh I", position: "Multimedia Team", image: "/members/sanjay_ramesh.jpg" },
-  { name: "Dharun Kumar S", position: "Multimedia Team", image: "/members/dharun.jpg" },
-  { name: "Ragul R", position: "Multimedia Team", image: "/members/ragul.jpg" },
-  { name: "Sevesh S S", position: "Multimedia Team", image: "/members/sevesh.jpg" },
-  { name: "Dhanush V", position: "Executive Member", image: "/members/dhanush.jpg" },
-  { name: "Aadhithya R", position: "Executive Member", image: "/members/aadhithya.jpg" },
-  { name: "Nikilesh Karthik J S", position: "Executive Member", image: "/members/nikilesh.jpg" },
-  { name: "Karthick M", position: "Executive Member", image: "/members/karthick.jpg" },
-  { name: "Kavin P", position: "Executive Member", image: "/members/kavin.jpg" },
-  { name: "Mithra T", position: "Executive Member", image: "/members/mithra.jpg" },
-  { name: "Iniyasri S V", position: "Executive Member", image: "/members/iniyasri.jpg" },
-  { name: "Deepika S D", position: "Executive Member", image: "/members/deepika.jpg" },
-  { name: "Yamuna K", position: "Executive Member", image: "/members/yamuna.jpg" },
-  { name: "Yoga Sree S", position: "Executive Member", image: "/members/yoga_sree.jpg" },
-];
+import Navbar from "./Navbar";
+import {membersData} from "../data/members";
 
 // Group members by position
 const groupedMembers = membersData.reduce((acc, member) => {
@@ -109,7 +73,6 @@ function MemberCard({ member, cardBg, idx }) {
 // 🔥 Members Page
 export default function MembersPage() {
   const { theme } = useContext(ThemeContext);
-  const navigate = useNavigate();
 
   const containerBg =
     theme === "dark"
@@ -121,6 +84,7 @@ export default function MembersPage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
+<<<<<<< HEAD
   const handleBackToFooter = () => {
     navigate("/", { replace: false });
     setTimeout(() => {
@@ -129,21 +93,13 @@ export default function MembersPage() {
     }, 200);
   };
 
+=======
+>>>>>>> d429ab94811ce53ddc53ba2d6e701ba5302ce58b
   return (
-    <section className={`py-16 relative ${containerBg} transition-colors duration-500 select-none`}>
-      <div className="max-w-7xl mx-auto px-6">
-        {/* Back Button */}
-        <div className="mb-8">
-          <button
-            onClick={handleBackToFooter}
-            className={`px-4 py-2 rounded-lg font-semibold transition transform hover:scale-105
-              ${theme === "dark"
-                ? "bg-gradient-to-r from-cyan-400 to-blue-500 text-white"
-                : "bg-gradient-to-r from-blue-500 to-cyan-400 text-white"}`}
-          >
-            ← Back
-          </button>
-        </div>
+    <div>
+      <Navbar />
+      <section className={`pt-24 pb-16 relative ${containerBg} transition-colors duration-500 select-none`}>
+        <div className="max-w-7xl mx-auto px-6">
 
         {/* Page Title */}
         <div className="flex justify-center mb-12">
@@ -200,5 +156,6 @@ export default function MembersPage() {
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
     </section>
+    </div>
   );
 }

@@ -3,14 +3,14 @@ import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../ThemeContext";
 
 const lifeImages = [
-  { id: 1, src: "/life/23-24_1.jpg", alt: "Hackathon Event", year: "2023-2024" },
-  { id: 2, src: "/life/23-24_2.jpg", alt: "Team Meetup", year: "2023-2024" },
-  { id: 3, src: "/life/24-25_1.jpg", alt: "Club Celebration", year: "2024-2025" },
-  { id: 4, src: "/life/24-25_2.jpg", alt: "Project Showcase", year: "2024-2025" },
-  { id: 5, src: "/life/24-25_3.jpg", alt: "Casual Fun", year: "2024-2025" },
-  { id: 6, src: "/life/25-26_1.jpg", alt: "AI Workshop", year: "2025-2026" },
-  { id: 7, src: "/life/25-26_2.jpg", alt: "Hackathon Winners", year: "2025-2026" },
-  { id: 8, src: "/life/25-26_3.jpg", alt: "Annual Meet", year: "2025-2026" },
+  { id: 1, src: "/life/23-24_1.webp", alt: "Hackathon Event", year: "2023-2024" },
+  { id: 2, src: "/life/23-24_2.webp", alt: "Team Meetup", year: "2023-2024" },
+  { id: 3, src: "/life/24-25_1.webp", alt: "Club Celebration", year: "2024-2025" },
+  { id: 4, src: "/life/24-25_2.webp", alt: "Project Showcase", year: "2024-2025" },
+  { id: 5, src: "/life/24-25_3.webp", alt: "Casual Fun", year: "2024-2025" },
+  { id: 6, src: "/life/25-26_1.webp", alt: "AI Workshop", year: "2025-2026" },
+  { id: 7, src: "/life/25-26_2.webp", alt: "Hackathon Winners", year: "2025-2026" },
+  { id: 8, src: "/life/25-26_3.webp", alt: "Annual Meet", year: "2025-2026" },
 ];
 
 export default function Life() {
