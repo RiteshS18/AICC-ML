@@ -143,7 +143,7 @@ export default function Footer() {
               { name: "About", href: "#about" },
               { name: "Events", href: "#events" },
               { name: "Life@AICC", href: "#life" },
-              { name: "Contact", href: "#contact" }
+              { name: "Members", href: "/members" }
             ].map((link, index) => (
               <li key={index}>
                 <a
