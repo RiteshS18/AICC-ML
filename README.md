@@ -8,7 +8,7 @@ This is the official website for the AI Coding Club, built with React + Vite, an
 - Event gallery with images and details
 - Member profiles  
 - Themed UI with light/dark mode
-- Built with modern web technologies (React, Vite, Tailwind CSS)
+- Built with modern web technologies (React, Vite, Tailwind CSS)     
 
 ## Contributing
 
