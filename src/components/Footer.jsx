@@ -107,37 +107,51 @@ export default function Footer() {
 
         {/* Contact Section */}
         <div>
-          <h4 className={`text-lg font-semibold mb-1.5 flex items-center ${isDark ? "text-white" : "text-gray-900"}`}>
+          <h4 className={`text-2xl font-semibold mb-3 flex items-center ${isDark ? "text-white" : "text-gray-900"}`}>
             <span className="mr-2">📱</span> Contact
           </h4>
-          <ul className={`${isDark ? "text-blue-100" : "text-gray-700"} space-y-2`}>
-            <li><b>Faculty Coordinators:</b></li>
-            <li className="ml-6">Dr.K Logeswaran : +91 96985 13850</li>
-            <li className="ml-6">Ms Balasanthi  : +91 93448 60238</li>
+          <ul className={`${isDark ? "text-blue-100" : "text-gray-700"} space-y-3 text-lg`}>
+            <li className="text-xl"><b>Faculty Coordinators:</b></li>
+            <li className="ml-6">
+              <span className="inline-block hover:text-white hover:font-semibold transition-all duration-300 hover:text-shadow-white cursor-default hover:-translate-y-0.5 hover:scale-105 text-lg">Dr.K Logeswaran</span> : <span className="text-lg">+91 96985 13850</span>
+            </li>
+            <li className="ml-6">
+              <span className="inline-block hover:text-white hover:font-semibold transition-all duration-300 hover:text-shadow-white cursor-default hover:-translate-y-0.5 hover:scale-105 text-lg">Ms Balasanthi</span> : <span className="text-lg">+91 93448 60238</span>
+            </li>
 
-            <li className="mt-3"><b>Secretaries:</b></li>
-            <li className="ml-6">Sanjai R      : +91 99422 35410</li>
-            <li className="ml-6">Rashmika K R  : +91 76676 90991</li>
+            <li className="mt-3 text-xl"><b>Secretaries:</b></li>
+            <li className="ml-6">
+              <span className="inline-block hover:text-white hover:font-semibold transition-all duration-300 hover:text-shadow-white cursor-default hover:-translate-y-0.5 hover:scale-105 text-lg">Sanjai R</span> : <span className="text-lg">+91 99422 35410</span>
+            </li>
+            <li className="ml-6">
+              <span className="inline-block hover:text-white hover:font-semibold transition-all duration-300 hover:text-shadow-white cursor-default hover:-translate-y-0.5 hover:scale-105 text-lg">Rashmika K R</span> : <span className="text-lg">+91 76676 90991</span>
+            </li>
           </ul>
           
             {/* View Members Button */}
             <button
-              onClick={goToMembersPage}
-              className={`mt-4 px-4 py-2 rounded-lg font-semibold
-                ${isDark
-                  ? "bg-blue-500 text-white hover:bg-blue-600"
-                  : "bg-blue-500 text-white hover:bg-blue-600"}`}
-            >
-              View Members
-            </button>
+  onClick={goToMembersPage}
+  className={`mt-4 px-6 py-2 rounded-lg font-semibold relative overflow-hidden group transition-all duration-300`}
+>
+  {/* Gradient background on hover */}
+  <span
+    className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 opacity-80 group-hover:opacity-100 transition duration-300"
+  ></span>
+
+  {/* Text with gradient */}
+  <span className="relative z-10 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent group-hover:text-white transition-colors duration-300">
+    View Members
+  </span>
+</button>
+
         </div>
 
         {/* Quick Links */}
         <div>
-          <h4 className={`text-lg font-semibold mb-2 flex items-center ${isDark ? "text-white" : "text-gray-900"}`}>
+          <h4 className={`text-2xl font-semibold mb-3 flex items-center ${isDark ? "text-white" : "text-gray-900"}`}>
             <span className="mr-2">🔗</span> Quick Links
           </h4>
-          <ul className="space-y-2">
+          <ul className="space-y-3">
             {[
               { name: "Home", href: "#home" },
               { name: "About", href: "#about" },
@@ -148,8 +162,10 @@ export default function Footer() {
               <li key={index}>
                 <a
                   href={link.href}
-                  className={`group relative block pl-2 transition-colors
-                    ${isDark ? "text-blue-100 hover:text-white" : "text-gray-700 hover:text-gray-900"}`}
+                  className={`relative inline-block pl-2 transition-all duration-300 text-xl
+                    ${isDark ? "text-blue-100" : "text-gray-700"}
+                    hover:text-white hover:font-semibold hover:text-shadow-white
+                    hover:-translate-y-0.5 hover:scale-105`}
                 >
                   {link.name}
                 </a>

@@ -28,7 +28,7 @@ export default function RegistrationDeadline({ className = '' }) {
   });
 
   // Set your target date here
-  const targetDate = new Date('September 8, 2025 23:59:59').getTime();
+  const targetDate = new Date('September 1, 2025 23:59:59').getTime();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -116,8 +116,12 @@ export default function RegistrationDeadline({ className = '' }) {
         </motion.div>
 
         <p className={`text-center mt-4 ${textColor} text-sm`}>
-          SEPTEMBER 12, 2025 - FRIDAY
-        </p>
+        <span className="font-bold text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.9)]">
+          Hackvotrix Finale
+        </span>
+        : SEPTEMBER 12, 2025 - FRIDAY
+      </p>
+
       </motion.div>
     </div>
   );
