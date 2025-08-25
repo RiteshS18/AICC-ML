@@ -84,6 +84,14 @@ export default function MembersPage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
+  const handleBackToFooter = () => {
+    navigate("/", { replace: false });
+    setTimeout(() => {
+      const footer = document.querySelector("footer");
+      if (footer) footer.scrollIntoView({ behavior: "smooth" });
+    }, 200);
+  };
+
   return (
     <div>
       <Navbar />
