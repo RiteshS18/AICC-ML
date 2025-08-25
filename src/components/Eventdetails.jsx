@@ -157,7 +157,7 @@ export default function EventDetails() {
       {/* Past Year Photos Carousel */}
       {event.photos && event.photos.length > 0 && (
         <div className="mt-12 w-full flex flex-col items-center">
-          <h2 className="text-3xl font-semibold mb-4">Glimpse of Past Events</h2>
+          <h2 className="text-3xl font-semibold mb-4">Past Year Photos</h2>
           <motion.div
             className="w-full md:w-[700px] h-[350px] overflow-hidden rounded-xl shadow-lg"
             onMouseEnter={() => setPaused(true)}
