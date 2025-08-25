@@ -30,7 +30,7 @@ export const eventsData = [
   {
     id: "3",
     title: "Workshop",
-    poster: "/poster/workshop.webp",
+    poster: "/poster/workshop1.webp",
     time: "2nd week of Sep'25-3rd yrs & 3rd week of Feb'26-2nd yrs",
     venue: "AI BLOCK",
     status: "upcoming",

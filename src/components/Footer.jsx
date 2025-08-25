@@ -59,7 +59,7 @@ export default function Footer() {
         <div>
           <div className="flex items-center mb-3">
             <div className="bg-gradient-to-br from-blue-400 to-purple-500 p-1 rounded-xl shadow-lg">
-              <img src="/aicc-logo.png" alt="AICC Logo" className="h-10 w-10 rounded-lg" />
+              <img src="/aicc-logo.webp" alt="AICC Logo" className="h-10 w-10 rounded-lg" />
             </div>
             <h3
               className={`text-2xl lg:text-3xl font-bold font-serif ml-3
