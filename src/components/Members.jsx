@@ -2,43 +2,7 @@ import { motion } from "framer-motion";
 import { useContext, useRef, useState, useEffect } from "react";
 import { ThemeContext } from "../ThemeContext";
 import Navbar from "./Navbar";
-
-// Members Data
-const membersData = [
-  { name: "Sanjai R", position: "Secretary", image: "/members/sanjai_r.jpg" },
-  { name: "Rashmika K R", position: "Secretary", image: "/members/rashmika.jpg" },
-  { name: "Sowbharanika Janani J S", position: "Additional Secretary", image: "/members/sowbharanika.jpg" },
-  { name: "JayaSurya M", position: "Additional Secretary", image: "/members/jayasuriya.jpg" },
-  { name: "Hairunisha A", position: "Joint Secretary", image: "/members/hairunisha.jpg" },
-  { name: "Jenesha Malar S", position: "Joint Secretary", image: "/members/jenesha.jpg" },
-  { name: "Hariharan J", position: "Joint Secretary", image: "/members/hariharan.jpg" },
-  { name: "Sudhan N", position: "Joint Secretary", image: "/members/sudhan.jpg" },
-  { name: "Sreenithy S", position: "Joint Secretary", image: "/members/sreenithy.jpg" },
-  { name: "Haryni A S", position: "Joint Secretary", image: "/members/haryini.jpg" },
-  { name: "Jaisanth K", position: "Treasurer", image: "/members/jaisanth.jpg" },
-  { name: "Nagumeena Udayappan", position: "Treasurer", image: "/members/nagumeena.jpg" },
-  { name: "DivyaDharshini J", position: "Treasurer", image: "/members/Divyadharshini.jpg" },
-  { name: "SriAnish Rameshwaran", position: "Treasurer", image: "/members/anish.jpg" },
-  { name: "Dinesh K", position: "Technical Head", image: "/members/dinesh.jpg" },
-  { name: "Rahul K", position: "Technical Head", image: "/members/rahul.jpg" },
-  { name: "Poornima R K", position: "Technical Head", image: "/members/poornima.jpg" },
-  { name: "Madan Prasant N V", position: "Technical Head", image: "/members/madan.jpg" },
-  { name: "Tawfeeq B", position: "Technical Head", image: "/members/tawfeeq.jpg" },
-  { name: "Sanjay Ramesh I", position: "Multimedia Team", image: "/members/sanjay_ramesh.jpg" },
-  { name: "Dharun Kumar S", position: "Multimedia Team", image: "/members/dharun.jpg" },
-  { name: "Ragul R", position: "Multimedia Team", image: "/members/ragul.jpg" },
-  { name: "Sevesh S S", position: "Multimedia Team", image: "/members/sevesh.jpg" },
-  { name: "Dhanush V", position: "Executive Member", image: "/members/dhanush.jpg" },
-  { name: "Aadhithya R", position: "Executive Member", image: "/members/aadhithya.jpg" },
-  { name: "Nikilesh Karthik J S", position: "Executive Member", image: "/members/nikilesh.jpg" },
-  { name: "Karthick M", position: "Executive Member", image: "/members/karthick.jpg" },
-  { name: "Kavin P", position: "Executive Member", image: "/members/kavin.jpg" },
-  { name: "Mithra T", position: "Executive Member", image: "/members/mithra.jpg" },
-  { name: "Iniyasri S V", position: "Executive Member", image: "/members/iniyasri.jpg" },
-  { name: "Deepika S D", position: "Executive Member", image: "/members/deepika.jpg" },
-  { name: "Yamuna K", position: "Executive Member", image: "/members/yamuna.jpg" },
-  { name: "Yoga Sree S", position: "Executive Member", image: "/members/yoga_sree.jpg" },
-];
+import {membersData} from "../data/members";
 
 // Group members by position
 const groupedMembers = membersData.reduce((acc, member) => {
