@@ -2,43 +2,7 @@ import { motion } from "framer-motion";
 import { useContext, useRef, useState, useEffect } from "react";
 import { ThemeContext } from "../ThemeContext";
 import Navbar from "./Navbar";
-
-// Members Data
-const membersData = [
-  { name: "Sanjai R", position: "Secretary", image: "/members/sanjai_r.jpg" },
-  { name: "Rashmika K R", position: "Secretary", image: "/members/rashmika.jpg" },
-  { name: "Sowbharanika Janani J S", position: "Additional Secretary", image: "/members/sowbharanika.jpg" },
-  { name: "JayaSurya M", position: "Additional Secretary", image: "/members/jayasuriya.jpg" },
-  { name: "Hairunisha A", position: "Joint Secretary", image: "/members/hairunisha.jpg" },
-  { name: "Jenesha Malar S", position: "Joint Secretary", image: "/members/jenesha.jpg" },
-  { name: "Hariharan J", position: "Joint Secretary", image: "/members/hariharan.jpg" },
-  { name: "Sudhan N", position: "Joint Secretary", image: "/members/sudhan.jpg" },
-  { name: "Sreenithy S", position: "Joint Secretary", image: "/members/sreenithy.jpg" },
-  { name: "Haryni A S", position: "Joint Secretary", image: "/members/haryini.jpg" },
-  { name: "Jaisanth K", position: "Treasurer", image: "/members/jaisanth.jpg" },
-  { name: "Nagumeena Udayappan", position: "Treasurer", image: "/members/nagumeena.jpg" },
-  { name: "DivyaDharshini J", position: "Treasurer", image: "/members/Divyadharshini.jpg" },
-  { name: "SriAnish Rameshwaran", position: "Treasurer", image: "/members/anish.jpg" },
-  { name: "Dinesh K", position: "Technical Head", image: "/members/dinesh.jpg" },
-  { name: "Rahul K", position: "Technical Head", image: "/members/rahul.jpg" },
-  { name: "Poornima R K", position: "Technical Head", image: "/members/poornima.jpg" },
-  { name: "Madan Prasant N V", position: "Technical Head", image: "/members/madan.jpg" },
-  { name: "Tawfeeq B", position: "Technical Head", image: "/members/tawfeeq.jpg" },
-  { name: "Sanjay Ramesh I", position: "Multimedia Team", image: "/members/sanjay_ramesh.jpg" },
-  { name: "Dharun Kumar S", position: "Multimedia Team", image: "/members/dharun.jpg" },
-  { name: "Ragul R", position: "Multimedia Team", image: "/members/ragul.jpg" },
-  { name: "Sevesh S S", position: "Multimedia Team", image: "/members/sevesh.jpg" },
-  { name: "Dhanush V", position: "Executive Member", image: "/members/dhanush.jpg" },
-  { name: "Aadhithya R", position: "Executive Member", image: "/members/aadhithya.jpg" },
-  { name: "Nikilesh Karthik J S", position: "Executive Member", image: "/members/nikilesh.jpg" },
-  { name: "Karthick M", position: "Executive Member", image: "/members/karthick.jpg" },
-  { name: "Kavin P", position: "Executive Member", image: "/members/kavin.jpg" },
-  { name: "Mithra T", position: "Executive Member", image: "/members/mithra.jpg" },
-  { name: "Iniyasri S V", position: "Executive Member", image: "/members/iniyasri.jpg" },
-  { name: "Deepika S D", position: "Executive Member", image: "/members/deepika.jpg" },
-  { name: "Yamuna K", position: "Executive Member", image: "/members/yamuna.jpg" },
-  { name: "Yoga Sree S", position: "Executive Member", image: "/members/yoga_sree.jpg" },
-];
+import {membersData} from "../data/members";
 
 // Group members by position
 const groupedMembers = membersData.reduce((acc, member) => {
@@ -47,7 +11,7 @@ const groupedMembers = membersData.reduce((acc, member) => {
   return acc;
 }, {});
 
-// Auto-scroll container
+// 🔥 Auto-scroll container
 function AutoScrollContainer({ children }) {
   const containerRef = useRef(null);
   const [paused, setPaused] = useState(false);
@@ -80,7 +44,7 @@ function AutoScrollContainer({ children }) {
   );
 }
 
-// Single member card
+// 🔥 Member Card (Images with SAME height)
 function MemberCard({ member, cardBg, idx }) {
   return (
     <motion.div
@@ -91,7 +55,13 @@ function MemberCard({ member, cardBg, idx }) {
       transition={{ duration: 0.5, delay: idx * 0.05 }}
       viewport={{ once: true }}
     >
-      <img src={member.image} alt={member.name} className="h-56 w-full object-cover rounded-t-lg" />
+      <div className="w-full h-80 overflow-hidden flex justify-center items-center">
+        <img
+          src={member.image}
+          alt={member.name}
+          className="w-full h-full object-cover"
+        />
+      </div>
       <div className="p-4 flex flex-col items-center text-center">
         <h3 className="font-semibold text-lg">{member.name}</h3>
         <p className="text-sm text-gray-500">{member.position}</p>
@@ -100,19 +70,27 @@ function MemberCard({ member, cardBg, idx }) {
   );
 }
 
-// Members Page
+// 🔥 Members Page
 export default function MembersPage() {
   const { theme } = useContext(ThemeContext);
 
-  const containerBg = theme === "dark"
-    ? "bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900"
-    : "bg-gradient-to-r from-white via-blue-50 to-white";
+  const containerBg =
+    theme === "dark"
+      ? "bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900"
+      : "bg-gradient-to-r from-white via-blue-50 to-white";
   const cardBg = theme === "dark" ? "bg-gray-800 text-gray-100" : "bg-white text-gray-900";
 
-  // Scroll to top on mount
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
+
+  const handleBackToFooter = () => {
+    navigate("/", { replace: false });
+    setTimeout(() => {
+      const footer = document.querySelector("footer");
+      if (footer) footer.scrollIntoView({ behavior: "smooth" });
+    }, 200);
+  };
 
   return (
     <div>
