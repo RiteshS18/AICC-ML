@@ -114,12 +114,16 @@ export default function RegistrationDeadline({ className = '' }) {
           </button>
 
         </motion.div>
+       
+       <p className={`text-center mt-6 ${textColor} text-sm`}>
+         Registrations are open only for Energy and Machines Domain 
+      </p>
 
-        <p className={`text-center mt-4 ${textColor} text-sm`}>
-        <span className="font-bold text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.9)]">
-          Hackvotrix Finale
-        </span>
-        : SEPTEMBER 12, 2025 - FRIDAY
+      <p className={`text-center mt-2 ${textColor} text-sm`}>
+      <span className="font-bold text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.9)]">
+      Hackvotrix Finale
+      </span>
+      : SEPTEMBER 12, 2025 - FRIDAY
       </p>
 
       </motion.div>
