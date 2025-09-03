@@ -28,7 +28,7 @@ export default function RegistrationDeadline({ className = '' }) {
   });
 
   // Set your target date here
-  const targetDate = new Date('September 3, 2025 12:59:59').getTime();
+  const targetDate = new Date('September 5, 2025 23:59:59').getTime();
 
   useEffect(() => {
     const timer = setInterval(() => {
