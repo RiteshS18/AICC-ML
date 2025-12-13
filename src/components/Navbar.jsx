@@ -2,7 +2,6 @@ import { useState, useEffect, useContext } from "react";
 import { motion } from "framer-motion";
 import { FaSun, FaMoon } from "react-icons/fa";
 import { ThemeContext } from "../ThemeContext";
-import { usePopup } from "../PopupContext";
 import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Navbar() {
@@ -77,14 +76,12 @@ export default function Navbar() {
     }
   };
 
-  const { isPopupOpen } = usePopup();
-
   return (
     <>
       <motion.nav
         className={`fixed w-full top-0 left-0 z-50 transition-all shadow-md md:block ${
           theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-gray-900"
-        } ${isPopupOpen ? 'hidden' : 'block'}`}
+        }`}
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
