@@ -11,13 +11,10 @@ export default function RegistrationDeadline({ className = '' }) {
   const hackvotrixEvent = eventsData.find((event) =>
     event.title.toLowerCase().includes("hackvotrix")
   );
-
+  // Open external registration form in a new tab
   const goToHackvotrix = () => {
-    if (hackvotrixEvent) {
-      navigate(`/event/${hackvotrixEvent.id}`, {
-        state: { event: hackvotrixEvent },
-      });
-    }
+    const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSeuPWLrjgWQGZgoRevCexlrBvdSxZbq2p5yQHiN3UfNGMS-9A/viewform";
+    window.open(formUrl, "_blank", "noopener,noreferrer");
   };
 
   const [timeLeft, setTimeLeft] = useState({
@@ -27,8 +24,8 @@ export default function RegistrationDeadline({ className = '' }) {
     seconds: 0
   });
 
-  // Set your target date here
-  const targetDate = new Date('January 31, 2026 23:59:59').getTime();
+  // Use ISO8601 format to avoid locale-dependent parsing (interpreted as local timezone)
+  const targetDate = new Date('2026-01-31T23:59:59').getTime();
 
   useEffect(() => {
     const timer = setInterval(() => {
