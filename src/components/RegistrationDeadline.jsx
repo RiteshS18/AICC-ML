@@ -1,20 +1,22 @@
 import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '../ThemeContext';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
 import { eventsData } from '../data/events';
 
-export default function RegistrationDeadline({ className = '' }) {
+export default function RegistrationDeadline({ className = '', onRegisterClick }) {
   const { theme } = useContext(ThemeContext);
-  const navigate = useNavigate();
   
-  const hackvotrixEvent = eventsData.find((event) =>
-    event.title.toLowerCase().includes("hackvotrix")
-  );
-  // Open external registration form in a new tab
-  const goToHackvotrix = () => {
-    const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSeuPWLrjgWQGZgoRevCexlrBvdSxZbq2p5yQHiN3UfNGMS-9A/viewform";
-    window.open(formUrl, "_blank", "noopener,noreferrer");
+  // Navigate to event page or open registration form
+  const handleRegisterClick = () => {
+    if (onRegisterClick) {
+      onRegisterClick();
+    } else {
+      const thinkathonEvent = eventsData.find((event) =>
+        event.title.toLowerCase().includes("thinkathon")
+      );
+      const formUrl = thinkathonEvent?.registrationLink || "https://docs.google.com/forms/d/e/1FAIpQLSeuPWLrjgWQGZgoRevCexlrBvdSxZbq2p5yQHiN3UfNGMS-9A/viewform";
+      window.open(formUrl, "_blank", "noopener,noreferrer");
+    }
   };
 
   const [timeLeft, setTimeLeft] = useState({
@@ -48,9 +50,8 @@ export default function RegistrationDeadline({ className = '' }) {
     return () => clearInterval(timer);
   }, [targetDate]);
 
-  const bgColor = theme === 'dark' ? 'bg-gray-800' : 'bg-white';
-  const textColor = theme === 'dark' ? 'text-white' : 'text-gray-900';
-  const accentColor = theme === 'dark' ? 'text-blue-400' : 'text-blue-600';
+  const textColor = 'text-white';
+  const accentColor = 'text-white';
 
   const TimeUnit = ({ value, label }) => (
     <div className="flex flex-col items-center">
@@ -58,7 +59,7 @@ export default function RegistrationDeadline({ className = '' }) {
         initial={{ scale: 1 }}
         animate={{ scale: [1, 1.1, 1] }}
         transition={{ duration: 1, repeat: Infinity, repeatDelay: 1 }}
-        className={`w-20 h-20 ${theme === 'dark' ? 'bg-gray-800/10' : 'bg-white/10'} backdrop-blur-sm border ${theme === 'dark' ? 'border-blue-500/30' : 'border-blue-400/30'} rounded-full flex items-center justify-center mb-2 shadow-lg ring-2 ring-blue-500/20 ring-offset-2 ring-offset-transparent`}
+        className="w-20 h-20 bg-white/20 backdrop-blur-sm border border-white/40 rounded-full flex items-center justify-center mb-2 shadow-lg ring-2 ring-white/30 ring-offset-2 ring-offset-transparent"
       >
         <span className={`text-3xl font-bold ${accentColor}`}>
           {value.toString().padStart(2, '0')}
@@ -93,7 +94,7 @@ export default function RegistrationDeadline({ className = '' }) {
           className="flex justify-center"
         >
          <button
-            onClick={goToHackvotrix}
+            onClick={handleRegisterClick}
             className={`group relative px-8 py-3 text-lg font-bold rounded-lg
               overflow-hidden bg-transparent border-2 border-blue-500/50
               hover:border-blue-400 transition-all duration-300
@@ -117,10 +118,7 @@ export default function RegistrationDeadline({ className = '' }) {
       </p>
 
       <p className={`text-center mt-2 ${textColor} text-sm`}>
-      <span className="font-bold text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.9)]">
-      Thinkathon
-      </span>
-      : JANUARY 13, 2026 - THURSDAY
+      Deadline : JANUARY 13, 2026 - THURSDAY
       </p>
 
       </motion.div>

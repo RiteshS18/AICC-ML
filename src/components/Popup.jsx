@@ -58,7 +58,7 @@ export default function Popup({ isOpen, onClose, onClick, image }) {
 
             {/* Registration Deadline */}
             <div className="w-full md:w-1/2 md:flex-1 flex items-center justify-center">
-              <RegistrationDeadline />
+              <RegistrationDeadline onRegisterClick={onClick} />
             </div>
 
             {/* Close Button */}

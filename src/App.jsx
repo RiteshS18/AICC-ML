@@ -34,23 +34,23 @@ function Layout({ children }) {
   );
 }
 
-// 🔹 Popup Handler (Hackvotrix popup logic)
+// 🔹 Popup Handler (Thinkathon popup logic)
 function PopupHandler() {
   const [showPopup, setShowPopup] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
   const { setIsPopupOpen } = usePopup();
 
-  const hackvotrixEvent = eventsData.find((event) =>
-    event.title.toLowerCase().includes("hackvotrix")
+  const thinkathonEvent = eventsData.find((event) =>
+    event.title.toLowerCase().includes("thinkathon")
   );
 
-  const goToHackvotrix = () => {
-    if (hackvotrixEvent) {
+  const goToThinkathon = () => {
+    if (thinkathonEvent) {
       setShowPopup(false);
       setIsPopupOpen(false);
-      navigate(`/event/${hackvotrixEvent.id}`, {
-        state: { event: hackvotrixEvent },
+      navigate(`/event/${thinkathonEvent.id}`, {
+        state: { event: thinkathonEvent },
       });
     }
   };
@@ -61,7 +61,7 @@ function PopupHandler() {
     <Popup
       isOpen={showPopup}
       onClose={() => setShowPopup(false)}
-      onClick={goToHackvotrix}
+      onClick={goToThinkathon}
       image="/poster/THINKATHON-poster.webp"
     />
   );
