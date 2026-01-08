@@ -25,7 +25,7 @@ export default function RegistrationDeadline({ className = '' }) {
   });
 
   // Use ISO8601 format to avoid locale-dependent parsing (interpreted as local timezone)
-  const targetDate = new Date('2026-01-31T23:59:59').getTime();
+  const targetDate = new Date('2026-01-14T23:59:59').getTime();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -120,7 +120,7 @@ export default function RegistrationDeadline({ className = '' }) {
       <span className="font-bold text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.9)]">
       Thinkathon
       </span>
-      : SEPTEMBER 12, 2025 - FRIDAY
+      : JANUARY 14, 2026 - THURSDAY
       </p>
 
       </motion.div>
