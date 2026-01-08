@@ -25,7 +25,7 @@ export default function RegistrationDeadline({ className = '' }) {
   });
 
   // Use ISO8601 format to avoid locale-dependent parsing (interpreted as local timezone)
-  const targetDate = new Date('2026-01-14T23:59:59').getTime();
+  const targetDate = new Date('2026-01-13T23:59:59').getTime();
 
   useEffect(() => {
     const timer = setInterval(() => {
