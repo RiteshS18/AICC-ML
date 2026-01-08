@@ -5,7 +5,7 @@ export const eventsData = [
     poster: "/poster/hackvotrix.webp",
     time: "September-12, 2025 - 09:00 AM",
     venue: "AI BLOCK",
-    status: "register",
+    status: "completed",
     registrationLink: "https://forms.gle/XhaX4KWLJsoDCJfMA",
     description:
       "Hackvotrix 2k25 is the premier inter-departmental hackathon open to students from all years and departments! Assemble your team, battle through a preliminary round, and code your way to the finale to win from a massive ₹30,000 prize pool.",
@@ -17,10 +17,10 @@ export const eventsData = [
     id: "5",
     title: "Thinkathon",
     poster: "/poster/thinkathon.webp",
-    time: "1st week of Oct'25-3rd yrs & 1st week of Mar'26-2nd yrs",
+    time: "Jan 31st 2026",
     venue: "AI BLOCK",
-    status: "upcoming",
-    registrationLink: "https://example.com/register/techfest",
+    status: "register",
+    registrationLink: "https://docs.google.com/forms/d/e/1FAIpQLSeuPWLrjgWQGZgoRevCexlrBvdSxZbq2p5yQHiN3UfNGMS-9A/viewform",
     description:
       "Join the Thinkathon, an intensive 8-hour event designed exclusively to foster and sharpen your Artificial Intelligence skills. Collaborate with peers and immerse yourself in a full day of AI-centric problem-solving",
     how:
