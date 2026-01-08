@@ -120,7 +120,7 @@ export default function RegistrationDeadline({ className = '' }) {
       <span className="font-bold text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.9)]">
       Thinkathon
       </span>
-      : JANUARY 14, 2026 - THURSDAY
+      : JANUARY 13, 2026 - THURSDAY
       </p>
 
       </motion.div>
