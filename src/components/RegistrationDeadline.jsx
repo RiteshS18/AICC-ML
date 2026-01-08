@@ -113,7 +113,7 @@ export default function RegistrationDeadline({ className = '' }) {
         </motion.div>
        
        <p className={`text-center mt-6 ${textColor} text-sm`}>
-         Registrations are open only for Energy and Machines Domain 
+         Registrations are open for all three Domains. 
       </p>
 
       <p className={`text-center mt-2 ${textColor} text-sm`}>
