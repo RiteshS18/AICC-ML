@@ -38,7 +38,7 @@ export default function Popup({ isOpen, onClose, onClick, image }) {
             <div className="w-full md:w-1/2 md:flex-1">
               <motion.img
                 src={image}
-                alt="Hackvotrix Poster"
+                alt="Thinkathon Poster"
                 onClick={onClick}
                 className="w-full h-auto max-h-[50vh] md:max-h-[65vh] object-contain rounded-xl shadow-lg cursor-pointer"
                 animate={{
