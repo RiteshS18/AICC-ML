@@ -17,5 +17,3 @@ Developed by AICC Website team.
 ## License
 
 This project is licensed under the MIT License.  
-
- 
