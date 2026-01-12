@@ -27,7 +27,7 @@ export default function RegistrationDeadline({ className = '', onRegisterClick }
   });
 
   // Use ISO8601 format to avoid locale-dependent parsing (interpreted as local timezone)
-  const targetDate = new Date('2026-01-13T23:59:59').getTime();
+  const targetDate = new Date('2026-01-20T23:59:59').getTime();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -118,7 +118,7 @@ export default function RegistrationDeadline({ className = '', onRegisterClick }
       </p>
 
       <p className={`text-center mt-2 ${textColor} text-sm`}>
-      Deadline : JANUARY 13, 2026 - THURSDAY
+      Deadline : JANUARY 20, 2026 - TUESDAY
       </p>
 
       </motion.div>
