@@ -9,6 +9,8 @@ export default function EventDetails() {
   const navigate = useNavigate();
   const event = state?.event;
 
+  const isDark = theme === "dark";
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [paused, setPaused] = useState(false);
 
@@ -25,12 +27,16 @@ export default function EventDetails() {
     );
 
   const bgGradient =
-    theme === "dark"
+    isDark
       ? "bg-gray-900 text-gray-100"
       : "bg-white text-gray-900";
 
   const cardBg =
-    theme === "dark" ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200";
+    isDark ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200";
+
+  const registerText = isDark
+    ? "bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent"
+    : "text-blue-600";
 
   // Carousel auto-loop for past year photos
   useEffect(() => {
@@ -109,7 +115,7 @@ export default function EventDetails() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <span className="relative z-10 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent group-hover:text-white transition-colors duration-300">
+                <span className={`relative z-10 ${registerText} group-hover:text-white transition-colors duration-300`}>
                   REGISTER NOW
                 </span>
                 <div className="absolute inset-0 -z-20 bg-gradient-to-r from-blue-600/20 to-blue-500/20 backdrop-blur-[2px]"></div>
