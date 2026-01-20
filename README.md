@@ -1,4 +1,3 @@
-
 # AI Coding Club Website
 
 This is the official website for the AI Coding Club, built with React + Vite, and Tailwind CSS. The site showcases club events, members, and activities, and provides information for prospective and current members.    
