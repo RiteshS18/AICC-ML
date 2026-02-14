@@ -11,10 +11,10 @@ export default function RegistrationDeadline({ className = '', onRegisterClick }
     if (onRegisterClick) {
       onRegisterClick();
     } else {
-      const thinkathonEvent = eventsData.find((event) =>
-        event.title.toLowerCase().includes("thinkathon")
+      const Event = eventsData.find((event) =>
+        event.title.toLowerCase().includes("hacksphere")
       );
-      const formUrl = thinkathonEvent?.registrationLink || "https://docs.google.com/forms/d/e/1FAIpQLSeuPWLrjgWQGZgoRevCexlrBvdSxZbq2p5yQHiN3UfNGMS-9A/viewform";
+      const formUrl = Event?.registrationLink || "https://forms.gle/xKcrrP17Cy9Gt3u46";
       window.open(formUrl, "_blank", "noopener,noreferrer");
     }
   };
@@ -27,7 +27,7 @@ export default function RegistrationDeadline({ className = '', onRegisterClick }
   });
 
   // Use ISO8601 format to avoid locale-dependent parsing (interpreted as local timezone)
-  const targetDate = new Date('2026-01-22T23:59:59').getTime();
+  const targetDate = new Date('2026-02-16T23:59:59').getTime();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -114,11 +114,11 @@ export default function RegistrationDeadline({ className = '', onRegisterClick }
         </motion.div>
        
        <p className={`text-center mt-6 ${textColor} text-sm`}>
-         Registrations are open for all three Domains. 
+         Registrations are open now. 
       </p>
 
       <p className={`text-center mt-2 ${textColor} text-sm`}>
-      Deadline : JANUARY 22, 2026 - TUESDAY
+      Deadline : Feb 16, 2026 - Monday
       </p>
 
       </motion.div>

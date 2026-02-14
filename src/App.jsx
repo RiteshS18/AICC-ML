@@ -34,23 +34,23 @@ function Layout({ children }) {
   );
 }
 
-// 🔹 Popup Handler (Thinkathon popup logic)
+// 🔹 Popup Handler (goToEvent popup logic)
 function PopupHandler() {
   const [showPopup, setShowPopup] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
   const { setIsPopupOpen } = usePopup();
 
-  const thinkathonEvent = eventsData.find((event) =>
-    event.title.toLowerCase().includes("thinkathon")
+  const Event = eventsData.find((event) =>
+    event.title.toLowerCase().includes("hacksphere")
   );
 
-  const goToThinkathon = () => {
-    if (thinkathonEvent) {
+  const goToEvent = () => {
+    if (Event) {
       setShowPopup(false);
       setIsPopupOpen(false);
-      navigate(`/event/${thinkathonEvent.id}`, {
-        state: { event: thinkathonEvent },
+      navigate(`/event/${Event.id}`, {
+        state: { event: Event },
       });
     }
   };
@@ -61,8 +61,8 @@ function PopupHandler() {
     <Popup
       isOpen={showPopup}
       onClose={() => setShowPopup(false)}
-      onClick={goToThinkathon}
-      image="/poster/THINKATHON-poster.webp"
+      onClick={goToEvent}
+      image="/poster/Hacksphere'26-poster.webp"
     />
   );
 }

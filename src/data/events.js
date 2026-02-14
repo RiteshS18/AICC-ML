@@ -19,7 +19,7 @@ export const eventsData = [
     poster: "/poster/thinkathon.webp",
     time: "Jan 31st 2026",
     venue: "AI BLOCK",
-    status: "register",
+    status: "Completed",
     registrationLink: "https://docs.google.com/forms/d/e/1FAIpQLSeuPWLrjgWQGZgoRevCexlrBvdSxZbq2p5yQHiN3UfNGMS-9A/viewform",
     description:
       "Join the Thinkathon, an intensive 8-hour event designed exclusively to foster and sharpen your Artificial Intelligence skills. Collaborate with peers and immerse yourself in a full day of AI-centric problem-solving",
@@ -34,7 +34,7 @@ export const eventsData = [
     time: "2nd week of Sep'25-3rd yrs & 3rd week of Feb'26-2nd yrs",
     venue: "AI BLOCK",
     status: "upcoming",
-    registrationLink: "https://example.com/register/techfest",
+    registrationLink: "https://aicodingclub.tech",
     description: "Join our exclusive workshops led by industry experts. We dive into today's most trending topics in an engaging format designed to spark student interest and provide valuable real-world insights.",
     how:
     "Workshops are delivered in an engaging, hands-on format where students learn by exploring emerging technologies, tools, and frameworks. Participants actively interact with experts, gain practical knowledge, and apply concepts through demonstrations and mini-projects. These sessions not only build technical expertise but also bridge the gap between classroom learning and industry practices.",
@@ -47,7 +47,7 @@ export const eventsData = [
     venue: "AI BLOCK",
     time:"",
     status: "upcoming",
-    registrationLink: "https://example.com/register/techfest",
+    registrationLink: "https://aicodingclub.tech",
     description: "Hybrid Code Streak (HCS) is the ultimate test of coding consistency, featuring separate competitions for 2nd and 3rd-year students. To qualify for the finale, you must maintain a performance streak across two challenging preliminary rounds.",
     how:"The Hybrid Code Streak (HCS) event is conducted in AI Labs. Participants are challenged to maintain continuous coding streaks in their preferred programming languages until the final round. The competition provides a valuable platform for students to enhance their problem-solving abilities through continuous practice, versatility across languages, and consistent improvement.",
 
@@ -59,8 +59,8 @@ export const eventsData = [
     poster: "/poster/hacksphere1.webp",
     time: "4th week of Feb'26",
     venue: "AI BLOCK",
-    status: "upcoming",
-    registrationLink: "https://example.com/register/techfest",
+    status: "register",
+    registrationLink: "https://forms.gle/xKcrrP17Cy9Gt3u46",
     description:
       "Hacksphere, the ultimate 24-hour intra-departmental hackathon exclusively for students of the AI department! Get ready to innovate, code, and build incredible projects against the clock.",
     how:
@@ -79,5 +79,4 @@ export const eventsData = [
     "During Placement Talks, seniors engage with juniors in an open and interactive format, discussing topics such as resume building, interview preparation, aptitude tests, coding challenges, and soft skills. Students also get the opportunity to ask questions and seek personalized advice, making it a practical and insightful session that equips them to face upcoming placements with confidence.",
   photos: ["/poster/placement_talks1.webp", "/poster/placement_talks.webp"]
   }
-
 ];
