@@ -1,100 +1,68 @@
-import { ThemeProvider } from "./ThemeContext";
-import { PopupProvider, usePopup } from "./PopupContext";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
+import { AnimatePresence } from 'framer-motion'
+import IntroScreen from './components/layout/IntroScreen'
+import Layout from './components/layout/Layout'
+import Hero from './components/sections/Hero'
+import About from './components/sections/About'
+import Events from './components/sections/Events'
+import EventDetails from './components/sections/EventDetails'
+import ClubEssentials from './components/sections/ClubEssentials'
+import YearCards from './components/sections/YearCards'
+import Members from './components/sections/Members'
+import Highlights from './components/sections/Highlights'
+import FAQ from './components/sections/FAQ'
+import Footer from './components/sections/Footer'
+import GalleryPage from './pages/GalleryPage'
+import SDGPage from './pages/SDGPage'
 
-import Navbar from "./components/Navbar";
-import Home from "./components/Home";
-import About from "./components/About";
-import Events from "./components/Events";
-import MembersPage from "./components/Members";
-import Life from "./components/Life";
-import Footer from "./components/Footer";
-import EventDetails from "./components/Eventdetails";
-import Popup from "./components/Popup";
-import { eventsData } from "./data/events";
+function HomePage({ intro }) {
+  return (
+    <>
+      <Hero intro={intro} />
+      <About />
+      <ClubEssentials />
+      <Events />
+      <YearCards />
+      <Highlights />
+      <FAQ />
+      <Footer />
+    </>
+  )
+}
 
-// 🔹 Layout to conditionally show Navbar/Footer
-function Layout({ children }) {
+function MembersPage() {
+  return (
+    <>
+      <Members />
+      <Footer />
+    </>
+  )
+}
+
+export default function App() {
+  const [intro, setIntro] = useState(true);
   const location = useLocation();
-  const hideNavFooter = location.pathname.startsWith("/event/");
+
+  useEffect(() => {
+    if (!intro) window.scrollTo(0, 0);
+  }, [location.pathname, intro]);
 
   return (
     <>
-      {!hideNavFooter && <Navbar />}
-      {children}
-      {!hideNavFooter && <Footer />}
+      <AnimatePresence mode="wait">
+        {intro && <IntroScreen key="intro" onComplete={() => setIntro(false)} />}
+      </AnimatePresence>
+
+      <div style={{ opacity: intro ? 0 : 1, transition: 'opacity 0.5s ease' }}>
+        <Routes>
+          <Route path='/' element={<Layout><HomePage intro={intro} /></Layout>} />
+          <Route path='/members' element={<Layout><MembersPage /></Layout>} />
+          <Route path='/gallery' element={<GalleryPage />} />
+          <Route path='/sdg' element={<Layout><SDGPage /></Layout>} />
+          <Route path='/event/:id' element={<EventDetails />} />
+        </Routes>
+      </div>
     </>
-  );
+  )
 }
-
-// 🔹 Popup Handler (goToEvent popup logic)
-function PopupHandler() {
-  const [showPopup, setShowPopup] = useState(true);
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { setIsPopupOpen } = usePopup();
-
-  const Event = eventsData.find((event) =>
-    event.title.toLowerCase().includes("hacksphere")
-  );
-
-  const goToEvent = () => {
-    if (Event) {
-      setShowPopup(false);
-      setIsPopupOpen(false);
-      navigate(`/event/${Event.id}`, {
-        state: { event: Event },
-      });
-    }
-  };
-
-  if (location.pathname !== "/") return null;
-
-  return (
-    <Popup
-      isOpen={showPopup}
-      onClose={() => setShowPopup(false)}
-      onClick={goToEvent}
-      image="/poster/Hacksphere'26-poster.webp"
-    />
-  );
-}
-
-// 🔹 Main App Component
-function App() {
-  return (
-    <ThemeProvider>
-      <PopupProvider>
-        <Router>
-          <PopupHandler />
-          <Layout>
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <>
-                    <Home />
-                    <About />
-                    <Events />
-                    <Life />
-                  </>
-                }
-              />
-              <Route path="/event/:id" element={<EventDetails />} />
-              <Route path="/members" element={<MembersPage />} />
-            </Routes>
-          </Layout>
-        </Router>
-      </PopupProvider>
-    </ThemeProvider>
-  );
-}
-
-export default App;

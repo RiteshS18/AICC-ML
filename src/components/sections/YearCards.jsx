@@ -1,0 +1,314 @@
+import { useRef, useState, useEffect } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { Users, CalendarCheck, Zap, Trophy, Rocket } from 'lucide-react';
+
+const cards = [
+  {
+    id: '01',
+    year: '2022',
+    month: 'AUG',
+    icon: Users,
+    title: 'Club Founded',
+    tag: 'ORIGINS',
+    desc: 'The AI Coding Club was born from a shared passion for technology. Forty founding members set the culture of curiosity, collaboration, and building things that matter.',
+    dark: false,
+  },
+  {
+    id: '02',
+    year: '2023',
+    month: 'SEP',
+    icon: CalendarCheck,
+    title: 'First Hackathon',
+    tag: 'MILESTONE',
+    desc: 'Year two brought our inaugural hackathon. Membership doubled, workshops deepened, and the first inter-college connections were forged.',
+    dark: false,
+  },
+  {
+    id: '03',
+    year: '2024',
+    month: 'AUG',
+    icon: Zap,
+    title: 'Innovation Drive',
+    tag: 'GROWTH',
+    desc: 'Real-world projects, SDG-aligned hackathons, and cross-departmental collaborations. We did not just learn — we built things with impact.',
+    dark: false,
+  },
+  {
+    id: '04',
+    year: '2025',
+    month: 'FEB',
+    icon: Rocket,
+    title: 'Scaling Impact',
+    tag: 'EXPANSION',
+    desc: 'Launch of advanced specialized tracks, community outreach programs, and deep tech research groups.',
+    dark: false,
+  },
+  {
+    id: '05',
+    year: '2026',
+    month: 'NOW',
+    icon: Trophy,
+    title: 'The New Era',
+    tag: 'TODAY',
+    desc: '200+ members strong. AICC is now a movement — training the next generation of builders, thinkers, and innovators at the forefront of AI.',
+    dark: true,
+  },
+];
+
+// Each card reveals at these scroll thresholds (start, full)
+const CARD_THRESHOLDS = [
+  [0.05, 0.20],
+  [0.23, 0.38],
+  [0.41, 0.56],
+  [0.59, 0.74],
+  [0.77, 0.92],
+];
+
+// ── Animated card driven by scroll ───────────────────────────────────────────
+function ScrollCard({ data, index, progress }) {
+  const [startReveal, fullReveal] = CARD_THRESHOLDS[index];
+
+  const opacity = useTransform(progress, [startReveal, fullReveal], [0, 1]);
+  const y       = useTransform(progress, [startReveal, fullReveal], [52, 0]);
+  const scale   = useTransform(progress, [startReveal, fullReveal], [0.94, 1]);
+
+  const Icon = data.icon;
+
+  return (
+    <motion.div
+      style={{ opacity, y, scale }}
+      className="relative rounded-2xl overflow-hidden flex flex-col h-full"
+      css-data-id={data.id}
+    >
+      {/* Card shell */}
+      <div
+        className="relative flex flex-col h-full rounded-2xl overflow-hidden"
+        style={{
+          background: data.dark ? '#0d0d0d' : '#ffffff',
+          border: data.dark ? '1px solid rgba(255,255,255,0.08)' : '1px solid #e4e4e4',
+          boxShadow: data.dark
+            ? '0 24px 60px rgba(0,0,0,0.5)'
+            : '0 4px 32px rgba(0,0,0,0.06)',
+          padding: '28px',
+          minHeight: '300px',
+        }}
+      >
+        {/* Watermark number */}
+        <div
+          className="absolute bottom-3 right-4 font-display font-black select-none pointer-events-none"
+          style={{
+            fontSize: '6.5rem',
+            lineHeight: 1,
+            color: data.dark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.04)',
+          }}
+        >
+          {data.id}
+        </div>
+
+        {/* Icon box */}
+        <div
+          className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 flex-shrink-0"
+          style={{
+            background: data.dark ? 'rgba(255,255,255,0.1)' : '#111111',
+          }}
+        >
+          <Icon
+            className="w-[18px] h-[18px]"
+            strokeWidth={2}
+            style={{ color: '#ffffff' }}
+          />
+        </div>
+
+        {/* Year + Month */}
+        <div className="flex items-baseline gap-2 mb-1">
+          <span
+            className="font-display font-black leading-none"
+            style={{
+              fontSize: '3.2rem',
+              letterSpacing: '-0.03em',
+              color: data.dark ? '#ffffff' : '#111111',
+            }}
+          >
+            {data.year}
+          </span>
+          <span className="font-bold text-sm tracking-wider" style={{ color: '#2563eb' }}>
+            {data.month}
+          </span>
+        </div>
+
+        {/* Title */}
+        <h3
+          className="font-display font-bold text-lg leading-snug mb-3 mt-1"
+          style={{ color: data.dark ? '#ffffff' : '#111111' }}
+        >
+          {data.title}
+        </h3>
+
+        {/* Desc */}
+        <p
+          className="text-sm leading-relaxed flex-1"
+          style={{ color: data.dark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.5)' }}
+        >
+          {data.desc}
+        </p>
+
+        {/* Tag */}
+        <div className="mt-5 flex-shrink-0">
+          <span
+            className="inline-block px-3 py-1.5 rounded-lg text-[10px] font-bold tracking-[0.18em] uppercase"
+            style={{
+              background: data.dark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.05)',
+              color: data.dark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)',
+            }}
+          >
+            {data.tag}
+          </span>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ── Timeline node — activates as scroll passes its threshold ─────────────────
+function TimelineNode({ data, index, progress }) {
+  const [startReveal] = CARD_THRESHOLDS[index];
+
+  const bg = useTransform(
+    progress,
+    [startReveal - 0.04, startReveal + 0.04],
+    [
+      '#d4d4d4',
+      index === cards.length - 1 ? '#2563eb' : '#111111',
+    ]
+  );
+  const iconColor = useTransform(
+    progress,
+    [startReveal - 0.04, startReveal + 0.04],
+    ['#b0b0b0', '#ffffff']
+  );
+  const scale = useTransform(
+    progress,
+    [startReveal - 0.06, startReveal + 0.04],
+    [0.75, 1]
+  );
+
+  const Icon = data.icon;
+
+  return (
+    <motion.div style={{ scale }} className="relative z-10 flex-shrink-0">
+      <motion.div
+        style={{ background: bg }}
+        className="w-10 h-10 rounded-full flex items-center justify-center shadow-md"
+      >
+        <motion.div style={{ color: iconColor }}>
+          <Icon className="w-4 h-4" strokeWidth={2} />
+        </motion.div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+// ── Blue timeline fill ────────────────────────────────────────────────────────
+function TimelineFill({ progress }) {
+  const width = useTransform(
+    progress,
+    [CARD_THRESHOLDS[0][0], CARD_THRESHOLDS[4][1]],
+    ['0%', '100%']
+  );
+  return (
+    <motion.div
+      className="absolute left-0 top-1/2 -translate-y-1/2 h-[2.5px] rounded-full origin-left"
+      style={{ width, background: 'linear-gradient(to right, #1d4ed8, #60a5fa)' }}
+    />
+  );
+}
+
+// ── Main export ───────────────────────────────────────────────────────────────
+export default function YearCards() {
+  const sectionRef = useRef(null);
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 1024);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  // Tall section so scroll drives everything
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end end'],
+  });
+
+  const xTransform = useTransform(scrollYProgress, [0, 1], ['0%', '-20%']);
+  const x = isDesktop ? xTransform : 0;
+
+  return (
+    <section
+      ref={sectionRef}
+      id="journey"
+      className="relative bg-white"
+      style={{ height: '500vh' }}
+    >
+      {/* Sticky container */}
+      <div className="sticky top-0 h-[100dvh] flex flex-col justify-center overflow-hidden">
+        <div className="max-w-7xl mx-auto w-full px-6 md:px-10">
+
+          {/* ── Header ── */}
+          <div className="mb-10">
+            <h2
+              className="font-display font-black leading-none tracking-tight"
+              style={{ fontSize: 'clamp(2.4rem, 5vw, 4.2rem)' }}
+            >
+              <span className="text-black">Our </span>
+              <span
+                className="text-transparent"
+                style={{ WebkitTextStroke: '2px #111111' }}
+              >
+                Journey.
+              </span>
+            </h2>
+          </div>
+
+          <motion.div style={{ x }} className="w-full lg:w-[125%]">
+            {/* ── Timeline ── */}
+            <div className="relative flex items-center mb-10 px-5">
+              {/* Gray track */}
+              <div
+                className="absolute left-5 right-5 top-1/2 -translate-y-1/2 h-[2.5px] rounded-full"
+                style={{ background: '#e5e5e5' }}
+              />
+              {/* Animated blue fill */}
+              <TimelineFill progress={scrollYProgress} />
+              {/* Nodes */}
+              <div className="relative flex justify-between w-full">
+                {cards.map((card, i) => (
+                  <TimelineNode
+                    key={card.id}
+                    data={card}
+                    index={i}
+                    progress={scrollYProgress}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* ── 5 Cards ── */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+              {cards.map((card, i) => (
+                <ScrollCard
+                  key={card.id}
+                  data={card}
+                  index={i}
+                  progress={scrollYProgress}
+                />
+              ))}
+            </div>
+          </motion.div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
