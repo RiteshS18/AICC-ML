@@ -9,7 +9,7 @@ const navItems = [
   { id: 'about', icon: Info, label: 'About' },
   { id: 'events', icon: CalendarDays, label: 'Events' },
   { id: 'gallery', icon: Camera, label: 'Gallery' },
-  { id: 'members', icon: Users, label: 'Team' },
+  { id: 'members', icon: Users, label: 'Members' },
 ]
 
 const socialLinks = [
@@ -34,27 +34,8 @@ const socialLinks = [
 export default function Sidebar() {
   const [activeSection, setActiveSection] = useState('home')
   const [hoveredItem, setHoveredItem] = useState(null)
-  const [isSidebarHovered, setIsSidebarHovered] = useState(false)
-  const [isScrolling, setIsScrolling] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
-
-  // ── Scroll detection for auto-hide ──
-  useEffect(() => {
-    let scrollTimeout
-    const handleScroll = () => {
-      setIsScrolling(true)
-      clearTimeout(scrollTimeout)
-      scrollTimeout = setTimeout(() => {
-        setIsScrolling(false)
-      }, 1500)
-    }
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-      clearTimeout(scrollTimeout)
-    }
-  }, [])
 
   // ── IntersectionObserver for active section detection ──
   useEffect(() => {
@@ -121,21 +102,10 @@ export default function Sidebar() {
       {/* ═══════════════════════════════════
           Desktop Sidebar (≥768px)
          ═══════════════════════════════════ */}
-      {/* Desktop Sidebar Trigger Zone */}
-      <div 
-        className="hidden md:block fixed left-0 top-0 h-screen w-6 z-40"
-        onMouseEnter={() => setIsSidebarHovered(true)}
-      />
-
-      <motion.nav
+      <nav
         className="hidden md:flex fixed left-0 top-0 h-screen flex-col items-center py-6 z-50"
-        onMouseEnter={() => setIsSidebarHovered(true)}
-        onMouseLeave={() => setIsSidebarHovered(false)}
-        initial={{ x: -72 }}
-        animate={{ x: isSidebarHovered || isScrolling ? 0 : -72 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         style={{
-          width: '72px',
+          width: '56px',
           background: 'rgba(255, 255, 255, 0.8)',
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',
@@ -180,8 +150,8 @@ export default function Sidebar() {
                   onClick={() => handleNavClick(item.id)}
                   className="flex items-center justify-center rounded-xl cursor-pointer transition-all duration-300"
                   style={{
-                    width: '44px',
-                    height: '44px',
+                    width: '40px',
+                    height: '40px',
                     color: isActive ? '#4f46e5' : '#94a3b8',
                     background: isActive
                       ? 'rgba(79, 70, 229, 0.08)'
@@ -201,7 +171,7 @@ export default function Sidebar() {
                   }}
                   aria-label={item.label}
                 >
-                  <Icon size={20} strokeWidth={isActive ? 2.5 : 2} />
+                  <Icon size={18} strokeWidth={isActive ? 2.5 : 2} />
                 </button>
 
                 {/* Tooltip */}
@@ -239,8 +209,8 @@ export default function Sidebar() {
                 rel="noopener noreferrer"
                 className="flex items-center justify-center rounded-xl transition-all duration-300"
                 style={{
-                  width: '36px',
-                  height: '36px',
+                  width: '32px',
+                  height: '32px',
                   color: '#94a3b8',
                 }}
                 onMouseOver={(e) => {
@@ -262,7 +232,7 @@ export default function Sidebar() {
             )
           })}
         </div>
-      </motion.nav>
+      </nav>
 
       {/* ═══════════════════════════════════
           Mobile Bottom Bar (<768px)

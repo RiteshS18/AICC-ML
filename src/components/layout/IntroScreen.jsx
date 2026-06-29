@@ -58,13 +58,15 @@ function SceneTypewriter({ onDone }) {
 
 // ── Scene 2: Word-by-word ─────────────────────────────────────────────────────
 function SceneWordByWord({ onDone }) {
-  // line1: plain weight, all on one row
-  const line1 = ['Few', 'Shape', 'Generations.'];
-  // line2: bold, "Legacy." is extra large
-  const line2 = ['But', 'only', 'Very', 'Few', 'Become', 'A', 'Legacy.'];
+  // line1: plain weight — "Few Conduct Events."
+  const line1 = ['Few', 'Conduct', 'Events.'];
+  // line2: bold — "And only Few Shape"
+  const line2 = ['And', 'only', 'Few', 'Shape'];
+  // bigWord: "Generations." displayed big & centered below
+  const bigWord = 'Generations.';
 
-  const allWords = [...line1, ...line2];
-  const lastDelay = 0.1 * (allWords.length - 1);
+  const totalWords = line1.length + line2.length + 1; // +1 for big word
+  const lastDelay = 0.1 * (totalWords - 1);
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
@@ -83,7 +85,7 @@ function SceneWordByWord({ onDone }) {
     >
       <div className="text-center max-w-4xl">
 
-        {/* Line 1 — plain weight, all on one line */}
+        {/* Line 1 — plain weight: "Few Conduct Events." */}
         <div className="flex flex-wrap justify-center items-baseline gap-x-3 mb-3">
           {line1.map((word) => {
             const i = idx++;
@@ -107,11 +109,10 @@ function SceneWordByWord({ onDone }) {
           })}
         </div>
 
-        {/* Line 2 — bold, "Legacy." extra large */}
-        <div className="flex flex-wrap justify-center items-baseline gap-x-3">
+        {/* Line 2 — bold: "And only Few Shape" */}
+        <div className="flex flex-wrap justify-center items-baseline gap-x-3 mb-1">
           {line2.map((word) => {
             const i = idx++;
-            const isLegacy = word === 'Legacy.';
             return (
               <motion.span
                 key={`l2-${i}`}
@@ -120,11 +121,9 @@ function SceneWordByWord({ onDone }) {
                 transition={{ duration: 0.55, delay: 0.1 * i, ease: [0.22, 1, 0.36, 1] }}
                 className="inline-block text-black"
                 style={{
-                  fontSize: isLegacy
-                    ? 'clamp(3rem, 7.5vw, 6.5rem)'
-                    : 'clamp(1.6rem, 3.5vw, 2.8rem)',
+                  fontSize: 'clamp(1.6rem, 3.5vw, 2.8rem)',
                   fontWeight: 800,
-                  letterSpacing: isLegacy ? '-0.04em' : '-0.015em',
+                  letterSpacing: '-0.015em',
                   fontFamily: 'var(--font-display, inherit)',
                   lineHeight: 1,
                 }}
@@ -134,6 +133,31 @@ function SceneWordByWord({ onDone }) {
             );
           })}
         </div>
+
+        {/* Big word — "Generations." large & centered */}
+        {(() => {
+          const i = idx++;
+          return (
+            <div className="flex justify-center">
+              <motion.span
+                key={`big2-${i}`}
+                initial={{ opacity: 0, y: 30, filter: 'blur(6px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                transition={{ duration: 0.6, delay: 0.1 * i, ease: [0.22, 1, 0.36, 1] }}
+                className="inline-block text-black"
+                style={{
+                  fontSize: 'clamp(3rem, 7.5vw, 6.5rem)',
+                  fontWeight: 800,
+                  letterSpacing: '-0.04em',
+                  fontFamily: 'var(--font-display, inherit)',
+                  lineHeight: 1,
+                }}
+              >
+                {bigWord}
+              </motion.span>
+            </div>
+          );
+        })()}
 
       </div>
     </motion.div>

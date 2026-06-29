@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { ArrowUpRight } from 'lucide-react';
 
 // ── All AICC event photos ─────────────────────────────────────────────────────
 const ALL_PHOTOS = [
@@ -90,14 +91,20 @@ export default function Highlights() {
   // Images start faded (so text is readable) and become fully opaque as text disappears
   const gridOpacity = useTransform(scrollYProgress, [0, 0.4], [0.35, 1]);
   
+  // Grid blurs towards the end of the scroll
+  const gridFilter = useTransform(scrollYProgress, [0.5, 0.7], ['blur(0px)', 'blur(16px)']);
+  
+  // A subtle white overlay fades in to give contrast to the buttons
+  const overlayOpacity = useTransform(scrollYProgress, [0.5, 0.7], [0, 0.6]);
+
   // Text and radial mask fade out as we scroll
   const textOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
   const textY = useTransform(scrollYProgress, [0, 0.3], ['0%', '-20%']);
 
-  // Buttons appear at the very end of the scroll
-  const buttonOpacity = useTransform(scrollYProgress, [0.85, 1], [0, 1]);
-  const buttonY = useTransform(scrollYProgress, [0.85, 1], ['20px', '0px']);
-  const pointerEvents = useTransform(scrollYProgress, v => v > 0.85 ? 'auto' : 'none');
+  // Buttons appear at the center towards the end
+  const buttonOpacity = useTransform(scrollYProgress, [0.5, 0.7], [0, 1]);
+  const buttonScale = useTransform(scrollYProgress, [0.5, 0.7], [0.8, 1]);
+  const pointerEvents = useTransform(scrollYProgress, v => v > 0.5 ? 'auto' : 'none');
 
 
   return (
@@ -108,7 +115,7 @@ export default function Highlights() {
       style={{
         backgroundColor: '#ffffff',
         position: 'relative',
-        height: '350vh', // Huge scrollable area
+        height: '400vh', // Huge scrollable area
         zIndex: 20, // Sit on top of FAQ to allow buttons to pop out over it
       }}
     >
@@ -136,6 +143,7 @@ export default function Highlights() {
             rotate,
             scale,
             opacity: gridOpacity,
+            filter: gridFilter,
             display: 'flex',
             flexDirection: 'column',
             gap: '24px',
@@ -147,6 +155,18 @@ export default function Highlights() {
           <PhotoRow images={ROW2} direction={-1} scrollYProgress={scrollYProgress} />
           <PhotoRow images={ROW3} direction={1} scrollYProgress={scrollYProgress} />
         </motion.div>
+
+        {/* White overlay for contrast when buttons appear */}
+        <motion.div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            backgroundColor: '#ffffff',
+            pointerEvents: 'none',
+            zIndex: 1, // Above the grid, below the text and buttons
+            opacity: overlayOpacity,
+          }}
+        />
 
         {/* Radial gradient mask so the text is highly legible against the images */}
         <motion.div
@@ -189,25 +209,43 @@ export default function Highlights() {
           </h2>
         </motion.div>
 
-        {/* Buttons fade in at the very end of the animation */}
+        {/* Buttons fade in at the center */}
         <motion.div
           style={{
             position: 'absolute',
-            bottom: '-1.5rem', // Break out of the section!
-            left: 0,
-            width: '100%',
+            top: '50%',
+            left: '50%',
+            x: '-50%',
+            y: '-50%',
             opacity: buttonOpacity,
-            y: buttonY,
+            scale: buttonScale,
             pointerEvents,
             zIndex: 30,
           }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-6"
+          className="flex flex-col sm:flex-row items-center justify-center gap-8 w-full px-4"
         >
-          <Link to="/gallery" className="btn-moon">
-            View Gallery
+          <Link to="/gallery" className="group relative w-72 h-80 rounded-3xl overflow-hidden shadow-2xl bg-white flex flex-col hover:-translate-y-2 transition-transform duration-300">
+            <div className="h-2/3 w-full relative overflow-hidden bg-gray-100">
+              <img src="/hackathon/hackathon1.webp" alt="Gallery" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+            </div>
+            <div className="h-1/3 w-full flex items-center justify-center bg-white/95 backdrop-blur-sm">
+              <span className="text-xl font-display font-bold text-slate-900 flex items-center gap-2">
+                View Gallery
+                <ArrowUpRight className="w-5 h-5 text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              </span>
+            </div>
           </Link>
-          <Link to="/members" className="btn-moon">
-            Members
+          
+          <Link to="/members" className="group relative w-72 h-80 rounded-3xl overflow-hidden shadow-2xl bg-white flex flex-col hover:-translate-y-2 transition-transform duration-300">
+            <div className="h-2/3 w-full relative overflow-hidden bg-gray-100">
+              <img src="/life/23-24_1.webp" alt="Members" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+            </div>
+            <div className="h-1/3 w-full flex items-center justify-center bg-white/95 backdrop-blur-sm">
+              <span className="text-xl font-display font-bold text-slate-900 flex items-center gap-2">
+                Our Members
+                <ArrowUpRight className="w-5 h-5 text-accent group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              </span>
+            </div>
           </Link>
         </motion.div>
       </div>
