@@ -27,9 +27,9 @@ const col1 = [
   },
   {
     id: '03',
-    question: 'How do I register for events?',
+    question: 'How do I become a member?',
     answer:
-      'Event registrations are announced on our official channels. You can sign up directly on this website or through the link shared during announcements. Keep an eye on the Events section!',
+      'Membership forms are shared at the beginning of each academic year. Simply fill out the form, attend our orientation session, and join our community channels to get started!',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
         <rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
@@ -38,9 +38,9 @@ const col1 = [
   },
   {
     id: '04',
-    question: 'Are the hackathons free to participate?',
+    question: 'Is there a membership fee?',
     answer:
-      'Yes! All our hackathons and events are completely free of charge. We believe in lowering barriers to innovation, so there are no registration fees whatsoever.',
+      'No! Joining the AI Coding Club is completely free. We believe in open access to knowledge, community, and innovation, so there are no fees whatsoever.',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
         <rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
@@ -63,9 +63,9 @@ const col1 = [
 const col2 = [
   {
     id: '06',
-    question: 'Can I join as a solo participant?',
+    question: 'How much time commitment is required?',
     answer:
-      'Of course! While teams are encouraged, solo participants are always welcome. You may even find team members through our networking sessions and club community channels.',
+      'It is totally up to you! We generally meet once a week for core sessions. You can dedicate more time if you choose to participate in hackathons or specific projects.',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
@@ -74,9 +74,9 @@ const col2 = [
   },
   {
     id: '07',
-    question: 'Is food provided during events?',
+    question: 'What are the benefits of joining?',
     answer:
-      'Yes! For our longer in-person events like hackathons, food and refreshments are provided throughout to keep energy levels high and minds sharp.',
+      'You will gain hands-on experience with modern tech, build a strong portfolio, network with like-minded peers, and get exclusive access to resources and mentorship.',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
         <path d="M18 8h1a4 4 0 0 1 0 8h-1" /><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" /><line x1="6" y1="1" x2="6" y2="4" /><line x1="10" y1="1" x2="10" y2="4" /><line x1="14" y1="1" x2="14" y2="4" />
@@ -85,9 +85,9 @@ const col2 = [
   },
   {
     id: '08',
-    question: 'Are events held online or in-person?',
+    question: 'Can non-CS students join?',
     answer:
-      'We host a mix of both! Workshops are often hybrid, while flagship events like hackathons and thinkathons are in-person to maximise collaboration and the full experience.',
+      'Absolutely! Tech intersects with every field. Whether you are from Mechanical, Civil, or Business, your diverse perspective is welcome and you will find value here.',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
         <rect x="2" y="3" width="20" height="14" rx="2" ry="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" />
@@ -96,9 +96,9 @@ const col2 = [
   },
   {
     id: '09',
-    question: 'Where are events usually held?',
+    question: 'How can I stay updated on club activities?',
     answer:
-      'Most of our events take place on campus at our college premises. Exact venue details are announced alongside each event. We always ensure a comfortable and well-equipped space.',
+      'Join our official Discord and WhatsApp groups, and follow our social media channels. We regularly post updates on workshops, projects, and social gatherings there.',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
@@ -267,19 +267,23 @@ export default function FAQ() {
           </div>
 
           {/* Headline */}
-          <h2 className="font-display font-bold text-text tracking-tight leading-tight text-4xl md:text-5xl lg:text-6xl">
-            {['Everything', 'you', 'need', 'to', 'know.'].map((word, i) => (
-              <motion.span
-                key={word + i}
-                className="inline-block"
-                style={{ marginRight: '0.28em' }}
-                initial={{ opacity: 0, y: 28, filter: 'blur(6px)' }}
-                animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
-                transition={{ duration: 0.6, delay: 0.28 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-              >
-                {word}
-              </motion.span>
-            ))}
+          <h2
+            className="font-display font-black leading-none tracking-tight"
+            style={{ fontSize: 'clamp(2.4rem, 5vw, 4.2rem)' }}
+          >
+            <span
+              className="text-transparent"
+              style={{ WebkitTextStroke: '2px #111111' }}
+            >
+              Everything 
+            </span>
+            <span className="text-black">you need to </span>
+            <span
+              className="text-transparent"
+              style={{ WebkitTextStroke: '2px #111111' }}
+            >
+              know.
+            </span>
           </h2>
         </div>
 

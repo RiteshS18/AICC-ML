@@ -288,7 +288,18 @@ export default function Events() {
 
         {/* ── Title (always centered, always visible) ── */}
         <div className="flex-shrink-0 pt-10 pb-4 text-center">
-          <SectionHeader eyebrow="What We Do" title="Flagship Events" />
+          <h2
+            className="font-display font-black leading-none tracking-tight"
+            style={{ fontSize: 'clamp(2.4rem, 5vw, 4.2rem)' }}
+          >
+            <span className="text-black">What We </span>
+            <span
+              className="text-transparent"
+              style={{ WebkitTextStroke: '2px #111111' }}
+            >
+              Do.
+            </span>
+          </h2>
         </div>
 
         {/* ── Two column layout ── */}

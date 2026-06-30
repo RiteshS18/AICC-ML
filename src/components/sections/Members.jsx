@@ -7,7 +7,7 @@ const positionOrder = [
   'Additional Secretary',
   'Joint Secretary',
   'Treasurer',
-  'Technical Head',
+  'Technical Team',
   'Multimedia Team',
   'Executive Member',
 ];
@@ -103,9 +103,18 @@ function MemberCard({ member, index }) {
 }
 
 // ── Scroll-animated group header ─────────────────────────────────────────────
-function GroupHeader({ position, isFirst }) {
+function GroupHeader({ position, isFirst, count }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-40px' });
+
+  let displayTitle = position;
+  if (count > 1 && !position.includes('Team')) {
+    if (position.endsWith('y')) {
+      displayTitle = position.slice(0, -1) + 'ies';
+    } else {
+      displayTitle = position + 's';
+    }
+  }
 
   return (
     <motion.div
@@ -117,7 +126,7 @@ function GroupHeader({ position, isFirst }) {
     >
       <div className="w-2 h-2 rounded-full bg-gradient-to-r from-primary to-accent flex-shrink-0" />
       <h3 className="text-lg font-display font-semibold text-text whitespace-nowrap">
-        {position}
+        {displayTitle}
       </h3>
       <div className="flex-1 h-px bg-border" />
     </motion.div>
@@ -268,7 +277,7 @@ export default function Members() {
               return (
                 <div key={position}>
                   {/* Group Header */}
-                  <GroupHeader position={position} isFirst={groupIndex === 0} />
+                  <GroupHeader position={position} isFirst={groupIndex === 0} count={group.length} />
 
                   {/* Members Grid */}
                   <div

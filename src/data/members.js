@@ -12,13 +12,13 @@ const members2526 = [
   { name: "Haryni A S", position: "Joint Secretary", image: "/Members/25-26/haryini.webp", year: "2025-26", branch: "AI-DS" },
   { name: "Jaisanth K", position: "Treasurer", image: "/Members/25-26/jaisanth.webp", year: "2025-26", branch: "AI-DS" },
   { name: "Nagumeena Udayappan", position: "Treasurer", image: "/Members/25-26/nagumeena.webp", year: "2025-26", branch: "AI-DS" },
-  { name: "DivyaDharshini J", position: "Treasurer", image: "/Members/25-26/divyadharshini.webp", year: "2025-26", branch: "AI-DS" },
+  { name: "DivyaDharshini J", position: "Treasurer", image: "/Members/25-26/Divyadharshini.webp", year: "2025-26", branch: "AI-DS" },
   { name: "SriAnish Rameshwaran", position: "Treasurer", image: "/Members/25-26/anish.webp", year: "2025-26", branch: "AI-DS" },
-  { name: "Dinesh K", position: "Technical Head", image: "/Members/25-26/dinesh.webp", year: "2025-26", branch: "AI-DS" },
-  { name: "Rahul K", position: "Technical Head", image: "/Members/25-26/rahul.webp", year: "2025-26", branch: "AI-DS" },
-  { name: "Poornima R K", position: "Technical Head", image: "/Members/25-26/poornima.webp", year: "2025-26", branch: "AI-DS" },
-  { name: "Madan Prasant N V", position: "Technical Head", image: "/Members/25-26/madan.webp", year: "2025-26", branch: "AI-DS" },
-  { name: "Tawfeeq B", position: "Technical Head", image: "/Members/25-26/tawfeeq.webp", year: "2025-26", branch: "AI-DS" },
+  { name: "Dinesh K", position: "Technical Team", image: "/Members/25-26/dinesh.webp", year: "2025-26", branch: "AI-DS" },
+  { name: "Rahul K", position: "Technical Team", image: "/Members/25-26/rahul.webp", year: "2025-26", branch: "AI-DS" },
+  { name: "Poornima R K", position: "Technical Team", image: "/Members/25-26/poornima.webp", year: "2025-26", branch: "AI-DS" },
+  { name: "Madan Prasant N V", position: "Technical Team", image: "/Members/25-26/madan.webp", year: "2025-26", branch: "AI-DS" },
+  { name: "Tawfeeq B", position: "Technical Team", image: "/Members/25-26/tawfeeq.webp", year: "2025-26", branch: "AI-DS" },
   { name: "Sanjay Ramesh I", position: "Multimedia Team", image: "/Members/25-26/sanjay_ramesh.webp", year: "2025-26", branch: "AI-DS" },
   { name: "Dharun Kumar S", position: "Multimedia Team", image: "/Members/25-26/dharun.webp", year: "2025-26", branch: "AI-DS" },
   { name: "Ragul R", position: "Multimedia Team", image: "/Members/25-26/ragul.webp", year: "2025-26", branch: "AI-DS" },
@@ -54,17 +54,17 @@ const members2627_AIDS = [
   { name: "Dharun Kumar S", position: "Treasurer", image: "/Members/26-27/AI&DS/Treasurer_dharun.jpeg", year: "2026-27", branch: "AI-DS" },
   { name: "Deeksha DS", position: "Treasurer", image: "/Members/26-27/AI&DS/Treasurer_deeksha.jpeg", year: "2026-27", branch: "AI-DS" },
 
-  // Technical Head
-  { name: "Aadhithya R", position: "Technical Head", image: "/Members/26-27/AI&DS/Tech_aadhithya.webp", year: "2026-27", branch: "AI-DS" },
-  { name: "Nikilesh Karthik J S", position: "Technical Head", image: "/Members/26-27/AI&DS/Tech_nikilesh.webp", year: "2026-27", branch: "AI-DS" },
-  { name: "Sudharshini B", position: "Technical Head", image: "/Members/26-27/AI&DS/Tech_sudharshini.png", year: "2026-27", branch: "AI-DS" },
-  { name: "Vasantha Kumar A", position: "Technical Head", image: null, year: "2026-27", branch: "AI-DS" },
+  // Technical Team
+  { name: "Aadhithya R", position: "Technical Team", image: "/Members/26-27/AI&DS/Tech_aadhithya.webp", year: "2026-27", branch: "AI-DS" },
+  { name: "Nikilesh Karthik J S", position: "Technical Team", image: "/Members/26-27/AI&DS/Tech_nikilesh.webp", year: "2026-27", branch: "AI-DS" },
+  { name: "Sudharshini B", position: "Technical Team", image: "/Members/26-27/AI&DS/Tech_sudharshini.png", year: "2026-27", branch: "AI-DS" },
+  { name: "Vasantha Kumar A", position: "Technical Team", image: null, year: "2026-27", branch: "AI-DS" },
 
   // Multimedia Team
   { name: "Mahesh Kumar K S", position: "Multimedia Team", image: "/Members/26-27/AI&DS/Media_mahesh.jpeg", year: "2026-27", branch: "AI-DS" },
   { name: "Ragul R", position: "Multimedia Team", image: "/Members/26-27/AI&DS/Media_Ragul.jpeg", year: "2026-27", branch: "AI-DS" },
-  { name: "Sridharan S", position: "Multimedia Team", image: null, year: "2026-27", branch: "AI-DS" },
-  { name: "Neethu S", position: "Multimedia Team", image: null, year: "2026-27", branch: "AI-DS" },
+  { name: "Sridharan S", position: "Multimedia Team", image: "/Members/26-27/AI&DS/MultiMedia_Sridharan.jpeg", year: "2026-27", branch: "AI-DS" },
+  { name: "Neethu S", position: "Multimedia Team", image: "/Members/26-27/AI&DS/Media_Neethu.jpeg", year: "2026-27", branch: "AI-DS" },
 
   // Executive Members — unnamed, represented by class
   { name: "II - DS - A", position: "Executive Member", image: null, year: "2026-27", branch: "AI-DS", isClassCard: true },

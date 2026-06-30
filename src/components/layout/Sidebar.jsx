@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Home, Info, CalendarDays, Camera, Users, Mail } from 'lucide-react'
+import { Home, Info, CalendarDays, Camera, Users, Mail, Trophy } from 'lucide-react'
 import { FaLinkedinIn, FaInstagram } from 'react-icons/fa'
 
 const navItems = [
@@ -9,6 +9,7 @@ const navItems = [
   { id: 'about', icon: Info, label: 'About' },
   { id: 'events', icon: CalendarDays, label: 'Events' },
   { id: 'gallery', icon: Camera, label: 'Gallery' },
+  { id: 'leaderboard', icon: Trophy, label: 'Standings' },
   { id: 'members', icon: Users, label: 'Members' },
 ]
 

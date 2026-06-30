@@ -12,15 +12,17 @@ export default function SectionHeader({ eyebrow, title, subtitle, align = 'cente
       className={isCenter ? 'text-center' : 'text-left'}
     >
       {/* Eyebrow */}
-      <div className={`flex items-center gap-2 ${isCenter ? 'justify-center' : ''}`}>
-        <div
-          className="w-3 h-0.5 rounded-full"
-          style={{ background: 'linear-gradient(to right, #4f46e5, #7c3aed)' }}
-        />
-        <span className="uppercase text-xs tracking-[0.2em] font-semibold text-primary">
-          {eyebrow}
-        </span>
-      </div>
+      {eyebrow && (
+        <div className={`flex items-center gap-2 ${isCenter ? 'justify-center' : ''}`}>
+          <div
+            className="w-3 h-0.5 rounded-full"
+            style={{ background: 'linear-gradient(to right, #4f46e5, #7c3aed)' }}
+          />
+          <span className="uppercase text-xs tracking-[0.2em] font-semibold text-primary">
+            {eyebrow}
+          </span>
+        </div>
+      )}
 
       {/* Title */}
       <h2 className="mt-4 text-4xl md:text-5xl font-display font-bold text-text">

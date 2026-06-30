@@ -11,10 +11,12 @@ import ClubEssentials from './components/sections/ClubEssentials'
 import YearCards from './components/sections/YearCards'
 import Members from './components/sections/Members'
 import Highlights from './components/sections/Highlights'
+import Projects from './components/sections/Projects'
 import FAQ from './components/sections/FAQ'
 import Footer from './components/sections/Footer'
 import GalleryPage from './pages/GalleryPage'
 import SDGPage from './pages/SDGPage'
+import ExamInvigilator from './pages/projects/ExamInvigilator/ExamInvigilator'
 
 function HomePage({ intro }) {
   return (
@@ -25,6 +27,7 @@ function HomePage({ intro }) {
       <Events />
       <YearCards />
       <Highlights />
+      <Projects />
       <FAQ />
       <Footer />
     </>
@@ -61,6 +64,7 @@ export default function App() {
           <Route path='/gallery' element={<GalleryPage />} />
           <Route path='/sdg' element={<Layout><SDGPage /></Layout>} />
           <Route path='/event/:id' element={<EventDetails />} />
+          <Route path='/exam-invigilator' element={<ExamInvigilator />} />
         </Routes>
       </div>
     </>

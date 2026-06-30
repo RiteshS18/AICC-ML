@@ -1,22 +1,21 @@
 import { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
 import { Users, CalendarCheck, Zap, Trophy, Rocket } from 'lucide-react';
+
 
 const cards = [
   {
     id: '01',
     year: '2022',
-    month: 'AUG',
     icon: Users,
     title: 'Club Founded',
     tag: 'ORIGINS',
-    desc: 'The AI Coding Club was born from a shared passion for technology. Forty founding members set the culture of curiosity, collaboration, and building things that matter.',
+    desc: 'The AI Coding Club was born from a shared passion for technology. 10 members set the culture of curiosity, collaboration, and building things that matter.',
     dark: false,
   },
   {
     id: '02',
     year: '2023',
-    month: 'SEP',
     icon: CalendarCheck,
     title: 'First Hackathon',
     tag: 'MILESTONE',
@@ -26,31 +25,28 @@ const cards = [
   {
     id: '03',
     year: '2024',
-    month: 'AUG',
     icon: Zap,
-    title: 'Innovation Drive',
+    title: 'Rising Prominence',
     tag: 'GROWTH',
-    desc: 'Real-world projects, SDG-aligned hackathons, and cross-departmental collaborations. We did not just learn — we built things with impact.',
+    desc: 'The club experienced explosive growth, stepping into the spotlight with unprecedented visibility. We orchestrated a diverse lineup of transformative events, directly empowering students to elevate their technical prowess.',
     dark: false,
   },
   {
     id: '04',
     year: '2025',
-    month: 'FEB',
     icon: Rocket,
-    title: 'Scaling Impact',
+    title: 'Flagship Innovations',
     tag: 'EXPANSION',
-    desc: 'Launch of advanced specialized tracks, community outreach programs, and deep tech research groups.',
+    desc: 'A landmark year defined by our flagship marquee event, Hackvotrix. We launched a powerful series of skill-building initiatives and workshops, cementing our role as a catalyst for student innovation.',
     dark: false,
   },
   {
     id: '05',
     year: '2026',
-    month: 'NOW',
     icon: Trophy,
     title: 'The New Era',
     tag: 'TODAY',
-    desc: '200+ members strong. AICC is now a movement — training the next generation of builders, thinkers, and innovators at the forefront of AI.',
+    desc: 'Stepping into a new era as a tightly-knit family of 25+ passionate innovators. Our focus runs deep: building collaborative projects, fostering meaningful interactions, and driving a relentless culture of knowledge sharing.',
     dark: true,
   },
 ];
@@ -78,7 +74,6 @@ function ScrollCard({ data, index, progress }) {
     <motion.div
       style={{ opacity, y, scale }}
       className="relative rounded-2xl overflow-hidden flex flex-col h-full"
-      css-data-id={data.id}
     >
       {/* Card shell */}
       <div
@@ -119,7 +114,7 @@ function ScrollCard({ data, index, progress }) {
           />
         </div>
 
-        {/* Year + Month */}
+        {/* Year */}
         <div className="flex items-baseline gap-2 mb-1">
           <span
             className="font-display font-black leading-none"
@@ -130,9 +125,6 @@ function ScrollCard({ data, index, progress }) {
             }}
           >
             {data.year}
-          </span>
-          <span className="font-bold text-sm tracking-wider" style={{ color: '#2563eb' }}>
-            {data.month}
           </span>
         </div>
 
@@ -184,7 +176,7 @@ function TimelineNode({ data, index, progress }) {
   const iconColor = useTransform(
     progress,
     [startReveal - 0.04, startReveal + 0.04],
-    ['#b0b0b0', '#ffffff']
+    ['#888888', '#111111']
   );
   const scale = useTransform(
     progress,
@@ -225,8 +217,10 @@ function TimelineFill({ progress }) {
 
 // ── Main export ───────────────────────────────────────────────────────────────
 export default function YearCards() {
-  const sectionRef = useRef(null);
+  const sectionRef   = useRef(null);
   const [isDesktop, setIsDesktop] = useState(true);
+  // Raw progress value fed into ParticleCanvas (plain number, not motion value)
+  const [particleProgress, setParticleProgress] = useState(0);
 
   useEffect(() => {
     const check = () => setIsDesktop(window.innerWidth >= 1024);
@@ -235,27 +229,36 @@ export default function YearCards() {
     return () => window.removeEventListener('resize', check);
   }, []);
 
-  // Tall section so scroll drives everything
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end end'],
   });
 
+  // Mirror scroll progress into state so ParticleCanvas re-renders
+  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
+    setParticleProgress(latest);
+  });
+
   const xTransform = useTransform(scrollYProgress, [0, 1], ['0%', '-20%']);
-  const x = isDesktop ? xTransform : 0;
+  const x          = isDesktop ? xTransform : 0;
 
   return (
     <section
       ref={sectionRef}
       id="journey"
-      className="relative bg-white"
+      className="relative"
       style={{ height: '500vh' }}
     >
-      {/* Sticky container */}
+      {/* ── Sticky viewport ─────────────────────────────────────────────── */}
       <div className="sticky top-0 h-[100dvh] flex flex-col justify-center overflow-hidden">
-        <div className="max-w-7xl mx-auto w-full px-6 md:px-10">
 
-          {/* ── Header ── */}
+        {/* ── White background ──────────────────────────────────────────── */}
+        <div className="absolute inset-0 z-0" style={{ background: '#ffffff' }} />
+
+        {/* ── Content ─────────────────────────────────────────────────────── */}
+        <div className="max-w-7xl mx-auto w-full px-6 md:px-10 relative z-[2]">
+
+          {/* Header */}
           <div className="mb-10">
             <h2
               className="font-display font-black leading-none tracking-tight"
@@ -272,12 +275,12 @@ export default function YearCards() {
           </div>
 
           <motion.div style={{ x }} className="w-full lg:w-[125%]">
-            {/* ── Timeline ── */}
+            {/* Timeline */}
             <div className="relative flex items-center mb-10 px-5">
               {/* Gray track */}
               <div
                 className="absolute left-5 right-5 top-1/2 -translate-y-1/2 h-[2.5px] rounded-full"
-                style={{ background: '#e5e5e5' }}
+                style={{ background: 'rgba(0,0,0,0.08)' }}
               />
               {/* Animated blue fill */}
               <TimelineFill progress={scrollYProgress} />
@@ -294,7 +297,7 @@ export default function YearCards() {
               </div>
             </div>
 
-            {/* ── 5 Cards ── */}
+            {/* 5 Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
               {cards.map((card, i) => (
                 <ScrollCard

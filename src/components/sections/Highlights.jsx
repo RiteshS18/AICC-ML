@@ -18,12 +18,13 @@ const ALL_PHOTOS = [
   '/Farewel/WhatsApp Image 2026-06-15 at 19.03.56.jpeg', 
   '/Farewel/WhatsApp Image 2026-06-15 at 19.03.57.jpeg', 
   '/Farewel/WhatsApp Image 2026-06-15 at 19.22.55.jpeg',
+  '/Members/Frame.jpg',
 ];
 
 // Split photos into 3 rows
 const ROW1 = ALL_PHOTOS.slice(0, 11);
 const ROW2 = ALL_PHOTOS.slice(11, 22);
-const ROW3 = ALL_PHOTOS.slice(22, 33);
+const ROW3 = ALL_PHOTOS.slice(22);
 
 function PhotoRow({ images, direction = 1, scrollYProgress }) {
   // Map scroll progress to horizontal movement. 
@@ -193,19 +194,16 @@ export default function Highlights() {
           }}
         >
           <h2
-            style={{
-              fontFamily: '"Plus Jakarta Sans", sans-serif',
-              fontWeight: 800,
-              fontSize: 'clamp(3rem, 7vw, 6.5rem)',
-              lineHeight: 1.1,
-              color: '#111111',
-              letterSpacing: '-0.02em',
-              marginBottom: '16px',
-            }}
+            className="font-display font-black leading-none tracking-tight mb-4"
+            style={{ fontSize: 'clamp(2.4rem, 5vw, 4.2rem)' }}
           >
-            AI Coding Club&apos;s
-            <br />
-            Highlights
+            <span className="text-black">AI Coding Club's </span>
+            <span
+              className="text-transparent"
+              style={{ WebkitTextStroke: '2px #111111' }}
+            >
+              Highlights.
+            </span>
           </h2>
         </motion.div>
 
@@ -238,7 +236,7 @@ export default function Highlights() {
           
           <Link to="/members" className="group relative w-72 h-80 rounded-3xl overflow-hidden shadow-2xl bg-white flex flex-col hover:-translate-y-2 transition-transform duration-300">
             <div className="h-2/3 w-full relative overflow-hidden bg-gray-100">
-              <img src="/life/23-24_1.webp" alt="Members" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+              <img src="/Members/Frame.jpg" alt="Members" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
             </div>
             <div className="h-1/3 w-full flex items-center justify-center bg-white/95 backdrop-blur-sm">
               <span className="text-xl font-display font-bold text-slate-900 flex items-center gap-2">
