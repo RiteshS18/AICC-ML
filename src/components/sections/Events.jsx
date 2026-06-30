@@ -1,4 +1,4 @@
-import { useRef, useState, useMemo } from 'react';
+import { useRef, useState, useMemo, useEffect } from 'react';
 import {
   motion,
   AnimatePresence,
@@ -39,9 +39,9 @@ function StackedCard({ photo, cardIndex, progressMV, isFirstOfEvent }) {
   // X-axis slide on exit — direction alternates per event
   // First photo of a new event does NOT slide, just fades
   const x = useTransform(age, (a) => {
-    if (a <= 0) return 0;
-    if (isFirstOfEvent) return 0;
-    return smooth(a) * 320;
+    if (a <= 0) return '0%';
+    if (isFirstOfEvent) return '0%';
+    return `${smooth(a) * 110}%`;
   });
 
   // No vertical movement on exit
@@ -160,6 +160,52 @@ function StackedCards({ allPhotos, progressMV }) {
 }
 
 /* ─────────────────────────────────────────────────────────
+   Mobile Minimal Slider (No 3D overlap)
+───────────────────────────────────────────────────────── */
+function MobileSliderCard({ photo, cardIndex, progressMV }) {
+  const age = useTransform(progressMV, (p) => p - cardIndex);
+  
+  // Simple horizontal slide based on exact progress
+  const x = useTransform(age, (a) => `${-a * 100}%`);
+
+  return (
+    <motion.div
+      style={{
+        x,
+        position: 'absolute',
+        inset: 0,
+        borderRadius: '20px',
+        overflow: 'hidden',
+        willChange: 'transform',
+      }}
+    >
+      <img
+        src={photo}
+        alt=""
+        className="w-full h-full object-cover"
+        loading="lazy"
+        draggable={false}
+      />
+    </motion.div>
+  );
+}
+
+function MobileSliderCards({ allPhotos, progressMV }) {
+  return (
+    <div className="relative w-full h-full overflow-hidden rounded-2xl" style={{ transform: 'translateZ(0)' }}>
+      {allPhotos.map((photoData, idx) => (
+        <MobileSliderCard
+          key={idx}
+          photo={photoData.photo}
+          cardIndex={idx}
+          progressMV={progressMV}
+        />
+      ))}
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────
    Left panel — one event at a time, fades between events
 ───────────────────────────────────────────────────────── */
 function EventInfoPanel({ event, photoIndex, totalEventPhotos }) {
@@ -179,11 +225,11 @@ function EventInfoPanel({ event, photoIndex, totalEventPhotos }) {
         {statusLabels[event.status] || event.status}
       </span>
 
-      <h3 className="text-5xl xl:text-6xl font-display font-bold text-slate-900 leading-[1.05]">
+      <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-bold text-slate-900 leading-[1.05]">
         {event.title}
       </h3>
 
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-base font-medium text-slate-500">
+      <div className="flex flex-wrap items-center gap-x-4 lg:gap-x-6 gap-y-2 text-sm lg:text-base font-medium text-slate-500">
         {event.time && (
           <div className="flex items-center gap-2">
             <CalendarDays className="w-5 h-5 text-primary flex-shrink-0" />
@@ -198,14 +244,14 @@ function EventInfoPanel({ event, photoIndex, totalEventPhotos }) {
         )}
       </div>
 
-      <p className="text-slate-500 text-base leading-relaxed max-w-lg line-clamp-4">
+      <p className="text-slate-500 text-sm lg:text-base leading-relaxed max-w-lg line-clamp-3 lg:line-clamp-4">
         {event.description}
       </p>
 
-      <div className="flex items-center gap-6 mt-1">
+      <div className="flex items-center gap-4 lg:gap-6 mt-1">
         <Link
           to={`/event/${event.id}`}
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-base text-white transition-all duration-300 hover:scale-105 active:scale-95 shadow-md shadow-primary/20"
+          className="inline-flex items-center gap-2 px-5 py-2.5 lg:px-6 lg:py-3 rounded-full font-semibold text-sm lg:text-base text-white transition-all duration-300 hover:scale-105 active:scale-95 shadow-md shadow-primary/20"
           style={{ background: 'linear-gradient(135deg, #4f46e5, #7c3aed)' }}
         >
           View Details
@@ -237,6 +283,14 @@ function EventInfoPanel({ event, photoIndex, totalEventPhotos }) {
 export default function Events() {
   const sectionRef = useRef(null);
   const [currentGlobal, setCurrentGlobal] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 1024);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   const sortedEvents = useMemo(() =>
     [...eventsData].sort(
@@ -270,7 +324,7 @@ export default function Events() {
   const progressMV = useTransform(scrollYProgress, [0, 1], [0, totalPhotos - 0.001]);
 
   useMotionValueEvent(progressMV, 'change', (p) => {
-    setCurrentGlobal(Math.max(0, Math.min(Math.floor(p), totalPhotos - 1)));
+    setCurrentGlobal(Math.max(0, Math.min(Math.round(p), totalPhotos - 1)));
   });
 
   const currentPhotoData = allPhotos[currentGlobal] ?? allPhotos[0];
@@ -303,10 +357,10 @@ export default function Events() {
         </div>
 
         {/* ── Two column layout ── */}
-        <div className="flex-1 flex gap-6 px-6 md:px-10 pb-6 overflow-hidden min-h-0">
+        <div className="flex-1 flex flex-col-reverse lg:flex-row gap-2 lg:gap-6 px-4 md:px-10 pb-6 overflow-hidden min-h-0">
 
           {/* Left — event info: ONE event at a time, fades */}
-          <div className="hidden lg:flex w-[45%] flex-col justify-center relative py-6">
+          <div className="flex w-full lg:w-[45%] h-1/2 lg:h-auto flex-col justify-center relative py-2 lg:py-6 overflow-hidden">
             <AnimatePresence mode="wait">
               <EventInfoPanel
                 key={currentEvent?.id}
@@ -318,9 +372,13 @@ export default function Events() {
           </div>
 
           {/* Right — stacked cards */}
-          <div className="w-full lg:w-[55%] relative flex items-center justify-center">
-            <div className="w-full max-w-[520px] aspect-[3/4] relative">
-              <StackedCards allPhotos={allPhotos} progressMV={progressMV} />
+          <div className="w-full lg:w-[55%] h-1/2 lg:h-auto relative flex items-center justify-center min-h-0">
+            <div className="h-full w-auto aspect-[4/5] sm:aspect-[3/4] relative mt-2 lg:mt-0 flex-shrink-0">
+              {isDesktop ? (
+                <StackedCards allPhotos={allPhotos} progressMV={progressMV} />
+              ) : (
+                <MobileSliderCards allPhotos={allPhotos} progressMV={progressMV} />
+              )}
             </div>
 
             {/* Scroll hint on first load */}
@@ -342,58 +400,6 @@ export default function Events() {
           </div>
 
         </div>
-
-        {/* ── Mobile: event info strip ── */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentEvent?.id}
-            className="lg:hidden flex-shrink-0 mx-4 mb-4 px-4 py-3 rounded-2xl"
-            style={{
-              background: 'rgba(255,255,255,0.85)',
-              backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(0,0,0,0.06)',
-            }}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.35 }}
-          >
-            <div className="flex items-center justify-between">
-              <div>
-                <span className={`badge badge-${currentEvent?.status?.toLowerCase()} text-xs`}>
-                  {statusLabels[currentEvent?.status] || currentEvent?.status}
-                </span>
-                <p className="font-display font-bold text-text text-lg mt-1">{currentEvent?.title}</p>
-                {currentEvent?.time && (
-                  <p className="text-sm text-text-muted mt-0.5">{currentEvent.time}</p>
-                )}
-              </div>
-              <Link
-                to={`/event/${currentEvent?.id}`}
-                className="flex items-center gap-1 text-sm font-semibold text-primary"
-              >
-                Details <ArrowUpRight className="w-4 h-4" />
-              </Link>
-            </div>
-            {/* Photo dots */}
-            <div className="flex gap-1.5 mt-2">
-              {Array.from({ length: currentPhotoData.totalEventPhotos }, (_, i) => (
-                <div
-                  key={i}
-                  className="h-1.5 rounded-full transition-all duration-300"
-                  style={{
-                    width: i === currentPhotoData.photoIndex ? 20 : 6,
-                    background:
-                      i === currentPhotoData.photoIndex
-                        ? 'linear-gradient(to right, #4f46e5, #7c3aed)'
-                        : '#e2e8f0',
-                  }}
-                />
-              ))}
-            </div>
-          </motion.div>
-        </AnimatePresence>
-
       </div>
     </section>
   );

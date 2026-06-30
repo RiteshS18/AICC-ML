@@ -239,8 +239,11 @@ export default function YearCards() {
     setParticleProgress(latest);
   });
 
-  const xTransform = useTransform(scrollYProgress, [0, 1], ['0%', '-20%']);
-  const x          = isDesktop ? xTransform : 0;
+  // On desktop, we slide slightly because the cards almost fit.
+  // On mobile, we slide a lot more because the container is very wide.
+  const desktopX = useTransform(scrollYProgress, [0, 1], ['0%', '-20%']);
+  const mobileX  = useTransform(scrollYProgress, [0, 1], ['0%', '-80%']);
+  const x        = isDesktop ? desktopX : mobileX;
 
   return (
     <section
@@ -274,7 +277,7 @@ export default function YearCards() {
             </h2>
           </div>
 
-          <motion.div style={{ x }} className="w-full lg:w-[125%]">
+          <motion.div style={{ x }} className="w-[420vw] sm:w-[250vw] lg:w-[125%]">
             {/* Timeline */}
             <div className="relative flex items-center mb-10 px-5">
               {/* Gray track */}
@@ -298,14 +301,15 @@ export default function YearCards() {
             </div>
 
             {/* 5 Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div className="flex lg:grid lg:grid-cols-5 gap-4 w-full pr-8 lg:pr-0">
               {cards.map((card, i) => (
-                <ScrollCard
-                  key={card.id}
-                  data={card}
-                  index={i}
-                  progress={scrollYProgress}
-                />
+                <div key={card.id} className="w-[80vw] sm:w-[45vw] lg:w-auto flex-shrink-0 lg:flex-shrink">
+                  <ScrollCard
+                    data={card}
+                    index={i}
+                    progress={scrollYProgress}
+                  />
+                </div>
               ))}
             </div>
           </motion.div>
