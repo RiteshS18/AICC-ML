@@ -61,7 +61,7 @@ export default function App() {
         <Routes>
           <Route path='/' element={<Layout><HomePage intro={intro} /></Layout>} />
           <Route path='/members' element={<Layout><MembersPage /></Layout>} />
-          <Route path='/gallery' element={<GalleryPage />} />
+          <Route path='/gallery' element={<Layout><GalleryPage /></Layout>} />
           <Route path='/sdg' element={<Layout><SDGPage /></Layout>} />
           <Route path='/event/:id' element={<EventDetails />} />
           <Route path='/exam-invigilator' element={<ExamInvigilator />} />
