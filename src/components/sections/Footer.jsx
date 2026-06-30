@@ -7,7 +7,7 @@ const contacts = {
   ],
   secretaries: [
     { name: 'Jaisanth K', phone: '+91 99444 03749' },
-    { name: 'Rashmika K R', phone: '+91 76676 90991' },
+    { name: 'HariHarn', phone: '+91 93631 04647' },
   ],
 };
 
