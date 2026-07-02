@@ -6,6 +6,7 @@ import Layout from './components/layout/Layout'
 import Hero from './components/sections/Hero'
 import About from './components/sections/About'
 import Events from './components/sections/Events'
+import Leaderboard from './components/sections/Leaderboard'
 import EventDetails from './components/sections/EventDetails'
 import ClubEssentials from './components/sections/ClubEssentials'
 import YearCards from './components/sections/YearCards'
@@ -15,6 +16,7 @@ import Projects from './components/sections/Projects'
 import FAQ from './components/sections/FAQ'
 import Footer from './components/sections/Footer'
 import GalleryPage from './pages/GalleryPage'
+import HallOfFamePage from './pages/HallOfFamePage'
 import SDGPage from './pages/SDGPage'
 import ExamInvigilator from './pages/projects/ExamInvigilator/ExamInvigilator'
 
@@ -25,6 +27,7 @@ function HomePage({ intro }) {
       <About />
       <ClubEssentials />
       <Events />
+      <Leaderboard />
       <YearCards />
       <Highlights />
       <Projects />
@@ -62,6 +65,7 @@ export default function App() {
           <Route path='/' element={<Layout><HomePage intro={intro} /></Layout>} />
           <Route path='/members' element={<Layout><MembersPage /></Layout>} />
           <Route path='/gallery' element={<Layout><GalleryPage /></Layout>} />
+          <Route path='/hall-of-fame' element={<Layout><HallOfFamePage /></Layout>} />
           <Route path='/sdg' element={<Layout><SDGPage /></Layout>} />
           <Route path='/event/:id' element={<EventDetails />} />
           <Route path='/exam-invigilator' element={<ExamInvigilator />} />

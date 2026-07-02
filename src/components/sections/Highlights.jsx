@@ -5,20 +5,21 @@ import { ArrowUpRight } from 'lucide-react';
 
 // ── All AICC event photos ─────────────────────────────────────────────────────
 const ALL_PHOTOS = [
-  '/hackathon/hackathon1.webp', '/hackathon/hackathon2.webp', '/hackathon/hackathon3.webp',
-  '/hackathon/hackathon4.webp', '/hackathon/hackathon5.webp', '/hackathon/hackathon6.webp',
-  '/hackathon/hackathon7.webp', '/hackathon/hackathon8.webp',
-  '/thinkathon/thinkathon(1).webp', '/thinkathon/thinkathon(2).webp', '/thinkathon/thinkathon(3).webp',
-  '/thinkathon/thinkathon(4).webp', '/thinkathon/thinkathon(5).webp',
-  '/workshop/workshop(1).webp', '/workshop/workshop(2).webp', '/workshop/workshop(3).webp',
-  '/workshop/workshop(4).webp', '/workshop/workshop(5).webp',
-  '/hcs/HCS1(1).webp', '/hcs/HCS1(2).webp', '/hcs/HCS1(3).webp', '/hcs/HCS1(4).webp',
-  '/life/23-24_1.webp', '/life/23-24_2.webp', '/life/24-25_1.webp', '/life/24-25_2.webp',
-  '/life/24-25_3.webp', '/life/25-26_1.webp', '/life/25-26_2.webp', '/life/25-26_3.webp',
-  '/Farewel/WhatsApp Image 2026-06-15 at 19.03.56.jpeg', 
-  '/Farewel/WhatsApp Image 2026-06-15 at 19.03.57.jpeg', 
-  '/Farewel/WhatsApp Image 2026-06-15 at 19.22.55.jpeg',
-  '/Members/Frame.jpg',
+  // Row 1 - diverse mix
+  '/hackathon/hackathon1.webp', '/thinkathon/thinkathon(1).webp', '/workshop/workshop(1).webp',
+  '/life/25-26_1.webp', '/HackSphere/IMG_20260220_215326.jpg', '/hcs/HCS1(1).webp',
+  '/Farewel/WhatsApp Image 2026-06-15 at 19.22.55.jpeg', '/hackathon/hackathon5.webp',
+  '/interaction/20250811_32719pmByGPSMapCamera.jpg', '/life/24-25_1.webp', '/thinkathon/thinkathon(4).webp',
+  // Row 2 - different images
+  '/hackathon/hackathon3.webp', '/workshop/workshop(3).webp', '/life/25-26_2.webp',
+  '/HackSphere/IMG_20260220_215341.jpg', '/hcs/HCS1(4).webp', '/thinkathon/thinkathon(2).webp',
+  '/hackathon/hackathon7.webp', '/Farewel/WhatsApp Image 2026-06-15 at 19.03.56.jpeg',
+  '/workshop/workshop(5).webp', '/interaction/20250811_32858pmByGPSMapCamera.jpg', '/life/23-24_1.webp',
+  // Row 3 - remaining unique images
+  '/hackathon/hackathon2.webp', '/thinkathon/thinkathon(5).webp', '/workshop/workshop(4).webp',
+  '/life/25-26_3.webp', '/HackSphere/IMG_20260220_215421.jpg', '/hcs/HCS1(2).webp',
+  '/hackathon/hackathon6.webp', '/Farewel/WhatsApp Image 2026-06-15 at 19.03.57.jpeg',
+  '/interaction/20250811_40712PMByGPSMapCamera.jpg', '/Members/Frame.jpg', '/life/24-25_2.webp',
 ];
 
 // Split photos into 3 rows

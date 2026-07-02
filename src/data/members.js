@@ -38,7 +38,7 @@ const members2526 = [
 // ── 2026-27 AI&DS Members ────────────────────────────────────────────────────
 const members2627_AIDS = [
   // Secretary
-  { name: "Jaisanth K", position: "Secretary", image: "/Members/26-27/AI&DS/Secretary_Jaisanth.jpeg", year: "2026-27", branch: "AI-DS" },
+  { name: "Jaisanth K", position: "Secretary", image: "/Members/26-27/AI&DS/Secretary_Jaisanth.jpeg", year: "2026-27", branch: "AI-DS", link: "https://jaisanth.tech" },
 
   // Additional Secretary
   { name: "Sudhan N", position: "Additional Secretary", image: "/Members/26-27/AI&DS/Additional_sudhan.webp", year: "2026-27", branch: "AI-DS" },

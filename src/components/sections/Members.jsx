@@ -40,6 +40,9 @@ function MemberCard({ member, index }) {
   const hasImage = !!member.image;
   const isClassCard = !!member.isClassCard;
 
+  const CardWrapper = member.link ? 'a' : 'div';
+  const wrapperProps = member.link ? { href: member.link, target: "_blank", rel: "noopener noreferrer", className: "block" } : { className: "block" };
+
   return (
     <motion.div
       ref={ref}
@@ -52,8 +55,9 @@ function MemberCard({ member, index }) {
       }}
       className="group cursor-pointer"
     >
-      {/* Photo or Placeholder */}
-      <div className="relative overflow-hidden rounded-2xl aspect-square mb-3 shadow-sm group-hover:shadow-lg transition-shadow duration-300">
+      <CardWrapper {...wrapperProps}>
+        {/* Photo or Placeholder */}
+        <div className="relative overflow-hidden rounded-2xl aspect-square mb-3 shadow-sm group-hover:shadow-lg transition-shadow duration-300">
         {hasImage ? (
           <>
             <img
@@ -98,6 +102,7 @@ function MemberCard({ member, index }) {
           {isClassCard ? member.name : member.name}
         </p>
       </div>
+      </CardWrapper>
     </motion.div>
   );
 }

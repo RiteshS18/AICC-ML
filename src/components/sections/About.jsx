@@ -1,17 +1,17 @@
 import { useRef, useCallback } from 'react';
 import { motion, useInView, useMotionValue, useSpring } from 'framer-motion';
-import { Lightbulb, Target } from 'lucide-react';
+import { BookOpen, Users } from 'lucide-react';
 
 const cardData = [
   {
-    icon: Lightbulb,
-    title: 'Building Future Innovators',
-    text: 'Our vision is to create a thriving community of AI enthusiasts who push the boundaries of technology. We aim to nurture the next generation of innovators who will shape the future of artificial intelligence and transform industries with cutting-edge solutions.',
+    icon: BookOpen,
+    title: 'A Premier Learning Platform',
+    text: 'More than just a club, we are a dynamic learning platform dedicated to mastering AI and emerging tech. Through interactive workshops, coding sprints, and hands-on hackathons, we provide the resources and environment needed to turn theoretical concepts into real-world innovations.',
   },
   {
-    icon: Target,
-    title: 'Hands-On AI Learning',
-    text: 'We believe in learning by doing. Through workshops, hackathons, and collaborative projects, we provide students with real-world experience in AI development. Our mission is to bridge the gap between theoretical knowledge and practical application, empowering students to build impactful AI solutions.',
+    icon: Users,
+    title: 'A Community & Family',
+    text: 'At our core, we are a close-knit family of tech enthusiasts. We prioritize building strong connections, peer-to-peer mentorship, and a supportive network where every member feels valued. Together, we learn, grow, and celebrate our shared passion for technology.',
   },
 ];
 

@@ -401,8 +401,14 @@ export default function IntroScreen({ onComplete }) {
           <SceneFade key="s2" text="Now Its Time For Us." onDone={advance} fadeIn={800} hold={1100} />
         )}
         {scene === 3 && <SceneFirstClub key="s3" onDone={advance} />}
-        {scene === 4 && <SceneAICC      key="s4" onDone={onComplete} />}
+        {scene === 4 && <SceneAICC key="s4" onDone={onComplete} />}
       </AnimatePresence>
+      <button 
+        onClick={onComplete}
+        className="fixed bottom-6 right-8 text-sm font-semibold text-black/40 hover:text-black/80 transition-colors z-50 uppercase tracking-widest"
+      >
+        Skip
+      </button>
     </motion.div>
   );
 }

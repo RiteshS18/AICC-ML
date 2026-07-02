@@ -1,15 +1,13 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Home, Info, CalendarDays, Camera, Users, Mail, Trophy } from 'lucide-react'
+import { Home, Info, Target, Compass, CalendarDays, Trophy, Map, Sparkles, Code, HelpCircle, Camera, Users, Mail, Award } from 'lucide-react'
 import { FaLinkedinIn, FaInstagram } from 'react-icons/fa'
 
 const navItems = [
   { id: 'home', icon: Home, label: 'Home' },
-  { id: 'about', icon: Info, label: 'About' },
-  { id: 'events', icon: CalendarDays, label: 'Events' },
+  { id: 'hall-of-fame', icon: Award, label: 'Hall of Fame' },
   { id: 'gallery', icon: Camera, label: 'Gallery' },
-  { id: 'leaderboard', icon: Trophy, label: 'Standings' },
   { id: 'members', icon: Users, label: 'Members' },
 ]
 
@@ -48,8 +46,12 @@ export default function Sidebar() {
       setActiveSection('gallery')
       return
     }
+    if (location.pathname === '/hall-of-fame') {
+      setActiveSection('hall-of-fame')
+      return
+    }
 
-    const sectionIds = navItems.filter(i => i.id !== 'members' && i.id !== 'gallery').map((item) => item.id)
+    const sectionIds = navItems.filter(i => !['members', 'gallery', 'hall-of-fame'].includes(i.id)).map((item) => item.id)
     const observers = []
 
     const handleIntersect = (entries) => {
@@ -84,6 +86,8 @@ export default function Sidebar() {
       navigate('/members')
     } else if (id === 'gallery') {
       navigate('/gallery')
+    } else if (id === 'hall-of-fame') {
+      navigate('/hall-of-fame')
     } else {
       if (location.pathname !== '/') {
         navigate('/')
