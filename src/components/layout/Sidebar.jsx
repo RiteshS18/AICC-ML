@@ -82,6 +82,9 @@ export default function Sidebar() {
 
   // ── Navigation handler ──
   const handleNavClick = useCallback((id) => {
+    const item = navItems.find(i => i.id === id)
+    if (item?.comingSoon) return
+
     if (id === 'members') {
       navigate('/members')
     } else if (id === 'gallery') {
@@ -153,7 +156,7 @@ export default function Sidebar() {
                 {/* Icon button */}
                 <button
                   onClick={() => handleNavClick(item.id)}
-                  className="flex items-center justify-center rounded-xl cursor-pointer transition-all duration-300"
+                  className={`flex items-center justify-center rounded-xl transition-all duration-300 ${item.comingSoon ? 'cursor-not-allowed opacity-40' : 'cursor-pointer'}`}
                   style={{
                     width: '40px',
                     height: '40px',
@@ -163,13 +166,13 @@ export default function Sidebar() {
                       : 'transparent',
                   }}
                   onMouseOver={(e) => {
-                    if (!isActive) {
+                    if (!isActive && !item.comingSoon) {
                       e.currentTarget.style.background = '#f1f5f9'
                       e.currentTarget.style.color = '#4f46e5'
                     }
                   }}
                   onMouseOut={(e) => {
-                    if (!isActive) {
+                    if (!isActive && !item.comingSoon) {
                       e.currentTarget.style.background = 'transparent'
                       e.currentTarget.style.color = '#94a3b8'
                     }

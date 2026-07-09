@@ -1,34 +1,9 @@
 import { motion } from 'framer-motion';
-import { Award, Star, Zap } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Award } from 'lucide-react';
 
-const participants = [
-  {
-    name: "John Doe",
-    batch: "2024-2028",
-    branch: "AI-DS",
-    eventsAttended: 12,
-    highlights: ["Hackathon Winner", "Active Contributor"],
-  },
-  {
-    name: "Jane Smith",
-    batch: "2024-2028",
-    branch: "AI-ML",
-    eventsAttended: 10,
-    highlights: ["Workshop Lead", "Top Coder"],
-  },
-  {
-    name: "Alice Johnson",
-    batch: "2025-2029",
-    branch: "AI-DS",
-    eventsAttended: 8,
-    highlights: ["Thinkathon Finalist", "Consistent Participant"],
-  }
-];
+const placeholders = [1, 2, 3];
 
 export default function HallOfFamePage() {
-  const navigate = useNavigate();
-
   return (
     <motion.div
       className="min-h-screen bg-off-white"
@@ -55,50 +30,81 @@ export default function HallOfFamePage() {
           </p>
         </motion.div>
 
-        {/* ═══════ Participants Grid ═══════ */}
+        {/* ═══════ Placeholder Cards ═══════ */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {participants.map((p, index) => (
+          {placeholders.map((_, index) => (
             <motion.div
-              key={p.name}
+              key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 hover:shadow-xl hover:border-amber-200 transition-all duration-300 group relative overflow-hidden"
+              style={{
+                background: 'rgba(255, 255, 255, 0.45)',
+                backdropFilter: 'blur(24px)',
+                WebkitBackdropFilter: 'blur(24px)',
+                borderRadius: '1.5rem',
+                padding: '3rem 2rem',
+                minHeight: '240px',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '1.25rem',
+                border: '1px solid rgba(255, 255, 255, 0.6)',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04)',
+              }}
             >
-              {/* Background Glow */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-amber-100 rounded-full blur-3xl opacity-0 group-hover:opacity-50 transition-opacity duration-500 -mr-10 -mt-10" />
-
-              <div className="relative z-10">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white text-2xl font-bold shadow-lg shadow-amber-500/30">
-                    {p.name.charAt(0)}
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-slate-900">{p.name}</h3>
-                    <p className="text-sm font-semibold text-slate-500">{p.branch} • {p.batch}</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2 mb-6">
-                  <div className="px-3 py-1.5 rounded-full bg-amber-50 text-amber-700 text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
-                    <Star className="w-3.5 h-3.5" />
-                    Continuous Participant
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3 text-sm text-slate-600 font-medium">
-                    <Zap className="w-4 h-4 text-amber-500" />
-                    <span>Attended {p.eventsAttended}+ Events</span>
-                  </div>
-                  {p.highlights.map(h => (
-                    <div key={h} className="flex items-center gap-3 text-sm text-slate-600 font-medium">
-                      <div className="w-1.5 h-1.5 rounded-full bg-slate-300 ml-1.5" />
-                      <span>{h}</span>
-                    </div>
-                  ))}
-                </div>
+              {/* Icon circle */}
+              <div
+                style={{
+                  width: '56px',
+                  height: '56px',
+                  borderRadius: '50%',
+                  background: 'rgba(245, 158, 11, 0.08)',
+                  border: '1px solid rgba(245, 158, 11, 0.15)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Award style={{ width: '24px', height: '24px', color: 'rgba(245, 158, 11, 0.35)' }} />
               </div>
+
+              {/* Blurred placeholder lines */}
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+                <div
+                  style={{
+                    width: '120px',
+                    height: '12px',
+                    borderRadius: '6px',
+                    background: 'rgba(0, 0, 0, 0.06)',
+                    filter: 'blur(1px)',
+                  }}
+                />
+                <div
+                  style={{
+                    width: '80px',
+                    height: '10px',
+                    borderRadius: '5px',
+                    background: 'rgba(0, 0, 0, 0.04)',
+                    filter: 'blur(1px)',
+                  }}
+                />
+              </div>
+
+              {/* Label */}
+              <span
+                style={{
+                  color: 'rgba(100, 116, 139, 0.6)',
+                  fontSize: '0.75rem',
+                  fontWeight: 600,
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                  marginTop: '0.25rem',
+                }}
+              >
+                Not yet started
+              </span>
             </motion.div>
           ))}
         </div>

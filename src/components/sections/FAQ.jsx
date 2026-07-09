@@ -63,17 +63,6 @@ const col1 = [
 const col2 = [
   {
     id: '06',
-    question: 'How much time commitment is required?',
-    answer:
-      'It is totally up to you! We generally meet once a week for core sessions. You can dedicate more time if you choose to participate in hackathons or specific projects.',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
-      </svg>
-    ),
-  },
-  {
-    id: '07',
     question: 'What are the benefits of joining?',
     answer:
       'You will gain hands-on experience with modern tech, build a strong portfolio, network with like-minded peers, and get exclusive access to resources and mentorship.',
@@ -84,18 +73,7 @@ const col2 = [
     ),
   },
   {
-    id: '08',
-    question: 'Can non-CS students join?',
-    answer:
-      'Absolutely! Tech intersects with every field. Whether you are from Mechanical, Civil, or Business, your diverse perspective is welcome and you will find value here.',
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" />
-      </svg>
-    ),
-  },
-  {
-    id: '09',
+    id: '07',
     question: 'How can I stay updated on club activities?',
     answer:
       'Join our official Discord and WhatsApp groups, and follow our social media channels. We regularly post updates on workshops, projects, and social gatherings there.',
@@ -106,7 +84,7 @@ const col2 = [
     ),
   },
   {
-    id: '10',
+    id: '08',
     question: 'Is the club environment inclusive?',
     answer:
       'Absolutely. AICC is committed to fostering a safe, respectful, and diverse environment for all members regardless of background, skill level, or identity. Everyone belongs here.',
