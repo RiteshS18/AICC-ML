@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
-import { Trophy, Clock, User, Hash, BookOpen } from 'lucide-react';
+import { Trophy, Clock, User, Hash, BookOpen, Award, ArrowRight } from 'lucide-react';
 import { leaderboardData } from '../../data/leaderboard';
-import EvilEye from '../ui/EvilEye';
 
 function LeaderboardCard({ title, yearData, delay = 0 }) {
   const isNotStarted = yearData.individuals.every(ind => ind.points === '--');
@@ -12,8 +11,10 @@ function LeaderboardCard({ title, yearData, delay = 0 }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.6, delay }}
-      className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-slate-100 flex-1 relative z-10 overflow-hidden"
+      className="flex-1 flex"
     >
+      <div className="w-full bg-white rounded-3xl shadow-xl overflow-hidden">
+        <div className="p-8 relative z-10 h-full">
       {/* Not Yet Started Overlay Banner */}
       {isNotStarted && (
         <div className="absolute top-4 right-4 z-20">
@@ -108,6 +109,8 @@ function LeaderboardCard({ title, yearData, delay = 0 }) {
           </div>
         </div>
       </div>
+        </div>
+      </div>
     </motion.div>
   );
 }
@@ -115,16 +118,6 @@ function LeaderboardCard({ title, yearData, delay = 0 }) {
 export default function Leaderboard() {
   return (
     <section id="leaderboard" className="py-24 bg-slate-50 relative overflow-hidden">
-      {/* Evil Eye Background */}
-      <div className="absolute inset-0 z-0">
-        <EvilEye 
-          backgroundColor="#f8fafc" 
-          eyeColor="#FF4500" 
-          glowIntensity={0.6}
-          intensity={1.8}
-        />
-      </div>
-
       <div className="max-w-7xl mx-auto px-6 md:px-10 relative z-10 pointer-events-none">
         
         {/* Title */}

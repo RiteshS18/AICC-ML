@@ -1,6 +1,8 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
 import { Users, CalendarCheck, Zap, Trophy, Rocket } from 'lucide-react';
+import Hyperspeed from '../ui/Hyperspeed';
+import { useMemo } from 'react';
 
 
 const cards = [
@@ -169,14 +171,14 @@ function TimelineNode({ data, index, progress }) {
     progress,
     [startReveal - 0.04, startReveal + 0.04],
     [
-      '#d4d4d4',
-      index === cards.length - 1 ? '#2563eb' : '#111111',
+      'rgba(255,255,255,0.1)',
+      index === cards.length - 1 ? '#2563eb' : '#ffffff',
     ]
   );
   const iconColor = useTransform(
     progress,
     [startReveal - 0.04, startReveal + 0.04],
-    ['#888888', '#111111']
+    ['rgba(255,255,255,0.3)', '#111111']
   );
   const scale = useTransform(
     progress,
@@ -216,6 +218,43 @@ function TimelineFill({ progress }) {
 }
 
 // ── Main export ───────────────────────────────────────────────────────────────
+
+const hyperspeedOptions = {
+  distortion: "xyDistortion",
+  length: 400,
+  roadWidth: 9,
+  islandWidth: 2,
+  lanesPerRoad: 3,
+  fov: 90,
+  fovSpeedUp: 150,
+  speedUp: 3,
+  carLightsFade: 0.4,
+  totalSideLightSticks: 50,
+  lightPairsPerRoadWay: 30,
+  shoulderLinesWidthPercentage: 0.05,
+  brokenLinesWidthPercentage: 0.1,
+  brokenLinesLengthPercentage: 0.5,
+  lightStickWidth: [0.02, 0.05],
+  lightStickHeight: [0.3, 0.7],
+  movingAwaySpeed: [20, 50],
+  movingCloserSpeed: [-150, -230],
+  carLightsLength: [20, 80],
+  carLightsRadius: [0.03, 0.08],
+  carWidthPercentage: [0.1, 0.5],
+  carShiftX: [-0.5, 0.5],
+  carFloorSeparation: [0, 0.1],
+  colors: {
+    roadColor: 0x080808,
+    islandColor: 0x0a0a0a,
+    background: 0x000000,
+    shoulderLines: 0x131318,
+    brokenLines: 0x131318,
+    leftCars: [0x7d0d1b, 0xa90519, 0xff102a],
+    rightCars: [0xf1eece, 0xe6e2b1, 0xdfd98a],
+    sticks: 0xf1eece
+  }
+};
+
 export default function YearCards() {
   const sectionRef   = useRef(null);
   const [isDesktop, setIsDesktop] = useState(true);
@@ -255,8 +294,7 @@ export default function YearCards() {
       {/* ── Sticky viewport ─────────────────────────────────────────────── */}
       <div className="sticky top-0 h-[100dvh] flex flex-col justify-center overflow-hidden">
 
-        {/* ── White background ──────────────────────────────────────────── */}
-        <div className="absolute inset-0 z-0" style={{ background: '#ffffff' }} />
+
 
         {/* ── Content ─────────────────────────────────────────────────────── */}
         <div className="max-w-7xl mx-auto w-full px-6 md:px-10 relative z-[2]">
@@ -267,11 +305,8 @@ export default function YearCards() {
               className="font-display font-black leading-none tracking-tight"
               style={{ fontSize: 'clamp(2.4rem, 5vw, 4.2rem)' }}
             >
-              <span className="text-black">Our </span>
-              <span
-                className="text-transparent"
-                style={{ WebkitTextStroke: '2px #111111' }}
-              >
+              <span className="text-slate-900">Our </span>
+              <span className="text-slate-900">
                 Journey.
               </span>
             </h2>
@@ -283,7 +318,7 @@ export default function YearCards() {
               {/* Gray track */}
               <div
                 className="absolute left-5 right-5 top-1/2 -translate-y-1/2 h-[2.5px] rounded-full"
-                style={{ background: 'rgba(0,0,0,0.08)' }}
+                style={{ background: 'rgba(255,255,255,0.1)' }}
               />
               {/* Animated blue fill */}
               <TimelineFill progress={scrollYProgress} />

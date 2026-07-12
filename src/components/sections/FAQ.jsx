@@ -266,7 +266,7 @@ export default function FAQ() {
         </div>
 
         {/* ── Two-column FAQ grid ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 xl:gap-x-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 xl:gap-x-24 relative">
 
           {/* Left column */}
           <div>
@@ -279,7 +279,7 @@ export default function FAQ() {
           </div>
 
           {/* Divider — vertical line (desktop only) */}
-          <div className="hidden lg:block absolute left-1/2 -translate-x-px" style={{ top: '22rem', bottom: '4rem' }}>
+          <div className="hidden lg:block absolute left-1/2 -translate-x-px" style={{ top: 0, bottom: 0 }}>
             <motion.div
               className="w-px h-full"
               style={{ background: 'linear-gradient(to bottom, transparent, #e2e8f0 15%, #e2e8f0 85%, transparent)' }}
@@ -300,6 +300,101 @@ export default function FAQ() {
             </div>
           </div>
 
+        </div>
+
+        {/* ── Join our community ── */}
+        <div className="mt-28 md:mt-40">
+          {/* Eyebrow */}
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <motion.div
+              className="h-px rounded-full"
+              style={{ background: 'linear-gradient(to right, #4f46e5, #7c3aed)' }}
+              initial={{ width: 0, opacity: 0 }}
+              whileInView={{ width: 28, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            />
+            <motion.p
+              className="text-primary text-xs font-bold tracking-[0.22em] uppercase"
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: 0.15 }}
+            >
+              Get Involved
+            </motion.p>
+            <motion.div
+              className="h-px rounded-full"
+              style={{ background: 'linear-gradient(to right, #7c3aed, #4f46e5)' }}
+              initial={{ width: 0, opacity: 0 }}
+              whileInView={{ width: 28, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            />
+          </div>
+
+          {/* Headline */}
+          <h2
+            className="font-display font-black leading-none tracking-tight text-center mb-16 md:mb-20"
+            style={{ fontSize: 'clamp(2.4rem, 5vw, 4.2rem)' }}
+          >
+            <span
+              className="text-transparent"
+              style={{ WebkitTextStroke: '2px #111111' }}
+            >
+              Join 
+            </span>
+            <span className="text-black">our </span>
+            <span
+              className="text-transparent"
+              style={{ WebkitTextStroke: '2px #111111' }}
+            >
+              community.
+            </span>
+          </h2>
+
+          {/* QR Codes Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 max-w-2xl mx-auto mt-12">
+            <motion.a 
+              href="https://chat.whatsapp.com/COwfbo7EXsX4m07IqTVfMh"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center group cursor-pointer"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <img 
+                src="/2nd_year_qr.png" 
+                alt="2nd Year Group QR Code" 
+                className="w-64 h-64 md:w-72 md:h-72 object-contain rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] group-hover:-translate-y-2 group-hover:shadow-[0_20px_40px_rgb(0,0,0,0.12)] transition-all duration-300 mb-6 bg-white" 
+              />
+              <h3 className="text-xl md:text-2xl font-bold font-display text-slate-900 group-hover:text-primary transition-colors duration-300">
+                2nd Year
+              </h3>
+            </motion.a>
+
+            <motion.a 
+              href="https://chat.whatsapp.com/FogewpJ6b4vKUU1y7T3gaQ"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center group cursor-pointer"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <img 
+                src="/3rd_year_qr.png" 
+                alt="3rd Year Group QR Code" 
+                className="w-64 h-64 md:w-72 md:h-72 object-contain rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] group-hover:-translate-y-2 group-hover:shadow-[0_20px_40px_rgb(0,0,0,0.12)] transition-all duration-300 mb-6 bg-white" 
+              />
+              <h3 className="text-xl md:text-2xl font-bold font-display text-slate-900 group-hover:text-primary transition-colors duration-300">
+                3rd Year
+              </h3>
+            </motion.a>
+          </div>
         </div>
       </div>
     </section>

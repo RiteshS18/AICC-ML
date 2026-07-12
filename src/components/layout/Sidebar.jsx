@@ -6,7 +6,6 @@ import { FaLinkedinIn, FaInstagram } from 'react-icons/fa'
 
 const navItems = [
   { id: 'home', icon: Home, label: 'Home' },
-  { id: 'hall-of-fame', icon: Award, label: 'Hall of Fame' },
   { id: 'gallery', icon: Camera, label: 'Gallery' },
   { id: 'members', icon: Users, label: 'Members' },
 ]

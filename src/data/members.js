@@ -56,8 +56,8 @@ const members2627_AIDS = [
 
   // Technical Team
   { name: "Aadhithya R", position: "Technical Team", image: "/Members/26-27/AI&DS/Tech_aadhithya.webp", year: "2026-27", branch: "AI-DS" },
-  { name: "Nikilesh Karthik J S", position: "Technical Team", image: "/Members/26-27/AI&DS/Tech_nikilesh.webp", year: "2026-27", branch: "AI-DS" },
-  { name: "Sudharshini B", position: "Technical Team", image: "/Members/26-27/AI&DS/Tech_sudharshini.png", year: "2026-27", branch: "AI-DS" },
+  { name: "Nikilesh Karthik J S", position: "Technical Team", image: "/Members/26-27/AI&DS/Tech_nikilesh.jpeg", year: "2026-27", branch: "AI-DS" },
+  { name: "Tanisha B", position: "Technical Team", image: "/Members/26-27/AI&DS/Tech_Tanisha.jpeg", year: "2026-27", branch: "AI-DS" },
   { name: "Vasantha Kumar A", position: "Technical Team", image: "/Members/26-27/AI&DS/Tech_VasanthaKumar.jpeg", year: "2026-27", branch: "AI-DS" },
 
   // Multimedia Team

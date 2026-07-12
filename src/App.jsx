@@ -16,7 +16,7 @@ import Projects from './components/sections/Projects'
 import FAQ from './components/sections/FAQ'
 import Footer from './components/sections/Footer'
 import GalleryPage from './pages/GalleryPage'
-import HallOfFamePage from './pages/HallOfFamePage'
+import HallOfFame from './components/sections/HallOfFame'
 import SDGPage from './pages/SDGPage'
 import ExamInvigilator from './pages/projects/ExamInvigilator/ExamInvigilator'
 
@@ -28,6 +28,7 @@ function HomePage({ intro }) {
       <ClubEssentials />
       <Events />
       <Leaderboard />
+      <HallOfFame />
       <YearCards />
       <Highlights />
       <Projects />
@@ -65,7 +66,6 @@ export default function App() {
           <Route path='/' element={<Layout><HomePage intro={intro} /></Layout>} />
           <Route path='/members' element={<Layout><MembersPage /></Layout>} />
           <Route path='/gallery' element={<Layout><GalleryPage /></Layout>} />
-          <Route path='/hall-of-fame' element={<Layout><HallOfFamePage /></Layout>} />
           <Route path='/sdg' element={<Layout><SDGPage /></Layout>} />
           <Route path='/event/:id' element={<EventDetails />} />
           <Route path='/exam-invigilator' element={<ExamInvigilator />} />
