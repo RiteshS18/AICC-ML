@@ -215,7 +215,7 @@ function SceneFirstClub({ onDone }) {
         style={{ fontSize: 'clamp(2.2rem, 5.5vw, 4.2rem)', fontWeight: 800, letterSpacing: '-0.02em', fontFamily: 'var(--font-display, inherit)', lineHeight: 1.2 }}>
         The First Club of the
         <br />
-        <span style={{ color: 'var(--color-primary)' }}>Department of AI</span>
+        <span style={{ color: '#4f46e5' }}>Department of AI</span>
       </p>
     </motion.div>
   );
@@ -607,100 +607,10 @@ function SceneAICC({ onDone }) {
     display: 'inline-block',
   };
 
-  if (phase === 'selection') {
-    return (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.7 }}
-        className="absolute inset-0 flex items-center justify-center bg-white z-50 overflow-hidden"
-      >
-        <div className="relative w-full h-full flex items-center justify-center">
-
-          {/* DS Logo */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            onClick={() => onDone('ds')}
-            className="flex flex-col items-center cursor-pointer group absolute"
-            style={{
-              right: '50%',
-              marginRight: '3vw',
-              width: 'clamp(180px, 24vw, 300px)',
-              height: 'clamp(180px, 24vw, 300px)',
-              top: '50%',
-              y: '-50%',
-            }}
-          >
-            <motion.img
-              layoutId="old-logo"
-              src="/aicc-logo.webp"
-              alt="AI&DS Coding Club"
-              className="w-full h-full object-contain transition-all duration-300"
-              whileHover={{ scale: 1.08, filter: 'drop-shadow(0 0 0px transparent)' }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            />
-            <motion.p
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.45, duration: 0.5 }}
-              className="text-sm font-bold tracking-widest uppercase text-black/50 group-hover:text-black transition-colors duration-300 absolute top-[105%] whitespace-nowrap"
-            >
-              AI&amp;DS Coding Club
-            </motion.p>
-          </motion.div>
-
-          {/* ML Logo — gold glow + ring on hover */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            onClick={() => onDone('ml')}
-            className="flex flex-col items-center cursor-pointer group absolute"
-            style={{
-              left: '50%',
-              marginLeft: '3vw',
-              width: 'clamp(180px, 24vw, 300px)',
-              height: 'clamp(180px, 24vw, 300px)',
-              top: '50%',
-              y: '-50%',
-            }}
-          >
-            <motion.div
-              className="rounded-full p-[3px] transition-all duration-300 w-full h-full flex items-center justify-center"
-              whileHover={{
-                boxShadow: '0 0 0 3px #d97706, 0 0 32px 8px rgba(217,119,6,0.35)',
-                scale: 1.08,
-              }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <motion.img
-                layoutId="new-logo"
-                src="/aiml-logo.jpg"
-                alt="AI&ML Coding Club"
-                className="w-full h-full object-contain rounded-full block"
-              />
-            </motion.div>
-            <motion.p
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.55, duration: 0.5 }}
-              className="text-sm font-bold tracking-widest uppercase text-black/50 group-hover:text-[#d97706] transition-colors duration-300 absolute top-[105%] whitespace-nowrap"
-            >
-              AI&amp;ML Coding Club
-            </motion.p>
-          </motion.div>
-
-        </div>
-      </motion.div>
-    );
-  }
-
   return (
     <motion.div
       ref={measureRef}
-      className="absolute inset-0 flex items-center justify-center overflow-hidden px-2"
+      className="absolute inset-0 flex items-center justify-center overflow-hidden px-2 z-50 bg-white"
     >
       {/* Disintegrating Canvas (Infinity War ash dusting + merge effect) */}
       {phase === 'disintegrate' && (
@@ -733,93 +643,129 @@ function SceneAICC({ onDone }) {
         }}
       />
 
-      {/* Final Left Logo (Slides out from center, morph target) */}
-      <motion.img
-        layoutId="old-logo"
-        src="/aicc-logo.webp"
-        alt="AICC Old Logo"
+      {/* DS Logo Column */}
+      <motion.div
+        layoutId="old-logo-container"
         variants={finalLeftVariants}
         initial="hidden"
-        animate={phase}
+        animate={phase === 'selection' ? 'disintegrate' : phase}
+        onClick={() => phase === 'selection' && onDone('ds')}
+        className="flex flex-col items-center cursor-pointer group absolute"
         style={{
-          position: 'absolute',
           right: '50%',
           marginRight: '3vw',
           width: 'clamp(180px, 24vw, 300px)',
           height: 'clamp(180px, 24vw, 300px)',
           top: '50%',
           y: '-50%',
-          objectFit: 'contain',
-          pointerEvents: 'none',
-          userSelect: 'none',
-          zIndex: phase === 'disintegrate' ? 49 : 0,
+          pointerEvents: phase === 'selection' ? 'auto' : 'none',
+          zIndex: phase === 'disintegrate' ? 49 : 50,
         }}
-      />
+      >
+        <motion.img
+          layoutId="old-logo"
+          src="/aicc-logo.webp"
+          alt="AI&DS Coding Club"
+          className="w-full h-full object-contain transition-all duration-300"
+          whileHover={phase === 'selection' ? { scale: 1.08, filter: 'drop-shadow(0 0 0px transparent)' } : {}}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        />
+        <motion.p
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: phase === 'selection' ? 1 : 0, y: phase === 'selection' ? 0 : 8 }}
+          transition={{ delay: 0.25, duration: 0.5 }}
+          className="text-sm font-bold tracking-widest uppercase text-black/50 group-hover:text-black transition-colors duration-300 absolute top-[105%] whitespace-nowrap"
+        >
+          AI&amp;DS Coding Club
+        </motion.p>
+      </motion.div>
 
-      {/* Final Right Logo (Slides out from center, morph target) */}
-      <motion.img
-        layoutId="new-logo"
-        src="/aiml-logo.jpg"
-        alt="AICC New Logo"
+      {/* ML Logo Column — gold glow + ring on hover */}
+      <motion.div
+        layoutId="new-logo-container"
         variants={finalRightVariants}
         initial="hidden"
-        animate={phase}
-        className="rounded-full"
+        animate={phase === 'selection' ? 'disintegrate' : phase}
+        onClick={() => phase === 'selection' && onDone('ml')}
+        className="flex flex-col items-center cursor-pointer group absolute"
         style={{
-          position: 'absolute',
           left: '50%',
           marginLeft: '3vw',
           width: 'clamp(180px, 24vw, 300px)',
           height: 'clamp(180px, 24vw, 300px)',
           top: '50%',
           y: '-50%',
-          objectFit: 'contain',
-          pointerEvents: 'none',
-          userSelect: 'none',
-          zIndex: phase === 'disintegrate' ? 49 : 0,
+          pointerEvents: phase === 'selection' ? 'auto' : 'none',
+          zIndex: phase === 'disintegrate' ? 49 : 50,
         }}
-      />
+      >
+        <motion.div
+          className="rounded-full p-[3px] transition-all duration-300 w-full h-full flex items-center justify-center"
+          whileHover={phase === 'selection' ? {
+            boxShadow: '0 0 0 3px #d97706, 0 0 32px 8px rgba(217,119,6,0.35)',
+            scale: 1.08,
+          } : {}}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <motion.img
+            layoutId="new-logo"
+            src="/aiml-logo.jpg"
+            alt="AI&ML Coding Club"
+            className="w-full h-full object-contain rounded-full block"
+          />
+        </motion.div>
+        <motion.p
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: phase === 'selection' ? 1 : 0, y: phase === 'selection' ? 0 : 8 }}
+          transition={{ delay: 0.35, duration: 0.5 }}
+          className="text-sm font-bold tracking-widest uppercase text-black/50 group-hover:text-[#d97706] transition-colors duration-300 absolute top-[105%] whitespace-nowrap"
+        >
+          AI&amp;ML Coding Club
+        </motion.p>
+      </motion.div>
 
       {/* All text in one baseline-aligned flex row */}
-      <motion.div
-        className="relative z-10 flex items-baseline justify-center"
-        variants={textContainerVariants}
-        custom={isExpanded}
-        initial="hidden"
-        animate={phase}
-      >
-        {/* Word 1: AI */}
-        <span style={{ display: 'inline-flex', alignItems: 'baseline' }}>
-          <motion.span variants={letterVariants} style={textStyle}>A</motion.span>
-          <motion.span variants={letterVariants} style={textStyle}>I</motion.span>
-        </span>
+      {phase !== 'selection' && (
+        <motion.div
+          className="relative z-10 flex items-baseline justify-center"
+          variants={textContainerVariants}
+          custom={isExpanded}
+          initial="hidden"
+          animate={phase}
+        >
+          {/* Word 1: AI */}
+          <span style={{ display: 'inline-flex', alignItems: 'baseline' }}>
+            <motion.span variants={letterVariants} style={textStyle}>A</motion.span>
+            <motion.span variants={letterVariants} style={textStyle}>I</motion.span>
+          </span>
 
-        {/* Word 2: C + expanding "oding" */}
-        <span style={{ display: 'inline-flex', alignItems: 'baseline' }}>
-          <motion.span variants={letterVariants} style={textStyle}>C</motion.span>
-          <motion.span
-            initial={{ width: 0, opacity: 0 }}
-            animate={{ width: isExpanded ? 'auto' : 0, opacity: isExpanded ? 1 : 0 }}
-            transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
-            style={{ ...textStyle, overflow: 'hidden', whiteSpace: 'nowrap', display: 'inline-block' }}
-          >
-            oding
-          </motion.span>
-        </span>
+          {/* Word 2: C + expanding "oding" */}
+          <span style={{ display: 'inline-flex', alignItems: 'baseline' }}>
+            <motion.span variants={letterVariants} style={textStyle}>C</motion.span>
+            <motion.span
+              initial={{ width: 0, opacity: 0 }}
+              animate={{ width: isExpanded ? 'auto' : 0, opacity: isExpanded ? 1 : 0 }}
+              transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+              style={{ ...textStyle, overflow: 'hidden', whiteSpace: 'nowrap', display: 'inline-block' }}
+            >
+              oding
+            </motion.span>
+          </span>
 
-        {/* Word 3: C + expanding "lub" */}
-        <span style={{ display: 'inline-flex', alignItems: 'baseline' }}>
-          <motion.span variants={letterVariants} style={textStyle}>C</motion.span>
-          <motion.span
-            initial={{ width: 0, opacity: 0 }}
-            animate={{ width: isExpanded ? 'auto' : 0, opacity: isExpanded ? 1 : 0 }}
-            transition={{ duration: 1.0, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            style={{ ...textStyle, overflow: 'hidden', whiteSpace: 'nowrap', display: 'inline-block' }}
-          >
-            lub
-          </motion.span>
-        </span>
-      </motion.div>
+          {/* Word 3: C + expanding "lub" */}
+          <span style={{ display: 'inline-flex', alignItems: 'baseline' }}>
+            <motion.span variants={letterVariants} style={textStyle}>C</motion.span>
+            <motion.span
+              initial={{ width: 0, opacity: 0 }}
+              animate={{ width: isExpanded ? 'auto' : 0, opacity: isExpanded ? 1 : 0 }}
+              transition={{ duration: 1.0, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              style={{ ...textStyle, overflow: 'hidden', whiteSpace: 'nowrap', display: 'inline-block' }}
+            >
+              lub
+            </motion.span>
+          </span>
+        </motion.div>
+      )}
     </motion.div>
   );
 }
