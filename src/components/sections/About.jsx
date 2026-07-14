@@ -50,7 +50,7 @@ function TiltCard({ children, index, isInView }) {
       <motion.div
         className="glass-card p-8 h-full"
         style={{ rotateX: springRotateX, rotateY: springRotateY, transformStyle: 'preserve-3d' }}
-        whileHover={{ boxShadow: '0 24px 64px rgba(79, 70, 229, 0.10)' }}
+        whileHover={{ boxShadow: '0 24px 64px var(--color-primary-alpha)' }}
         transition={{ duration: 0.3 }}
       >
         {children}
@@ -77,7 +77,7 @@ export default function About() {
           <div className="flex items-center justify-center gap-3 mb-5">
             <motion.div
               className="h-px rounded-full"
-              style={{ background: 'linear-gradient(to right, #4f46e5, #7c3aed)' }}
+              style={{ background: 'linear-gradient(to right, var(--color-primary), var(--color-accent))' }}
               initial={{ width: 0, opacity: 0 }}
               animate={isInView ? { width: 24, opacity: 1 } : {}}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
@@ -92,7 +92,7 @@ export default function About() {
             </motion.span>
             <motion.div
               className="h-px rounded-full"
-              style={{ background: 'linear-gradient(to right, #7c3aed, #4f46e5)' }}
+              style={{ background: 'linear-gradient(to right, var(--color-accent), var(--color-primary))' }}
               initial={{ width: 0, opacity: 0 }}
               animate={isInView ? { width: 24, opacity: 1 } : {}}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
@@ -130,7 +130,7 @@ export default function About() {
                 {/* Icon — pops in with scale */}
                 <motion.div
                   className="w-14 h-14 rounded-2xl flex items-center justify-center text-white flex-shrink-0"
-                  style={{ background: 'linear-gradient(135deg, #4f46e5, #7c3aed)' }}
+                  style={{ background: 'linear-gradient(135deg, var(--color-primary), var(--color-accent))' }}
                   initial={{ opacity: 0, scale: 0.6 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
                   transition={{
@@ -158,7 +158,7 @@ export default function About() {
                     {/* Underline that slides in on reveal */}
                     <motion.span
                       className="absolute left-0 -bottom-0.5 h-px rounded-full"
-                      style={{ background: 'linear-gradient(to right, #4f46e5, #7c3aed)' }}
+                      style={{ background: 'linear-gradient(to right, var(--color-primary), var(--color-accent))' }}
                       initial={{ width: '0%' }}
                       animate={isInView ? { width: '100%' } : {}}
                       transition={{

@@ -65,7 +65,7 @@ export default function Achievements() {
           <div className="flex items-center justify-center gap-3 mb-4">
             <motion.div
               className="h-px rounded-full"
-              style={{ background: 'linear-gradient(to right, #4f46e5, #7c3aed)' }}
+              style={{ background: 'linear-gradient(to right, var(--color-primary), var(--color-accent))' }}
               initial={{ width: 0, opacity: 0 }}
               animate={isInView ? { width: 28, opacity: 1 } : {}}
               transition={{ duration: 0.5 }}
@@ -80,7 +80,7 @@ export default function Achievements() {
             </motion.p>
             <motion.div
               className="h-px rounded-full"
-              style={{ background: 'linear-gradient(to right, #7c3aed, #4f46e5)' }}
+              style={{ background: 'linear-gradient(to right, var(--color-accent), var(--color-primary))' }}
               initial={{ width: 0, opacity: 0 }}
               animate={isInView ? { width: 28, opacity: 1 } : {}}
               transition={{ duration: 0.5 }}

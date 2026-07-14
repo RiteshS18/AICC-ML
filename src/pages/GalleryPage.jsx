@@ -111,7 +111,7 @@ function StatBadge({ icon: Icon, value, label }) {
   const animatedValue = useCountUp(value);
   return (
     <div className="flex items-center gap-3 bg-white/80 backdrop-blur-sm border border-slate-200/60 rounded-2xl px-5 py-3 shadow-sm">
-      <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #4f46e5, #7c3aed)' }}>
+      <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, var(--color-primary), var(--color-accent))' }}>
         <Icon className="w-5 h-5 text-white" />
       </div>
       <div>
@@ -202,10 +202,10 @@ export default function GalleryPage() {
               style={{
                 color: activeCategory === category ? '#ffffff' : '#64748b',
                 background: activeCategory === category
-                  ? 'linear-gradient(135deg, #4f46e5, #7c3aed)'
+                  ? 'linear-gradient(135deg, var(--color-primary), var(--color-accent))'
                   : 'rgba(255,255,255,0.8)',
                 border: activeCategory === category ? '1px solid transparent' : '1px solid #e2e8f0',
-                boxShadow: activeCategory === category ? '0 4px 15px rgba(79,70,229,0.3)' : 'none',
+                boxShadow: activeCategory === category ? '0 4px 15px var(--color-primary-shadow)' : 'none',
               }}
             >
               {category}

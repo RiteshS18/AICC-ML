@@ -20,10 +20,10 @@ import HallOfFame from './components/sections/HallOfFame'
 import SDGPage from './pages/SDGPage'
 import ExamInvigilator from './pages/projects/ExamInvigilator/ExamInvigilator'
 
-function HomePage({ intro }) {
+function HomePage({ intro, setTheme }) {
   return (
     <>
-      <Hero intro={intro} />
+      <Hero intro={intro} setTheme={setTheme} />
       <About />
       <ClubEssentials />
       <Events />
@@ -49,11 +49,17 @@ function MembersPage() {
 
 export default function App() {
   const [intro, setIntro] = useState(true);
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'blue');
   const location = useLocation();
 
   useEffect(() => {
     if (!intro) window.scrollTo(0, 0);
   }, [location.pathname, intro]);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
 
   return (
     <>
@@ -63,7 +69,7 @@ export default function App() {
 
       <div style={{ opacity: intro ? 0 : 1, transition: 'opacity 0.5s ease' }}>
         <Routes>
-          <Route path='/' element={<Layout><HomePage intro={intro} /></Layout>} />
+          <Route path='/' element={<Layout><HomePage intro={intro} setTheme={setTheme} /></Layout>} />
           <Route path='/members' element={<Layout><MembersPage /></Layout>} />
           <Route path='/gallery' element={<Layout><GalleryPage /></Layout>} />
           <Route path='/sdg' element={<Layout><SDGPage /></Layout>} />

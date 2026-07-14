@@ -252,7 +252,7 @@ function EventInfoPanel({ event, photoIndex, totalEventPhotos }) {
         <Link
           to={`/event/${event.id}`}
           className="inline-flex items-center gap-2 px-5 py-2.5 lg:px-6 lg:py-3 rounded-full font-semibold text-sm lg:text-base text-white transition-all duration-300 hover:scale-105 active:scale-95 shadow-md shadow-primary/20"
-          style={{ background: 'linear-gradient(135deg, #4f46e5, #7c3aed)' }}
+          style={{ background: 'linear-gradient(135deg, var(--color-primary), var(--color-accent))' }}
         >
           View Details
           <ArrowUpRight className="w-5 h-5" />
@@ -266,7 +266,7 @@ function EventInfoPanel({ event, photoIndex, totalEventPhotos }) {
                 className="h-2 rounded-full transition-all duration-300"
                 style={{
                   width: i === photoIndex ? 24 : 8,
-                  background: i === photoIndex ? '#4f46e5' : '#cbd5e1'
+                  background: i === photoIndex ? 'var(--color-primary)' : 'var(--color-border)'
                 }}
               />
             ))}

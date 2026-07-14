@@ -16,7 +16,7 @@ export default function SectionHeader({ eyebrow, title, subtitle, align = 'cente
         <div className={`flex items-center gap-2 ${isCenter ? 'justify-center' : ''}`}>
           <div
             className="w-3 h-0.5 rounded-full"
-            style={{ background: 'linear-gradient(to right, #4f46e5, #7c3aed)' }}
+            style={{ background: 'linear-gradient(to right, var(--color-primary), var(--color-accent))' }}
           />
           <span className="uppercase text-xs tracking-[0.2em] font-semibold text-primary">
             {eyebrow}

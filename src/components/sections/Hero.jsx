@@ -34,7 +34,7 @@ function smoothScroll(e, targetId) {
   if (el) el.scrollIntoView({ behavior: 'smooth' });
 }
 
-export default function Hero({ intro }) {
+export default function Hero({ intro, setTheme }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
@@ -68,19 +68,23 @@ export default function Hero({ intro }) {
                 layoutId="old-logo"
                 src="/aicc-logo.webp" 
                 alt="AICC Old Logo" 
-                className="w-24 h-24 object-contain drop-shadow-lg" 
+                className="w-24 h-24 object-contain drop-shadow-lg cursor-pointer" 
                 initial={{ opacity: 1, y: 0 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ scale: 1.1, rotate: -3 }}
+                onClick={() => setTheme('blue')}
               />
               <motion.img 
                 layoutId="new-logo"
                 src="/aiml-logo.jpg" 
                 alt="AICC New Logo" 
-                className="w-24 h-24 object-contain rounded-full drop-shadow-lg" 
+                className="w-24 h-24 object-contain rounded-full drop-shadow-lg cursor-pointer" 
                 initial={{ opacity: 1, y: 0 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ scale: 1.1, rotate: 3 }}
+                onClick={() => setTheme('gold')}
               />
             </>
           )}
@@ -149,11 +153,9 @@ export default function Hero({ intro }) {
           </div>
         </motion.div>
 
-        {/* Initiative Text */}
         <motion.div
           variants={fadeUp}
-          className="text-xl md:text-2xl font-display font-bold mb-6 drop-shadow-sm"
-          style={{ background: 'linear-gradient(135deg, #818cf8, #a78bfa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}
+          className="text-xl md:text-2xl font-display font-bold mb-6 drop-shadow-sm bg-gradient-to-r from-primary-light to-accent-light bg-clip-text text-transparent"
         >
           A Department of AIDS & AIML Initiative
         </motion.div>

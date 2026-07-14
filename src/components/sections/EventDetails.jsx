@@ -132,7 +132,7 @@ export default function EventDetails() {
               <div className="flex items-center gap-3 mb-4">
                 <div
                   className="w-8 h-0.5 rounded-full"
-                  style={{ background: 'linear-gradient(to right, #4f46e5, #7c3aed)' }}
+                  style={{ background: 'linear-gradient(to right, var(--color-primary), var(--color-accent))' }}
                 />
                 <h3 className="text-xl font-display font-semibold text-text">
                   About
@@ -156,7 +156,7 @@ export default function EventDetails() {
               <div className="flex items-center gap-3 mb-4">
                 <div
                   className="w-8 h-0.5 rounded-full"
-                  style={{ background: 'linear-gradient(to right, #4f46e5, #7c3aed)' }}
+                  style={{ background: 'linear-gradient(to right, var(--color-primary), var(--color-accent))' }}
                 />
                 <h3 className="text-xl font-display font-semibold text-text">
                   How It&apos;s Conducted

@@ -141,7 +141,7 @@ export default function Sidebar() {
                       style={{
                         width: '3px',
                         height: '24px',
-                        background: 'linear-gradient(180deg, #4f46e5, #7c3aed)',
+                        background: 'linear-gradient(180deg, var(--color-primary), var(--color-accent))',
                         left: '-16px',
                       }}
                       initial={{ opacity: 0, scaleY: 0 }}
@@ -159,15 +159,15 @@ export default function Sidebar() {
                   style={{
                     width: '40px',
                     height: '40px',
-                    color: isActive ? '#4f46e5' : '#94a3b8',
+                    color: isActive ? 'var(--color-primary)' : 'var(--color-text-muted)',
                     background: isActive
-                      ? 'rgba(79, 70, 229, 0.08)'
+                      ? 'var(--color-primary-alpha)'
                       : 'transparent',
                   }}
                   onMouseOver={(e) => {
                     if (!isActive && !item.comingSoon) {
                       e.currentTarget.style.background = '#f1f5f9'
-                      e.currentTarget.style.color = '#4f46e5'
+                      e.currentTarget.style.color = 'var(--color-primary)'
                     }
                   }}
                   onMouseOut={(e) => {
@@ -221,7 +221,7 @@ export default function Sidebar() {
                   color: '#94a3b8',
                 }}
                 onMouseOver={(e) => {
-                  e.currentTarget.style.color = '#4f46e5'
+                  e.currentTarget.style.color = 'var(--color-primary)'
                   e.currentTarget.style.background = '#f1f5f9'
                 }}
                 onMouseOut={(e) => {
@@ -264,7 +264,7 @@ export default function Sidebar() {
               onClick={() => handleNavClick(item.id)}
               className="flex flex-col items-center justify-center gap-1 cursor-pointer transition-all duration-300"
               style={{
-                color: isActive ? '#4f46e5' : '#94a3b8',
+                color: isActive ? 'var(--color-primary)' : 'var(--color-text-muted)',
                 padding: '8px 12px',
               }}
               aria-label={item.label}
@@ -277,7 +277,7 @@ export default function Sidebar() {
                 style={{
                   width: isActive ? '4px' : '0px',
                   height: isActive ? '4px' : '0px',
-                  background: 'linear-gradient(135deg, #4f46e5, #7c3aed)',
+                  background: 'linear-gradient(135deg, var(--color-primary), var(--color-accent))',
                   opacity: isActive ? 1 : 0,
                 }}
               />

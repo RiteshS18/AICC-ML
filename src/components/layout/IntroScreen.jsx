@@ -215,7 +215,7 @@ function SceneFirstClub({ onDone }) {
         style={{ fontSize: 'clamp(2.2rem, 5.5vw, 4.2rem)', fontWeight: 800, letterSpacing: '-0.02em', fontFamily: 'var(--font-display, inherit)', lineHeight: 1.2 }}>
         The First Club of the
         <br />
-        <span style={{ color: '#4f46e5' }}>Department of AI</span>
+        <span style={{ color: 'var(--color-primary)' }}>Department of AI</span>
       </p>
     </motion.div>
   );

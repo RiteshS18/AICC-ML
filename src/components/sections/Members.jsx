@@ -83,7 +83,7 @@ function MemberCard({ member, index }) {
               className="font-display font-bold select-none"
               style={{
                 fontSize: isClassCard ? 'clamp(0.75rem, 2.5vw, 1.1rem)' : 'clamp(1.5rem, 4vw, 2.5rem)',
-                color: isClassCard ? '#4f46e5' : '#6366f1',
+                color: isClassCard ? 'var(--color-primary)' : 'var(--color-accent)',
                 letterSpacing: isClassCard ? '0.05em' : '0.04em',
                 textAlign: 'center',
                 lineHeight: 1.3,
@@ -159,7 +159,7 @@ function UnderlineTabs({ items, selected, onSelect, layoutId }) {
                 layoutId={layoutId}
                 className="absolute bottom-0 left-0 right-0 h-[2px] rounded-full"
                 style={{
-                  background: 'linear-gradient(90deg, #4f46e5, #7c3aed)',
+                  background: 'linear-gradient(90deg, var(--color-primary), var(--color-accent))',
                 }}
                 transition={{ type: 'spring', stiffness: 500, damping: 35 }}
               />
