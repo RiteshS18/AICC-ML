@@ -293,26 +293,26 @@ const logoLeftVariants = {
 };
 
 const finalLeftVariants = {
-  hidden: { opacity: 0, scale: 0.85, filter: 'blur(10px)' },
-  initialPhase: { opacity: 0, scale: 0.85, filter: 'blur(10px)' },
-  expanded: { opacity: 0, scale: 0.85, filter: 'blur(10px)' },
-  front: { opacity: 0, scale: 0.85, filter: 'blur(10px)' },
+  hidden: { opacity: 0, scale: 1, filter: 'blur(10px)' },
+  initialPhase: { opacity: 0, scale: 1, filter: 'blur(10px)' },
+  expanded: { opacity: 0, scale: 1, filter: 'blur(10px)' },
+  front: { opacity: 0, scale: 1, filter: 'blur(10px)' },
   disintegrate: {
     opacity: 1,
-    scale: 0.85,
+    scale: 1,
     filter: 'blur(0px)',
     transition: { duration: 0.6, delay: 3.0, ease: 'easeOut' }
   }
 };
 
 const finalRightVariants = {
-  hidden: { opacity: 0, scale: 0.85, filter: 'blur(10px)' },
-  initialPhase: { opacity: 0, scale: 0.85, filter: 'blur(10px)' },
-  expanded: { opacity: 0, scale: 0.85, filter: 'blur(10px)' },
-  front: { opacity: 0, scale: 0.85, filter: 'blur(10px)' },
+  hidden: { opacity: 0, scale: 1, filter: 'blur(10px)' },
+  initialPhase: { opacity: 0, scale: 1, filter: 'blur(10px)' },
+  expanded: { opacity: 0, scale: 1, filter: 'blur(10px)' },
+  front: { opacity: 0, scale: 1, filter: 'blur(10px)' },
   disintegrate: {
     opacity: 1,
-    scale: 0.85,
+    scale: 1,
     filter: 'blur(0px)',
     transition: { duration: 0.6, delay: 3.0, ease: 'easeOut' }
   }
@@ -361,7 +361,7 @@ function DisintegratingLogo({ active, srcOld, srcNew, width = 300, height = 300 
 
       const centerX = width / 2;
       const centerY = height / 2;
-      const logoSize = Math.max(220, Math.min(width * 0.3, 400));
+      const logoSize = Math.max(180, Math.min(width * 0.24, 300));
 
       for (let y = 0; y < sampleHeight; y += 2) {
         for (let x = 0; x < sampleWidth; x += 2) {
@@ -613,9 +613,9 @@ function SceneAICC({ onDone }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.7 }}
-        className="absolute inset-0 flex items-center justify-center bg-white z-50"
+        className="absolute inset-0 flex items-center justify-center bg-white z-50 overflow-hidden"
       >
-        <div className="flex flex-row items-center justify-center gap-16 md:gap-32">
+        <div className="relative w-full h-full flex items-center justify-center">
 
           {/* DS Logo */}
           <motion.div
@@ -623,13 +623,21 @@ function SceneAICC({ onDone }) {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             onClick={() => onDone('ds')}
-            className="flex flex-col items-center gap-4 cursor-pointer group"
+            className="flex flex-col items-center cursor-pointer group absolute"
+            style={{
+              right: '50%',
+              marginRight: '3vw',
+              width: 'clamp(180px, 24vw, 300px)',
+              height: 'clamp(180px, 24vw, 300px)',
+              top: '50%',
+              y: '-50%',
+            }}
           >
             <motion.img
               layoutId="old-logo"
               src="/aicc-logo.webp"
               alt="AI&DS Coding Club"
-              className="w-[clamp(160px,22vw,260px)] h-[clamp(160px,22vw,260px)] object-contain transition-all duration-300"
+              className="w-full h-full object-contain transition-all duration-300"
               whileHover={{ scale: 1.08, filter: 'drop-shadow(0 0 0px transparent)' }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             />
@@ -637,7 +645,7 @@ function SceneAICC({ onDone }) {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.45, duration: 0.5 }}
-              className="text-sm font-bold tracking-widest uppercase text-black/50 group-hover:text-black transition-colors duration-300"
+              className="text-sm font-bold tracking-widest uppercase text-black/50 group-hover:text-black transition-colors duration-300 absolute top-[105%] whitespace-nowrap"
             >
               AI&amp;DS Coding Club
             </motion.p>
@@ -649,29 +657,36 @@ function SceneAICC({ onDone }) {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             onClick={() => onDone('ml')}
-            className="flex flex-col items-center gap-4 cursor-pointer group"
+            className="flex flex-col items-center cursor-pointer group absolute"
+            style={{
+              left: '50%',
+              marginLeft: '3vw',
+              width: 'clamp(180px, 24vw, 300px)',
+              height: 'clamp(180px, 24vw, 300px)',
+              top: '50%',
+              y: '-50%',
+            }}
           >
             <motion.div
-              className="rounded-full p-[3px] transition-all duration-300"
+              className="rounded-full p-[3px] transition-all duration-300 w-full h-full flex items-center justify-center"
               whileHover={{
                 boxShadow: '0 0 0 3px #d97706, 0 0 32px 8px rgba(217,119,6,0.35)',
                 scale: 1.08,
               }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              style={{ display: 'inline-flex' }}
             >
               <motion.img
                 layoutId="new-logo"
                 src="/aiml-logo.jpg"
                 alt="AI&ML Coding Club"
-                className="w-[clamp(160px,22vw,260px)] h-[clamp(160px,22vw,260px)] object-contain rounded-full block"
+                className="w-full h-full object-contain rounded-full block"
               />
             </motion.div>
             <motion.p
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.55, duration: 0.5 }}
-              className="text-sm font-bold tracking-widest uppercase text-black/50 group-hover:text-[#d97706] transition-colors duration-300"
+              className="text-sm font-bold tracking-widest uppercase text-black/50 group-hover:text-[#d97706] transition-colors duration-300 absolute top-[105%] whitespace-nowrap"
             >
               AI&amp;ML Coding Club
             </motion.p>
@@ -707,8 +722,10 @@ function SceneAICC({ onDone }) {
         animate={phase}
         style={{
           position: 'absolute',
-          width: 'clamp(220px, 30vw, 400px)',
-          height: 'clamp(220px, 30vw, 400px)',
+          width: 'clamp(180px, 24vw, 300px)',
+          height: 'clamp(180px, 24vw, 300px)',
+          top: '50%',
+          y: '-50%',
           objectFit: 'contain',
           pointerEvents: 'none',
           userSelect: 'none',
@@ -728,8 +745,10 @@ function SceneAICC({ onDone }) {
           position: 'absolute',
           right: '50%',
           marginRight: '3vw',
-          width: 'clamp(220px, 30vw, 400px)',
-          height: 'clamp(220px, 30vw, 400px)',
+          width: 'clamp(180px, 24vw, 300px)',
+          height: 'clamp(180px, 24vw, 300px)',
+          top: '50%',
+          y: '-50%',
           objectFit: 'contain',
           pointerEvents: 'none',
           userSelect: 'none',
@@ -750,8 +769,10 @@ function SceneAICC({ onDone }) {
           position: 'absolute',
           left: '50%',
           marginLeft: '3vw',
-          width: 'clamp(220px, 30vw, 400px)',
-          height: 'clamp(220px, 30vw, 400px)',
+          width: 'clamp(180px, 24vw, 300px)',
+          height: 'clamp(180px, 24vw, 300px)',
+          top: '50%',
+          y: '-50%',
           objectFit: 'contain',
           pointerEvents: 'none',
           userSelect: 'none',
