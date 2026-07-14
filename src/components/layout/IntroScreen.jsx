@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // ── Typewriter hook ───────────────────────────────────────────────────────────
@@ -248,6 +248,13 @@ const textContainerVariants = {
     gap: '0.5em',
     transition: { duration: 0.6 } 
   },
+  disintegrate: { 
+    opacity: 0, 
+    scale: 1.05, 
+    filter: 'blur(10px)', 
+    gap: '0.5em',
+    transition: { duration: 0.6 } 
+  },
   exit: { opacity: 0 }
 };
 
@@ -255,10 +262,11 @@ const letterVariants = {
   hidden: { opacity: 0, y: 10, filter: 'blur(4px)' },
   initialPhase: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
   expanded: { opacity: 1, y: 0, filter: 'blur(0px)' },
-  front: { opacity: 0, filter: 'blur(10px)' }
+  front: { opacity: 0, filter: 'blur(10px)' },
+  disintegrate: { opacity: 0, filter: 'blur(10px)' }
 };
 
-const logoVariants = {
+const logoLeftVariants = {
   hidden: { opacity: 0, scale: 1.15, filter: 'grayscale(100%) blur(10px)' },
   initialPhase: { 
     opacity: 0.07, 
@@ -277,12 +285,296 @@ const logoVariants = {
     scale: 1.15, 
     filter: 'grayscale(0%) blur(0px)', 
     transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } 
+  },
+  disintegrate: {
+    opacity: 0,
+    transition: { duration: 0.05 }
   }
 };
+
+const finalLeftVariants = {
+  hidden: { opacity: 0, scale: 0.85, filter: 'blur(10px)' },
+  initialPhase: { opacity: 0, scale: 0.85, filter: 'blur(10px)' },
+  expanded: { opacity: 0, scale: 0.85, filter: 'blur(10px)' },
+  front: { opacity: 0, scale: 0.85, filter: 'blur(10px)' },
+  disintegrate: {
+    opacity: 1,
+    scale: 0.85,
+    filter: 'blur(0px)',
+    transition: { duration: 0.6, delay: 3.0, ease: 'easeOut' }
+  }
+};
+
+const finalRightVariants = {
+  hidden: { opacity: 0, scale: 0.85, filter: 'blur(10px)' },
+  initialPhase: { opacity: 0, scale: 0.85, filter: 'blur(10px)' },
+  expanded: { opacity: 0, scale: 0.85, filter: 'blur(10px)' },
+  front: { opacity: 0, scale: 0.85, filter: 'blur(10px)' },
+  disintegrate: {
+    opacity: 1,
+    scale: 0.85,
+    filter: 'blur(0px)',
+    transition: { duration: 0.6, delay: 3.0, ease: 'easeOut' }
+  }
+};
+// ── Disintegrating Logo (Avengers Infinity War Snapping Canvas Effect) ──────────
+function DisintegratingLogo({ active, srcOld, srcNew, width = 300, height = 300 }) {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    if (!active) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    let animId;
+    let loadedCount = 0;
+
+    const onImageLoad = () => {
+      loadedCount++;
+      if (loadedCount < 2) return;
+
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.scale(dpr, dpr);
+
+      const sampleWidth = 100;
+      const sampleHeight = 100;
+
+      const canvasOld = document.createElement('canvas');
+      canvasOld.width = sampleWidth;
+      canvasOld.height = sampleHeight;
+      const ctxOld = canvasOld.getContext('2d');
+      ctxOld.drawImage(imgOld, 0, 0, sampleWidth, sampleHeight);
+      const dataOld = ctxOld.getImageData(0, 0, sampleWidth, sampleHeight).data;
+
+      const canvasNew = document.createElement('canvas');
+      canvasNew.width = sampleWidth;
+      canvasNew.height = sampleHeight;
+      const ctxNew = canvasNew.getContext('2d');
+      ctxNew.drawImage(imgNew, 0, 0, sampleWidth, sampleHeight);
+      const dataNew = ctxNew.getImageData(0, 0, sampleWidth, sampleHeight).data;
+
+      const oldPoints = [];
+      const newPoints = [];
+
+      const centerX = width / 2;
+      const centerY = height / 2;
+      const logoSize = Math.max(220, Math.min(width * 0.3, 400));
+
+      for (let y = 0; y < sampleHeight; y += 2) {
+        for (let x = 0; x < sampleWidth; x += 2) {
+          const idx = (y * sampleWidth + x) * 4;
+          
+          if (dataOld[idx + 3] > 40) {
+            oldPoints.push({
+              x: (x / sampleWidth) * logoSize,
+              y: (y / sampleHeight) * logoSize,
+              r: dataOld[idx],
+              g: dataOld[idx + 1],
+              b: dataOld[idx + 2],
+              a: dataOld[idx + 3] / 255
+            });
+          }
+
+          if (dataNew[idx + 3] > 40) {
+            const nr = dataNew[idx];
+            const ng = dataNew[idx + 1];
+            const nb = dataNew[idx + 2];
+            
+            // Calculate distance from center (50, 50) of the 100x100 sample grid
+            const dx = x - 50;
+            const dy = y - 50;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            // Filter out white background (nr, ng, nb > 240) and clip square corners (dist > 48)
+            const isWhiteBackground = nr > 240 && ng > 240 && nb > 240;
+            const isOutsideCircle = dist > 48;
+
+            if (!isWhiteBackground && !isOutsideCircle) {
+              newPoints.push({
+                x: (x / sampleWidth) * logoSize,
+                y: (y / sampleHeight) * logoSize,
+                r: nr,
+                g: ng,
+                b: nb,
+                a: dataNew[idx + 3] / 255
+              });
+            }
+          }
+        }
+      }
+
+      if (oldPoints.length === 0 || newPoints.length === 0) {
+        console.warn("Failed to sample pixels from logos. oldPoints:", oldPoints.length, "newPoints:", newPoints.length);
+        return;
+      }
+
+      const shuffle = (arr) => {
+        for (let k = arr.length - 1; k > 0; k--) {
+          const j = (Math.random() * (k + 1)) | 0;
+          [arr[k], arr[j]] = [arr[j], arr[k]];
+        }
+      };
+      shuffle(oldPoints);
+      shuffle(newPoints);
+
+      const particleCount = 2400;
+      const particles = [];
+
+      for (let i = 0; i < particleCount; i++) {
+        const isLeft = i < particleCount / 2;
+        const start = oldPoints[i % oldPoints.length];
+        
+        const startX = centerX - logoSize / 2 + start.x;
+        const startY = centerY - logoSize / 2 + start.y;
+
+        const margin = width * 0.03;
+        let targetX, targetY, targetR, targetG, targetB, targetA;
+        if (isLeft) {
+          const target = oldPoints[i % oldPoints.length];
+          targetX = centerX - margin - logoSize + target.x;
+          targetY = centerY - logoSize / 2 + target.y;
+          targetR = target.r;
+          targetG = target.g;
+          targetB = target.b;
+          targetA = target.a;
+        } else {
+          const target = newPoints[(i - particleCount / 2) % newPoints.length];
+          targetX = centerX + margin + target.x;
+          targetY = centerY - logoSize / 2 + target.y;
+          targetR = target.r;
+          targetG = target.g;
+          targetB = target.b;
+          targetA = target.a;
+        }
+
+        particles.push({
+          x: startX,
+          y: startY,
+          scatteredX: 0,
+          scatteredY: 0,
+          startX,
+          startY,
+          tx: targetX,
+          ty: targetY,
+          sr: start.r, sg: start.g, sb: start.b, sa: start.a,
+          tr: targetR, tg: targetG, tb: targetB, ta: targetA,
+          vx: isLeft ? (Math.random() - 0.75) * 1.5 : (Math.random() - 0.25) * 1.5,
+          vy: (Math.random() - 0.6) * 1.2,
+          size: Math.random() * 1.5 + 0.8,
+          seed: Math.random() * 100,
+        });
+      }
+
+      let startTime = null;
+
+      function easeInOutCubic(x) {
+        return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+      }
+
+      function animate(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = (timestamp - startTime) / 1000;
+
+        ctx.clearRect(0, 0, width, height);
+
+        let canvasAlpha = 1.0;
+        if (elapsed > 3.0) {
+          canvasAlpha = Math.max(0, 1 - (elapsed - 3.0) / 0.6);
+        }
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          let x, y, r, g, b, a;
+
+          if (elapsed < 0.8) {
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vx += (Math.random() - 0.5) * 0.1;
+            p.vy += (Math.random() - 0.55) * 0.1;
+
+            x = p.x;
+            y = p.y;
+            r = p.sr;
+            g = p.sg;
+            b = p.sb;
+            a = p.sa;
+
+            p.scatteredX = p.x;
+            p.scatteredY = p.y;
+          } else {
+            const pct = Math.min(1.0, (elapsed - 0.8) / 1.8);
+            const ease = easeInOutCubic(pct);
+
+            const wiggleAmp = 8 * (1 - ease);
+            const wiggleX = Math.sin(elapsed * 10 + p.seed) * wiggleAmp;
+            const wiggleY = Math.cos(elapsed * 10 + p.seed) * wiggleAmp;
+
+            x = p.scatteredX + (p.tx - p.scatteredX) * ease + wiggleX;
+            y = p.scatteredY + (p.ty - p.scatteredY) * ease + wiggleY;
+
+            r = p.sr + (p.tr - p.sr) * ease;
+            g = p.sg + (p.tg - p.sg) * ease;
+            b = p.sb + (p.tb - p.sb) * ease;
+            a = p.sa + (p.ta - p.sa) * ease;
+          }
+
+          ctx.beginPath();
+          ctx.arc(x, y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)}, ${a * canvasAlpha})`;
+          ctx.fill();
+        }
+
+        if (elapsed < 3.8) {
+          animId = requestAnimationFrame(animate);
+        }
+      }
+
+      animId = requestAnimationFrame(animate);
+    };
+
+    const imgOld = new Image();
+    imgOld.onload = onImageLoad;
+    imgOld.src = srcOld;
+
+    const imgNew = new Image();
+    imgNew.onload = onImageLoad;
+    imgNew.src = srcNew;
+
+    return () => {
+      cancelAnimationFrame(animId);
+    };
+  }, [active, srcOld, srcNew, width, height]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        width,
+        height,
+        position: 'absolute',
+        pointerEvents: 'none',
+        zIndex: 60,
+        overflow: 'visible', // Allow particles to travel outside canvas limits
+      }}
+    />
+  );
+}
 
 // ── Scene 5: AICC → AI Coding Club reveal ─────────────────────────────────────
 function SceneAICC({ onDone }) {
   const [phase, setPhase] = useState('hidden');
+  const measureRef = useRef(null);
+  const [rect, setRect] = useState({ width: 300, height: 300 });
+
+  useEffect(() => {
+    if (measureRef.current) {
+      const r = measureRef.current.getBoundingClientRect();
+      setRect({ width: r.width, height: r.height });
+    }
+  }, [phase]);
 
   useEffect(() => {
     // 0ms -> immediately start initial phase
@@ -294,13 +586,16 @@ function SceneAICC({ onDone }) {
     // 5s: 1s to expand + 2s hold = 3s wait from expanded start
     const t1 = setTimeout(() => setPhase('front'), 5000); 
 
-    // 6s: 1s after logo starts coming to the front, trigger the final morph travel
-    const t2 = setTimeout(onDone, 6000);
-    return () => [t0, t1, t2].forEach(clearTimeout);
+    // 6.0s: wait 1.0s for logo to come to front, then start disintegration
+    const t2 = setTimeout(() => setPhase('disintegrate'), 6000);
+
+    // 9.8s: wait 3.8s for disintegration + slow slide-out to complete and hold, then trigger onDone
+    const t3 = setTimeout(onDone, 9800);
+    return () => [t0, t1, t2, t3].forEach(clearTimeout);
   }, [onDone]);
 
-  const isExpanded = phase === 'expanded' || phase === 'front';
-  const isFront = phase === 'front';
+  const isExpanded = phase === 'expanded' || phase === 'front' || phase === 'disintegrate';
+  const isFront = phase === 'front' || phase === 'disintegrate';
 
   const textStyle = {
     fontSize: 'clamp(2rem, 7.5vw, 8rem)',
@@ -314,25 +609,78 @@ function SceneAICC({ onDone }) {
 
   return (
     <motion.div
+      ref={measureRef}
       className="absolute inset-0 flex items-center justify-center overflow-hidden px-2"
     >
-      {/* Ghost logo -> Cinematic Logo -> Morph Target */}
+      {/* Disintegrating Canvas (Infinity War ash dusting + merge effect) */}
+      {phase === 'disintegrate' && (
+        <DisintegratingLogo
+          active={true}
+          srcOld="/aicc-logo.webp"
+          srcNew="/aiml-logo.jpg"
+          width={rect.width}
+          height={rect.height}
+        />
+      )}
+
+      {/* Static Old Logo (visible until disintegration starts) */}
       <motion.img
-        layoutId="main-logo"
         src="/aicc-logo.webp"
-        alt=""
-        aria-hidden="true"
-        variants={logoVariants}
+        alt="AICC Old Logo"
+        variants={logoLeftVariants}
         initial="hidden"
         animate={phase}
         style={{
           position: 'absolute',
-          width: 'clamp(260px, 40vw, 500px)',
-          height: 'clamp(260px, 40vw, 500px)',
+          width: 'clamp(220px, 30vw, 400px)',
+          height: 'clamp(220px, 30vw, 400px)',
           objectFit: 'contain',
           pointerEvents: 'none',
           userSelect: 'none',
-          zIndex: isFront ? 50 : 0,
+          zIndex: isFront ? 50 : 10,
+        }}
+      />
+
+      {/* Final Left Logo (Slides out from center, morph target) */}
+      <motion.img
+        layoutId="old-logo"
+        src="/aicc-logo.webp"
+        alt="AICC Old Logo"
+        variants={finalLeftVariants}
+        initial="hidden"
+        animate={phase}
+        style={{
+          position: 'absolute',
+          right: '50%',
+          marginRight: '3vw',
+          width: 'clamp(220px, 30vw, 400px)',
+          height: 'clamp(220px, 30vw, 400px)',
+          objectFit: 'contain',
+          pointerEvents: 'none',
+          userSelect: 'none',
+          zIndex: phase === 'disintegrate' ? 49 : 0,
+        }}
+      />
+
+      {/* Final Right Logo (Slides out from center, morph target) */}
+      <motion.img
+        layoutId="new-logo"
+        src="/aiml-logo.jpg"
+        alt="AICC New Logo"
+        variants={finalRightVariants}
+        initial="hidden"
+        animate={phase}
+        className="rounded-full"
+        style={{
+          position: 'absolute',
+          left: '50%',
+          marginLeft: '3vw',
+          width: 'clamp(220px, 30vw, 400px)',
+          height: 'clamp(220px, 30vw, 400px)',
+          objectFit: 'contain',
+          pointerEvents: 'none',
+          userSelect: 'none',
+          zIndex: phase === 'disintegrate' ? 49 : 0,
         }}
       />
 

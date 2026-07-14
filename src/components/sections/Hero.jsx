@@ -60,20 +60,29 @@ export default function Hero({ intro }) {
         initial="hidden"
         animate="visible"
       >
-        {/* Logo */}
-        <div className="flex justify-center mb-6">
+        {/* Logos */}
+        <div className="flex justify-center items-center gap-6 mb-6">
           {!intro && (
-            <motion.img 
-              layoutId="main-logo"
-              src="/aicc-logo.webp" 
-              alt="AICC Logo" 
-              className="w-24 h-24 object-contain drop-shadow-lg" 
-              // We remove opacity-90 here to make sure it matches the layoutId fully visible state if needed, or keep it.
-              // We skip fadeUp variant so the layout morph goes directly to final resting place.
-              initial={{ opacity: 1, y: 0 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
-            />
+            <>
+              <motion.img 
+                layoutId="old-logo"
+                src="/aicc-logo.webp" 
+                alt="AICC Old Logo" 
+                className="w-24 h-24 object-contain drop-shadow-lg" 
+                initial={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+              />
+              <motion.img 
+                layoutId="new-logo"
+                src="/aiml-logo.jpg" 
+                alt="AICC New Logo" 
+                className="w-24 h-24 object-contain rounded-full drop-shadow-lg" 
+                initial={{ opacity: 1, y: 0 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+              />
+            </>
           )}
         </div>
 
