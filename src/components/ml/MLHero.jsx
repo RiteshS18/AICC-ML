@@ -68,7 +68,7 @@ export default function MLHero({ intro, setTheme }) {
                 whileHover={{ scale: 1.1, rotate: 3 }}
               />
               <span className="text-[11px] font-bold tracking-widest uppercase text-primary mt-1">
-                AI &amp; ML
+              LEARN AND LEAD
               </span>
             </div>
           )}
