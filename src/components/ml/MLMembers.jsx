@@ -57,6 +57,7 @@ function MemberCard({ member, index }) {
                 alt={member.name}
                 loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                style={member.imageFocus ? { objectPosition: member.imageFocus } : undefined}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </>

@@ -1,3 +1,5 @@
+const memberPhoto = (fileName) => new URL(`../../AICC ML MEMBERS PHOTO/${fileName}`, import.meta.url).href;
+
 // ── 2025-26 Members ──────────────────────────────────────────────────────────
 const members2526 = [
   { name: "Sanjai R", position: "Secretary", image: "/Members/25-26/sanjai_r.webp", year: "2025-26", branch: "AI-DS" },
@@ -75,9 +77,37 @@ const members2627_AIDS = [
   { name: "II - DS - C", position: "Executive Member", image: null, year: "2026-27", branch: "AI-DS", isClassCard: true },
 ];
 
-// ── 2026-27 AI&ML Members (add members here when available) ──────────────────
+// ── 2026-27 AI&ML Members ────────────────────────────────────────────────────
 const members2627_AIML = [
-  // { name: "Name", position: "Position", image: "/Members/26-27/AI&ML/filename.jpeg", year: "2026-27", branch: "AI-ML" },
+  // Secretary
+  { name: "Hariharan J", position: "Secretary", image: memberPhoto("HARIHARAN J.jpg"), year: "2026-27", branch: "AI-ML" },
+
+  // Additional Secretary
+  { name: "Sreenithy S", position: "Additional Secretary", image: memberPhoto("SREENITHY S.png"), year: "2026-27", branch: "AI-ML" },
+
+  // Joint Secretary
+  { name: "Divyadharshini J", position: "Joint Secretary", image: memberPhoto("DIVYADHARSHINI J.png"), year: "2026-27", branch: "AI-ML" },
+  { name: "Bharat Hari S", position: "Joint Secretary", image: memberPhoto("BHARAT HARI S.png"), year: "2026-27", branch: "AI-ML" },
+
+  // Treasurer
+  { name: "Mithra T", position: "Treasurer", image: null, year: "2026-27", branch: "AI-ML" },
+  { name: "Yalini S", position: "Treasurer", image: memberPhoto("YALINI.png"), year: "2026-27", branch: "AI-ML" },
+
+  // Technical Team
+  { name: "Harish Sabari P V", position: "Technical Team", image: memberPhoto("Harish Sabari P V.png"), year: "2026-27", branch: "AI-ML" },
+  { name: "Prem M", position: "Technical Team", image: memberPhoto("PREM.png"), year: "2026-27", branch: "AI-ML" },
+  { name: "Pavin M", position: "Technical Team", image: memberPhoto("PAVIN M.png"), year: "2026-27", branch: "AI-ML" },
+
+  // Multimedia Team
+  { name: "Sanjay Ramesh I", position: "Multimedia Team", image: memberPhoto("Sanjay Ramesh I.png"), year: "2026-27", branch: "AI-ML" },
+  { name: "Ritesh S", position: "Multimedia Team", image: memberPhoto("RITESH.png"), imageFocus: "50% 18%", year: "2026-27", branch: "AI-ML" },
+  { name: "Mohan K", position: "Multimedia Team", image: memberPhoto("Mohan K.png"), imageFocus: "50% 18%", year: "2026-27", branch: "AI-ML" },
+
+  // Executive Members
+  { name: "Sevesh S S", position: "Executive Member", image: memberPhoto("SEVESH S S.png"), year: "2026-27", branch: "AI-ML" },
+  { name: "Abhishek G", position: "Executive Member", image: memberPhoto("Abhishek_G.png"), year: "2026-27", branch: "AI-ML" },
+  { name: "Durgasri A M", position: "Executive Member", image: memberPhoto("Durgasri.png"), year: "2026-27", branch: "AI-ML" },
+  { name: "Gobika M", position: "Executive Member", image: memberPhoto("gobika.png"), year: "2026-27", branch: "AI-ML" },
 ];
 
 export const membersData = [
