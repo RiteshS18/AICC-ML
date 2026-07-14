@@ -7,6 +7,7 @@ export const projectsData = [
     image: "/Attendance_app.webp",
     techStack: ["React", "Node.js"],
     status: "done",
+    wing: "ds",
     team: ["Jaisanth K", "VijayaKanth", "Rashmika K R"]
   },
   {
@@ -17,6 +18,7 @@ export const projectsData = [
     image: "/hackathon/repo-analyzer.png",
     techStack: ["React", "JavaScript", "GitHub API"],
     status: "done",
+    wing: "ds",
     team: ["Jaisanth K", "MadanPrasanth N V", "Mahesh Kuamr K S"]
   },
   {
@@ -27,6 +29,7 @@ export const projectsData = [
     image: "/hackathon/intel-medi-link.png",
     techStack: ["Llama-3", "OCR", "Sentiment Analysis"],
     status: "done",
+    wing: "ml",
     team: ["Jaisanth K", "Sudhan N", "Tawfeeq B"]
   },
   {
@@ -37,6 +40,7 @@ export const projectsData = [
     image: "/PrepPlace.png",
     techStack: ["React", "Node.js", "AI"],
     status: "done",
+    wing: "ml",
     team: ["Lokesh N", "Nitheesh S J", "Mithun Balaje K A"]
   },
   {
@@ -47,6 +51,7 @@ export const projectsData = [
     image: "/hackathon/cems.png",
     techStack: ["React", "Express", "MongoDB", "Node.js"],
     status: "done",
+    wing: "ds",
     team: ["Mahesh Kuamr K S", "Mithun Balaje K A", "Nitheesh S J"]
   },
   {
@@ -57,6 +62,7 @@ export const projectsData = [
     image: "/projects/exam-invigilator/reference.jpg",
     techStack: ["React", "Tailwind CSS", "Framer Motion"],
     status: "done",
+    wing: "ds",
     team: ["Nitheesh S J", "Mainudheen S", "Oviya B"],
     link: "/exam-invigilator"
   }

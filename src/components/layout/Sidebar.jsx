@@ -35,17 +35,21 @@ export default function Sidebar() {
   const location = useLocation()
   const navigate = useNavigate()
 
+  // Detect which wing prefix is active
+  const wing = location.pathname.startsWith('/ml') ? 'ml' : 'ds'
+  const base = `/${wing}`
+
   // ── IntersectionObserver for active section detection ──
   useEffect(() => {
-    if (location.pathname === '/members') {
+    if (location.pathname === `${base}/members` || location.pathname === '/members') {
       setActiveSection('members')
       return
     }
-    if (location.pathname === '/gallery') {
+    if (location.pathname === `${base}/gallery` || location.pathname === '/gallery') {
       setActiveSection('gallery')
       return
     }
-    if (location.pathname === '/hall-of-fame') {
+    if (location.pathname === `${base}/hall-of-fame` || location.pathname === '/hall-of-fame') {
       setActiveSection('hall-of-fame')
       return
     }
@@ -77,22 +81,23 @@ export default function Sidebar() {
     })
 
     return () => observers.forEach((obs) => obs.disconnect())
-  }, [location.pathname])
+  }, [location.pathname, base])
 
-  // ── Navigation handler ──
+  // ── Navigation handler (wing-aware) ──
   const handleNavClick = useCallback((id) => {
     const item = navItems.find(i => i.id === id)
     if (item?.comingSoon) return
 
     if (id === 'members') {
-      navigate('/members')
+      navigate(`${base}/members`)
     } else if (id === 'gallery') {
-      navigate('/gallery')
+      navigate(`${base}/gallery`)
     } else if (id === 'hall-of-fame') {
-      navigate('/hall-of-fame')
+      navigate(`${base}/hall-of-fame`)
     } else {
-      if (location.pathname !== '/') {
-        navigate('/')
+      // Scroll to section on home page
+      if (location.pathname !== base && location.pathname !== '/') {
+        navigate(base)
         setTimeout(() => {
           const el = document.getElementById(id)
           if (el) el.scrollIntoView({ behavior: 'smooth' })
@@ -102,7 +107,7 @@ export default function Sidebar() {
         if (el) el.scrollIntoView({ behavior: 'smooth' })
       }
     }
-  }, [location.pathname, navigate])
+  }, [location.pathname, navigate, base])
 
   return (
     <>

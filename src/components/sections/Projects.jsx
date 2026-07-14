@@ -2,9 +2,14 @@ import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { projectsData } from '../../data/projects';
 
-export default function Projects() {
+export default function Projects({ wing }) {
   const sectionRef = useRef(null);
   const [isDesktop, setIsDesktop] = useState(true);
+
+  // Filter by wing if provided
+  const filteredProjects = wing
+    ? projectsData.filter(p => p.wing === wing || p.wing === 'both')
+    : projectsData;
 
   useEffect(() => {
     const check = () => setIsDesktop(window.innerWidth >= 1024);
@@ -51,7 +56,7 @@ export default function Projects() {
 
           <motion.div style={{ x }} className={isDesktop ? "w-full lg:w-[190%]" : "w-full"}>
             <div className={`grid gap-6 ${isDesktop ? 'grid-cols-6' : 'grid-cols-1 sm:grid-cols-2'}`}>
-              {projectsData.map((project, index) => (
+              {filteredProjects.map((project, index) => (
                 <div key={project.id} className="h-full">
                   <a
                     href={project.link || "#"}

@@ -589,10 +589,10 @@ function SceneAICC({ onDone }) {
     // 6.0s: wait 1.0s for logo to come to front, then start disintegration
     const t2 = setTimeout(() => setPhase('disintegrate'), 6000);
 
-    // 9.8s: wait 3.8s for disintegration + slow slide-out to complete and hold, then trigger onDone
-    const t3 = setTimeout(onDone, 9800);
+    // 9.8s: wait 3.8s for disintegration + slow slide-out to complete and hold, then transition to selection
+    const t3 = setTimeout(() => setPhase('selection'), 9800);
     return () => [t0, t1, t2, t3].forEach(clearTimeout);
-  }, [onDone]);
+  }, []);
 
   const isExpanded = phase === 'expanded' || phase === 'front' || phase === 'disintegrate';
   const isFront = phase === 'front' || phase === 'disintegrate';
@@ -606,6 +606,81 @@ function SceneAICC({ onDone }) {
     fontFamily: '"Plus Jakarta Sans", "Helvetica Neue", system-ui, sans-serif',
     display: 'inline-block',
   };
+
+  if (phase === 'selection') {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.7 }}
+        className="absolute inset-0 flex items-center justify-center bg-white z-50"
+      >
+        <div className="flex flex-row items-center justify-center gap-16 md:gap-32">
+
+          {/* DS Logo */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            onClick={() => onDone('ds')}
+            className="flex flex-col items-center gap-4 cursor-pointer group"
+          >
+            <motion.img
+              layoutId="old-logo"
+              src="/aicc-logo.webp"
+              alt="AI&DS Coding Club"
+              className="w-[clamp(160px,22vw,260px)] h-[clamp(160px,22vw,260px)] object-contain transition-all duration-300"
+              whileHover={{ scale: 1.08, filter: 'drop-shadow(0 0 0px transparent)' }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            />
+            <motion.p
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45, duration: 0.5 }}
+              className="text-sm font-bold tracking-widest uppercase text-black/50 group-hover:text-black transition-colors duration-300"
+            >
+              AI&amp;DS Coding Club
+            </motion.p>
+          </motion.div>
+
+          {/* ML Logo — gold glow + ring on hover */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            onClick={() => onDone('ml')}
+            className="flex flex-col items-center gap-4 cursor-pointer group"
+          >
+            <motion.div
+              className="rounded-full p-[3px] transition-all duration-300"
+              whileHover={{
+                boxShadow: '0 0 0 3px #d97706, 0 0 32px 8px rgba(217,119,6,0.35)',
+                scale: 1.08,
+              }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              style={{ display: 'inline-flex' }}
+            >
+              <motion.img
+                layoutId="new-logo"
+                src="/aiml-logo.jpg"
+                alt="AI&ML Coding Club"
+                className="w-[clamp(160px,22vw,260px)] h-[clamp(160px,22vw,260px)] object-contain rounded-full block"
+              />
+            </motion.div>
+            <motion.p
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.55, duration: 0.5 }}
+              className="text-sm font-bold tracking-widest uppercase text-black/50 group-hover:text-[#d97706] transition-colors duration-300"
+            >
+              AI&amp;ML Coding Club
+            </motion.p>
+          </motion.div>
+
+        </div>
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div
@@ -733,6 +808,9 @@ export default function IntroScreen({ onComplete }) {
   const [scene, setScene] = useState(0);
 
   const advance = () => setScene(s => s + 1);
+  const handleAICCSelect = (wing) => {
+    onComplete(wing);
+  };
 
   return (
     <motion.div
@@ -749,10 +827,10 @@ export default function IntroScreen({ onComplete }) {
           <SceneFade key="s2" text="Now Its Time For Us." onDone={advance} fadeIn={800} hold={1100} />
         )}
         {scene === 3 && <SceneFirstClub key="s3" onDone={advance} />}
-        {scene === 4 && <SceneAICC key="s4" onDone={onComplete} />}
+        {scene === 4 && <SceneAICC key="s4" onDone={handleAICCSelect} />}
       </AnimatePresence>
       <button 
-        onClick={onComplete}
+        onClick={() => onComplete('ds')}
         className="fixed bottom-6 right-8 text-sm font-semibold text-black/40 hover:text-black/80 transition-colors z-50 uppercase tracking-widest"
       >
         Skip

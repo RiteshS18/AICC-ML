@@ -28,17 +28,10 @@ const stats = [
   { value: '30+', label: 'Members' },
 ];
 
-function smoothScroll(e, targetId) {
-  e.preventDefault();
-  const el = document.getElementById(targetId);
-  if (el) el.scrollIntoView({ behavior: 'smooth' });
-}
-
-export default function Hero({ intro, setTheme, wing }) {
+export default function MLHero({ intro, setTheme }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
-    // Start collapsed, then expand after a delay, and loop
     const interval = setInterval(() => {
       setIsExpanded(prev => !prev);
     }, 2500);
@@ -65,17 +58,17 @@ export default function Hero({ intro, setTheme, wing }) {
           {!intro && (
             <div className="flex flex-col items-center gap-1.5">
               <motion.img 
-                layoutId="old-logo"
-                src="/aicc-logo.webp" 
-                alt="AICC DS Logo" 
-                className="w-24 h-24 object-contain drop-shadow-lg" 
+                layoutId="new-logo"
+                src="/aiml-logo.jpg" 
+                alt="AICC ML Logo" 
+                className="w-28 h-28 object-contain rounded-full drop-shadow-lg" 
                 initial={{ opacity: 1, y: 0 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ scale: 1.1, rotate: -3 }}
+                whileHover={{ scale: 1.1, rotate: 3 }}
               />
               <span className="text-[11px] font-bold tracking-widest uppercase text-primary mt-1">
-                AI &amp; DS
+                AI &amp; ML
               </span>
             </div>
           )}
@@ -102,7 +95,15 @@ export default function Hero({ intro, setTheme, wing }) {
           >
             <span>AI</span>
             
-            {/* Space before Coding */}
+            <motion.span
+              className="overflow-hidden inline-flex whitespace-nowrap"
+              initial={{ width: 0, opacity: 0 }}
+              animate={{ width: isExpanded ? "auto" : 0, opacity: isExpanded ? 1 : 0 }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            >
+              &amp;ML
+            </motion.span>
+            
             <motion.span
               className="overflow-hidden inline-flex"
               initial={{ width: 0, opacity: 0 }}
@@ -112,7 +113,6 @@ export default function Hero({ intro, setTheme, wing }) {
 
             <span>C</span>
 
-            {/* "oding" */}
             <motion.span
               className="overflow-hidden inline-flex whitespace-nowrap"
               initial={{ width: 0, opacity: 0 }}
@@ -122,7 +122,6 @@ export default function Hero({ intro, setTheme, wing }) {
               oding
             </motion.span>
 
-            {/* Space before Club */}
             <motion.span
               className="overflow-hidden inline-flex"
               initial={{ width: 0, opacity: 0 }}
@@ -132,7 +131,6 @@ export default function Hero({ intro, setTheme, wing }) {
 
             <span>C</span>
 
-            {/* "lub" */}
             <motion.span
               className="overflow-hidden inline-flex whitespace-nowrap"
               initial={{ width: 0, opacity: 0 }}
@@ -148,7 +146,7 @@ export default function Hero({ intro, setTheme, wing }) {
           variants={fadeUp}
           className="text-xl md:text-2xl font-display font-bold mb-6 drop-shadow-sm bg-gradient-to-r from-primary-light to-accent-light bg-clip-text text-transparent"
         >
-          {wing === 'ml' ? 'A Department of AIML Initiative' : 'A Department of AIDS & AIML Initiative'}
+          A Department of AIML Initiative
         </motion.div>
 
         {/* Subtext */}
@@ -166,10 +164,10 @@ export default function Hero({ intro, setTheme, wing }) {
           variants={fadeUp}
           className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-12"
         >
-          <Link to={wing === 'ml' ? '/ml/gallery' : '/gallery'} className="btn-moon">
+          <Link to="/ml/gallery" className="btn-moon">
             View Gallery
           </Link>
-          <Link to={wing === 'ml' ? '/ml/members' : '/members'} className="btn-moon">
+          <Link to="/ml/members" className="btn-moon">
             Members
           </Link>
         </motion.div>

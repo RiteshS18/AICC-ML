@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Trophy, Clock, User, Hash, BookOpen, Award, ArrowRight } from 'lucide-react';
-import { leaderboardData } from '../../data/leaderboard';
+import { leaderboardData, leaderboardDataML } from '../../data/leaderboard';
 
 function LeaderboardCard({ title, yearData, delay = 0 }) {
   const isNotStarted = yearData.individuals.every(ind => ind.points === '--');
@@ -115,7 +115,8 @@ function LeaderboardCard({ title, yearData, delay = 0 }) {
   );
 }
 
-export default function Leaderboard() {
+export default function Leaderboard({ wing }) {
+  const data = wing === 'ml' ? leaderboardDataML : leaderboardData;
   return (
     <section id="leaderboard" className="py-24 bg-slate-50 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-10 relative z-10 pointer-events-none">
@@ -141,8 +142,8 @@ export default function Leaderboard() {
 
         {/* Leaderboards Container */}
         <div className="flex flex-col xl:flex-row gap-8 pointer-events-auto">
-          <LeaderboardCard title="3rd Year Standings" yearData={leaderboardData.year3} delay={0.1} />
-          <LeaderboardCard title="2nd Year Standings" yearData={leaderboardData.year2} delay={0.2} />
+          <LeaderboardCard title="3rd Year Standings" yearData={data.year3} delay={0.1} />
+          <LeaderboardCard title="2nd Year Standings" yearData={data.year2} delay={0.2} />
         </div>
 
       </div>
