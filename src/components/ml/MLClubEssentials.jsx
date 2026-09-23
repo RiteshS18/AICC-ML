@@ -95,13 +95,13 @@ export default function MLClubEssentials() {
         {/* Header */}
         <div className="w-full px-6 md:px-10 mt-20 lg:mt-24 max-w-7xl mx-auto flex-shrink-0 text-center relative z-20">
            <motion.h2 
-             className="font-display font-extrabold text-slate-900 tracking-tight leading-tight text-5xl md:text-6xl lg:text-7xl mb-4"
+             className="font-display font-extrabold text-white tracking-tight leading-tight text-5xl md:text-6xl lg:text-7xl mb-4"
              initial={{ opacity: 0, y: 20 }}
              whileInView={{ opacity: 1, y: 0 }}
              viewport={{ once: true }}
              transition={{ duration: 0.6, delay: 0.1 }}
            >
-             About <span className="text-transparent" style={{ WebkitTextStroke: '2px #111111' }}>US</span>
+             About <span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255, 255, 255, 0.5)' }}>US</span>
            </motion.h2>
         </div>
 
@@ -136,7 +136,7 @@ export default function MLClubEssentials() {
               >
                 {activeItem.id}. {activeItem.title}
               </h3>
-              <p className="text-base md:text-lg text-slate-600 leading-relaxed font-medium">
+              <p className="text-base md:text-lg text-text-secondary leading-relaxed font-medium">
                 {activeItem.desc}
               </p>
             </motion.div>

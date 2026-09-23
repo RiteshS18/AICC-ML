@@ -1,60 +1,60 @@
 /**
- * ML Wing Home Page
+ * AIML Coding Club — Home Page
  * ─────────────────────────────────────────────────────────────────────────────
- * This is the dedicated page for the AI & ML Coding Club wing.
- * It is completely separate from the DS page (src/App.jsx → /ds route).
- * All ML-specific sections, data, and customizations go here.
+ * The main landing page for the AIML Coding Club website.
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
 import MLHero from '../../components/ml/MLHero';
 import MLAbout from '../../components/ml/MLAbout';
+import MLDomains from '../../components/ml/MLDomains';
 import MLClubEssentials from '../../components/ml/MLClubEssentials';
 import MLEvents from '../../components/ml/MLEvents';
+import MLProjects from '../../components/ml/MLProjects';
 import MLLeaderboard from '../../components/ml/MLLeaderboard';
 import MLHallOfFame from '../../components/ml/MLHallOfFame';
 import MLHighlights from '../../components/ml/MLHighlights';
-import MLProjects from '../../components/ml/MLProjects';
 import MLFAQ from '../../components/ml/MLFAQ';
+import MLJoinUs from '../../components/ml/MLJoinUs';
 import MLFooter from '../../components/ml/MLFooter';
 
-/**
- * MLHomePage
- * Props passed from App.jsx:
- *  - intro    : boolean — whether the intro screen is still active
- *  - setTheme : function — call setTheme('gold') or setTheme('blue') to switch wing
- */
-export default function MLHomePage({ intro, setTheme }) {
+export default function MLHomePage() {
   return (
     <>
-      {/* ── Hero ── */}
-      <MLHero intro={intro} setTheme={setTheme} />
+      {/* ── 1. Hero ── */}
+      <MLHero />
 
-      {/* ── About ── */}
+      {/* ── 2. About the Club ── */}
       <MLAbout />
 
-      {/* ── Club Essentials ── */}
+      {/* ── 3. Domains / Technical Focus ── */}
+      <MLDomains />
+
+      {/* ── 4. Club Essentials ── */}
       <MLClubEssentials />
 
-      {/* ── Events ── */}
+      {/* ── 5. Events & Workshops ── */}
       <MLEvents />
 
-      {/* ── Leaderboard ── */}
-      <MLLeaderboard />
-
-      {/* ── Hall of Fame ── */}
-      <MLHallOfFame />
-
-      {/* ── Highlights ── */}
-      <MLHighlights />
-
-      {/* ── Projects ── */}
+      {/* ── 6. Featured Projects ── */}
       <MLProjects />
 
-      {/* ── FAQ (ML version — no QR section) ── */}
+      {/* ── 7. Leaderboard ── */}
+      <MLLeaderboard />
+
+      {/* ── 8. Hall of Fame ── */}
+      <MLHallOfFame />
+
+      {/* ── 9. Highlights ── */}
+      <MLHighlights />
+
+      {/* ── 10. FAQ ── */}
       <MLFAQ />
 
-      {/* ── Footer ── */}
+      {/* ── 11. Join Us & Contact ── */}
+      <MLJoinUs />
+
+      {/* ── 12. Footer ── */}
       <MLFooter />
     </>
   );

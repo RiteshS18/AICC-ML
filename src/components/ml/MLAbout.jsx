@@ -46,6 +46,8 @@ function TiltCard({ children, index, isInView }) {
     >
       <motion.div
         className="glass-card p-8 h-full"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
         style={{ rotateX: springRotateX, rotateY: springRotateY, transformStyle: 'preserve-3d' }}
         whileHover={{ boxShadow: '0 24px 64px var(--color-primary-alpha)' }}
         transition={{ duration: 0.3 }}

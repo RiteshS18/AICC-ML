@@ -3,21 +3,23 @@ import { useEffect, useRef } from 'react';
 // ─────────────────────────────────────────────────────────────────────────────
 // ParticleCanvas (Hero Section)
 //
-// • Scatter phase  : dots float freely initially
-// • Auto-form phase: after a short delay, dots form the logo automatically
-// • Mouse Repel    : hovering over the logo scatters the dots away
+// • Scatter phase       : dots float freely initially with neural-net connection lines
+// • Auto-form phase     : after a short delay, dots form the AIML logo automatically
+// • Neural graph lines  : nearby floating nodes connect with luminous gradient lines
+// • Mouse interactive  : repels dots and forms responsive neural web
+// • Reduced motion      : respects user accessibility settings
 // ─────────────────────────────────────────────────────────────────────────────
 
-const COUNT = 3500;
-const BACKGROUND_COUNT = 1000; // Dots that never form the logo
+const COUNT = 3200;
+const BACKGROUND_COUNT = 900;
 const LOGO_COUNT = COUNT - BACKGROUND_COUNT;
 const SAMPLE_STEP = 3;
-const LOGO_COVER = 0.65;
-const MOUSE_RADIUS = 120; // How far the mouse scatters dots
+const LOGO_COVER = 0.62;
+const MOUSE_RADIUS = 130;
 const MOUSE_FORCE = 4.5;
 const FRICTION = 0.88;
+const NEURAL_CONNECT_DIST = 70;
 
-// Draw a smooth circular dot
 function drawDot(ctx, x, y, radius, color, alpha) {
   ctx.beginPath();
   ctx.arc(x, y, radius, 0, Math.PI * 2);
@@ -31,14 +33,16 @@ export default function ParticleCanvas({ className = '' }) {
   const canvasRef = useRef(null);
   const stateRef = useRef({
     particles: [],
+    neuralNodes: [],
     logoPixels: [],
     logoLoaded: false,
     animId: null,
     width: 0,
     height: 0,
     mouse: { x: -9999, y: -9999 },
-    targetActive: 0, // 0 to 1 smooth transition to formed logo
+    targetActive: 0,
     isForming: false,
+    reducedMotion: false,
   });
 
   useEffect(() => {
@@ -47,14 +51,15 @@ export default function ParticleCanvas({ className = '' }) {
     const ctx = canvas.getContext('2d');
     const s = stateRef.current;
 
-    // Automatically start forming the logo after 1 second
+    s.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     const formTimeout = setTimeout(() => {
       s.isForming = true;
-    }, 1000);
+    }, s.reducedMotion ? 100 : 900);
 
     // ── Resize ──────────────────────────────────────────────────────────────
     function resize() {
-      const dpr = window.devicePixelRatio || 1;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const w = canvas.offsetWidth;
       const h = canvas.offsetHeight;
       canvas.width = w * dpr;
@@ -73,7 +78,10 @@ export default function ParticleCanvas({ className = '' }) {
       s.mouse.x = e.clientX - r.left;
       s.mouse.y = e.clientY - r.top;
     }
-    function onLeave() { s.mouse.x = -9999; s.mouse.y = -9999; }
+    function onLeave() {
+      s.mouse.x = -9999;
+      s.mouse.y = -9999;
+    }
     window.addEventListener('mousemove', onMove);
     window.addEventListener('mouseleave', onLeave);
 
@@ -81,31 +89,42 @@ export default function ParticleCanvas({ className = '' }) {
     function seed() {
       const w = s.width || window.innerWidth;
       const h = s.height || window.innerHeight;
-      
+
       s.particles = Array.from({ length: COUNT }, (_, i) => {
         const x = Math.random() * w;
         const y = Math.random() * h;
         const isLogoDot = i < LOGO_COUNT;
-        
+
         return {
-          x, y,
-          vx: (Math.random() - 0.5) * 1.5,
-          vy: (Math.random() - 0.5) * 1.5,
-          tx: x, ty: y,
-          baseColor: '#888888', // Grey when scattered
-          logoColor: '#4285F4', // Will be replaced by actual image pixel color
-          radius: Math.random() * 0.8 + 0.5, // Small dots
-          alpha: Math.random() * 0.5 + 0.3,
+          x,
+          y,
+          vx: (Math.random() - 0.5) * (s.reducedMotion ? 0.3 : 1.4),
+          vy: (Math.random() - 0.5) * (s.reducedMotion ? 0.3 : 1.4),
+          tx: x,
+          ty: y,
+          baseColor: '#6366f1',
+          logoColor: '#818cf8',
+          radius: Math.random() * 0.9 + 0.5,
+          alpha: Math.random() * 0.45 + 0.25,
           isLogoDot,
         };
       });
+
+      // Distinct ambient nodes for drawing neural network connecting lines
+      s.neuralNodes = Array.from({ length: 85 }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.7,
+        vy: (Math.random() - 0.5) * 0.7,
+        radius: Math.random() * 1.5 + 1.2,
+      }));
     }
 
     // ── Sample logo pixels & colors ──────────────────────────────────────────
     function sampleLogo() {
       const img = new Image();
-      img.crossOrigin = 'anonymous'; // Ensure CORS doesn't block getImageData
-      img.src = '/aicc-logo.webp';
+      img.crossOrigin = 'anonymous';
+      img.src = '/aiml-logo.jpg';
       img.onload = () => {
         const size = Math.min(s.width, s.height) * LOGO_COVER;
         const offW = Math.round(size);
@@ -129,13 +148,12 @@ export default function ParticleCanvas({ className = '' }) {
             const g = data[i + 1];
             const b = data[i + 2];
             const a = data[i + 3];
-            
-            // Just use alpha to detect the logo shape
-            if (a > 20) {
-              pixels.push({ 
-                x: offX + px, 
+
+            if (a > 25) {
+              pixels.push({
+                x: offX + px,
                 y: offY + py,
-                color: `rgb(${r},${g},${b})`
+                color: `rgb(${r},${g},${b})`,
               });
             }
           }
@@ -156,7 +174,7 @@ export default function ParticleCanvas({ className = '' }) {
             const t = pixels[pixelIndex % pixels.length];
             p.tx = t.x;
             p.ty = t.y;
-            p.logoColor = t.color; // Save the exact color of the pixel!
+            p.logoColor = t.color;
             pixelIndex++;
           }
         });
@@ -168,21 +186,68 @@ export default function ParticleCanvas({ className = '' }) {
 
     // ── Render loop ──────────────────────────────────────────────────────────
     function loop() {
-      const { width, height, particles, mouse } = s;
-      
-      // Smoothly interpolate the target active state
+      const { width, height, particles, neuralNodes, mouse } = s;
+
       if (s.isForming) {
-        s.targetActive += (1 - s.targetActive) * 0.02; // Slow organic forming
+        s.targetActive += (1 - s.targetActive) * (s.reducedMotion ? 0.08 : 0.022);
       }
 
       ctx.clearRect(0, 0, width, height);
 
+      // ── 1. Draw neural network connection lines between ambient nodes ──
+      const nodeCount = neuralNodes.length;
+      for (let i = 0; i < nodeCount; i++) {
+        const n = neuralNodes[i];
+        n.x += n.vx;
+        n.y += n.vy;
+
+        if (n.x < 0) n.x = width;
+        if (n.x > width) n.x = 0;
+        if (n.y < 0) n.y = height;
+        if (n.y > height) n.y = 0;
+
+        // Draw connections to nearby nodes
+        for (let j = i + 1; j < nodeCount; j++) {
+          const n2 = neuralNodes[j];
+          const dx = n.x - n2.x;
+          const dy = n.y - n2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < NEURAL_CONNECT_DIST) {
+            const lineAlpha = (1 - dist / NEURAL_CONNECT_DIST) * 0.16;
+            ctx.beginPath();
+            ctx.moveTo(n.x, n.y);
+            ctx.lineTo(n2.x, n2.y);
+            ctx.strokeStyle = `rgba(129, 140, 248, ${lineAlpha})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+
+        // Connection to mouse
+        const mdx = n.x - mouse.x;
+        const mdy = n.y - mouse.y;
+        const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+        if (mdist < 140) {
+          const mAlpha = (1 - mdist / 140) * 0.28;
+          ctx.beginPath();
+          ctx.moveTo(n.x, n.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = `rgba(167, 139, 250, ${mAlpha})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+
+        // Draw the ambient node
+        drawDot(ctx, n.x, n.y, n.radius, '#818cf8', 0.4);
+      }
+
+      // ── 2. Draw particle array (logo-forming + scattered) ──────────────────
       for (const p of particles) {
-        // Mouse repulsion - scatter dots when hovered
         const dx = p.x - mouse.x;
         const dy = p.y - mouse.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        
+
         let repelled = false;
         if (dist < MOUSE_RADIUS && dist > 0.5) {
           const force = ((MOUSE_RADIUS - dist) / MOUSE_RADIUS) ** 2;
@@ -190,15 +255,13 @@ export default function ParticleCanvas({ className = '' }) {
           p.vy += (dy / dist) * force * MOUSE_FORCE;
           repelled = true;
         }
-        
+
         if (s.targetActive < 0.01 || !p.isLogoDot) {
-          // Pure drift for scattered dots, or all dots when not forming
           p.x += p.vx;
           p.y += p.vy;
           p.vx *= FRICTION;
           p.vy *= FRICTION;
-          
-          // Maintain a constant movement for scattered dots
+
           if (Math.abs(p.vx) < 0.2) p.vx += (Math.random() - 0.5) * 0.2;
           if (Math.abs(p.vy) < 0.2) p.vy += (Math.random() - 0.5) * 0.2;
 
@@ -206,33 +269,27 @@ export default function ParticleCanvas({ className = '' }) {
           if (p.x > width + 20) p.x = -20;
           if (p.y < -20) p.y = height + 20;
           if (p.y > height + 20) p.y = -20;
-          
-          drawDot(ctx, p.x, p.y, p.radius, p.baseColor, p.alpha);
+
+          drawDot(ctx, p.x, p.y, p.radius, p.baseColor, p.alpha * 0.7);
         } else {
-          // Pull logo dots toward their targets
           const pull = 0.08 * s.targetActive;
-          
-          // If repelled by mouse, the pull is temporarily overcome by the huge mouse force
           p.vx += (p.tx - p.x) * pull;
           p.vy += (p.ty - p.y) * pull;
           p.vx *= FRICTION;
           p.vy *= FRICTION;
-          
-          // Add some slight organic noise even when formed
+
           p.vx += (Math.random() - 0.5) * 0.15;
           p.vy += (Math.random() - 0.5) * 0.15;
-          
+
           p.x += p.vx;
           p.y += p.vy;
-          
-          // Determine color based on targetActive state and whether it's currently repelled
-          // When scattered by mouse, it loses its logo color momentarily!
-          const color = (s.targetActive > 0.5 && !repelled) ? p.logoColor : p.baseColor;
-          
+
+          const color = s.targetActive > 0.5 && !repelled ? p.logoColor : p.baseColor;
+
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
           ctx.fillStyle = color;
-          ctx.globalAlpha = Math.min(1, Math.max(0, p.alpha * (0.5 + s.targetActive * 0.5)));
+          ctx.globalAlpha = Math.min(1, Math.max(0, p.alpha * (0.6 + s.targetActive * 0.4)));
           ctx.fill();
           ctx.globalAlpha = 1;
         }

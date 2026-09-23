@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { membersData as members } from '../../data/members.js';
 
 const positionOrder = [
@@ -12,10 +12,7 @@ const positionOrder = [
   'Executive Member',
 ];
 
-const years = [
-  { id: '2026-27', label: '2026-27' },
-  { id: '2025-26', label: '2025-26' },
-];
+
 
 function getInitials(name) {
   return name
@@ -127,56 +124,10 @@ function GroupHeader({ position, isFirst, count }) {
   );
 }
 
-function UnderlineTabs({ items, selected, onSelect, layoutId }) {
-  return (
-    <div className="flex items-center gap-6">
-      {items.map((item) => {
-        const isActive = selected === item.id;
-        return (
-          <button
-            key={item.id}
-            onClick={() => onSelect(item.id)}
-            className="relative pb-2 text-sm font-semibold transition-colors duration-300 cursor-pointer"
-            style={{
-              color: isActive ? '#0f172a' : '#94a3b8',
-            }}
-          >
-            {item.label}
-            {isActive && (
-              <motion.div
-                layoutId={layoutId}
-                className="absolute bottom-0 left-0 right-0 h-[2px] rounded-full"
-                style={{
-                  background: 'linear-gradient(90deg, var(--color-primary), var(--color-accent))',
-                }}
-                transition={{ type: 'spring', stiffness: 500, damping: 35 }}
-              />
-            )}
-          </button>
-        );
-      })}
-    </div>
-  );
-}
 
-const slideVariants = {
-  enterFromRight: { opacity: 0, x: 60, filter: 'blur(4px)' },
-  enterFromLeft: { opacity: 0, x: -60, filter: 'blur(4px)' },
-  center: { opacity: 1, x: 0, filter: 'blur(0px)' },
-  exitToLeft: { opacity: 0, x: -60, filter: 'blur(4px)' },
-  exitToRight: { opacity: 0, x: 60, filter: 'blur(4px)' },
-};
 
 export default function MLMembers() {
-  const [selectedYear, setSelectedYear] = useState('2026-27');
-  const [slideDirection, setSlideDirection] = useState(1);
-
-  const filtered = members.filter((m) => {
-    if (m.year !== selectedYear) return false;
-    // For 2026-27 academic year, show only ML members
-    if (selectedYear === '2026-27' && m.branch !== 'AI-ML') return false;
-    return true;
-  });
+  const filtered = members;
 
   const grouped = filtered.reduce((acc, member) => {
     if (!acc[member.position]) acc[member.position] = [];
@@ -187,15 +138,8 @@ export default function MLMembers() {
   const isLeadership = (position) =>
     ['Secretary', 'Additional Secretary'].includes(position);
 
-  const handleYearChange = (newYear) => {
-    const oldIndex = years.findIndex((y) => y.id === selectedYear);
-    const newIndex = years.findIndex((y) => y.id === newYear);
-    setSlideDirection(newIndex > oldIndex ? 1 : -1);
-    setSelectedYear(newYear);
-  };
-
   return (
-    <section id="members" className="pt-12 pb-24 lg:pt-16 lg:pb-32">
+    <section id="members" className="pt-24 pb-24 lg:pt-28 lg:pb-32">
       <div className="max-w-6xl mx-auto px-6">
         {/* Title Row */}
         <motion.div
@@ -204,15 +148,17 @@ export default function MLMembers() {
           transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
           className="flex items-end justify-between flex-wrap gap-4 mb-2"
         >
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-text">
-            Office Bearers
-          </h2>
-          <UnderlineTabs
-            items={years}
-            selected={selectedYear}
-            onSelect={handleYearChange}
-            layoutId="year-underline-ml"
-          />
+          <div>
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-text">
+              Office Bearers
+            </h2>
+            <p className="text-sm text-text-secondary mt-1">
+              Meet the minds driving AIML Coding Club for 2026–27
+            </p>
+          </div>
+          <span className="px-3.5 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/20">
+            2026–27
+          </span>
         </motion.div>
 
         {/* Divider */}
@@ -220,48 +166,38 @@ export default function MLMembers() {
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
-          className="h-px bg-border mb-6 origin-left"
+          className="h-px bg-border mb-8 origin-left"
         />
 
         {/* Members Grid */}
-        <AnimatePresence mode="wait" custom={slideDirection}>
-          <motion.div
-            key={selectedYear}
-            custom={slideDirection}
-            initial={slideDirection > 0 ? 'enterFromRight' : 'enterFromLeft'}
-            animate="center"
-            exit={slideDirection > 0 ? 'exitToLeft' : 'exitToRight'}
-            variants={slideVariants}
-            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-          >
-            {positionOrder.map((position, groupIndex) => {
-              const group = grouped[position];
-              if (!group || group.length === 0) return null;
+        <div className="space-y-12">
+          {positionOrder.map((position, groupIndex) => {
+            const group = grouped[position];
+            if (!group || group.length === 0) return null;
 
-              return (
-                <div key={position}>
-                  <GroupHeader position={position} isFirst={groupIndex === 0} count={group.length} />
+            return (
+              <div key={position}>
+                <GroupHeader position={position} isFirst={groupIndex === 0} count={group.length} />
 
-                  <div
-                    className={
-                      isLeadership(position)
-                        ? 'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-2xl mx-auto'
-                        : 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6'
-                    }
-                  >
-                    {group.map((member, memberIndex) => (
-                      <MemberCard
-                        key={`${member.name}-${memberIndex}`}
-                        member={member}
-                        index={memberIndex}
-                      />
-                    ))}
-                  </div>
+                <div
+                  className={
+                    isLeadership(position)
+                      ? 'grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-2xl mx-auto'
+                      : 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6'
+                  }
+                >
+                  {group.map((member, memberIndex) => (
+                    <MemberCard
+                      key={`${member.name}-${memberIndex}`}
+                      member={member}
+                      index={memberIndex}
+                    />
+                  ))}
                 </div>
-              );
-            })}
-          </motion.div>
-        </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

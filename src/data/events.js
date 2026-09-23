@@ -8,7 +8,7 @@ const events = [
     status: "completed",
     registrationLink: "https://forms.gle/XhaX4KWLJsoDCJfMA",
     description: "Hackvotrix 2k25 is the premier inter-departmental hackathon open to students from all years and departments! Assemble your team, battle through a preliminary round, and code your way to the finale to win from a massive ₹30,000 prize pool.",
-    howItsConducted: "Participants tackle problem statements from domains like Generative AI, Computer Vision, and Data Science & Automation. Teams present their project workflow and partial implementation before the final hackathon. The event offers cash prizes and industry-backed internships, promoting collaboration and hands-on learning across academic years.",
+    howItsConducted: "Participants tackle problem statements from domains like Generative AI, Computer Vision, and Machine Learning & Intelligent Automation. Teams present their project workflow and partial implementation before the final hackathon. The event offers cash prizes and industry-backed internships, promoting collaboration and hands-on learning across academic years.",
     photos: ["/hackathon/hackathon1.webp","/hackathon/hackathon2.webp","/hackathon/hackathon3.webp","/hackathon/hackathon4.webp","/hackathon/hackathon5.webp","/hackathon/hackathon6.webp","/hackathon/hackathon7.webp","/hackathon/hackathon8.webp"]
   },
   {
@@ -55,7 +55,7 @@ const events = [
     venue: "AI BLOCK",
     status: "completed",
     registrationLink: "https://forms.gle/xKcrrP17Cy9Gt3u46",
-    description: "Hacksphere, the ultimate 24-hour intra-departmental hackathon exclusively for students of the AI department! Get ready to innovate, code, and build incredible projects against the clock.",
+    description: "Hacksphere, the ultimate 24-hour hackathon exclusively for students of the Artificial Intelligence & Machine Learning (AIML) department! Get ready to innovate, code, and build incredible projects against the clock.",
     howItsConducted: "Hacksphere challenges participants to solve problem statements within 24 hours, encouraging them to think critically and implement practical solutions. Teams are expected to present their ideas through a project workflow and demonstrate initial progress during the preliminary stage. The event offers exciting opportunities, including cash prizes for winning teams and internship offers based on performance. Beyond competition, Hacksphere serves as an enriching learning experience that promotes collaboration, problem-solving, and innovation among students.",
     photos: ["/thinkathon/thinkathon(1).webp","/thinkathon/thinkathon(2).webp","/thinkathon/thinkathon(3).webp","/thinkathon/thinkathon(4).webp","/thinkathon/thinkathon(5).webp"]
   },

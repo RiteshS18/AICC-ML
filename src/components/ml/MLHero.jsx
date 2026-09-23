@@ -3,6 +3,39 @@ import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ParticleCanvas from '../ui/ParticleCanvas';
+import { membersData } from '../../data/members';
+import eventsData from '../../data/events';
+import { projectsData } from '../../data/projects';
+
+function StatCounter({ target, suffix = '', duration = 1200 }) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let start = 0;
+    const steps = 30;
+    const increment = target / steps;
+    const intervalTime = duration / steps;
+
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= target) {
+        setCount(target);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, intervalTime);
+
+    return () => clearInterval(timer);
+  }, [target, duration]);
+
+  return (
+    <span>
+      {count}
+      {suffix}
+    </span>
+  );
+}
 
 const containerVariants = {
   hidden: {},
@@ -22,13 +55,7 @@ const fadeUp = {
   },
 };
 
-const stats = [
-  { value: '10+', label: 'Workshops' },
-  { value: '7+', label: 'Hackathons' },
-  { value: '30+', label: 'Members' },
-];
-
-export default function MLHero({ intro, setTheme }) {
+export default function MLHero() {
   const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
@@ -55,15 +82,13 @@ export default function MLHero({ intro, setTheme }) {
       >
         {/* Logos */}
         <div className="flex justify-center items-center gap-6 mb-6">
-          {!intro && (
             <div className="flex flex-col items-center gap-1.5">
               <motion.img 
-                layoutId="new-logo"
                 src="/aiml-logo.jpg" 
-                alt="AICC ML Logo" 
+                alt="AIML Coding Club Logo" 
                 className="w-28 h-28 object-contain rounded-full drop-shadow-lg" 
-                initial={{ opacity: 1, y: 0 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
                 whileHover={{ scale: 1.1, rotate: 3 }}
               />
@@ -71,7 +96,6 @@ export default function MLHero({ intro, setTheme }) {
               LEARN AND LEAD
               </span>
             </div>
-          )}
         </div>
 
         {/* Eyebrow */}
@@ -162,37 +186,47 @@ export default function MLHero({ intro, setTheme }) {
         {/* Call to Action Buttons */}
         <motion.div
           variants={fadeUp}
-          className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-12"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
         >
-          <Link to="/ml/gallery" className="btn-moon">
+          <a href="#about" className="btn-primary">
+            Explore Club
+          </a>
+          <Link to="/gallery" className="btn-moon">
             View Gallery
           </Link>
-          <Link to="/ml/members" className="btn-moon">
-            Members
+          <Link to="/members" className="btn-ghost">
+            Meet the Team
           </Link>
         </motion.div>
 
         {/* Stats Row in Bordered Box */}
         <motion.div
-          variants={fadeUp}
-          className="inline-flex flex-wrap justify-center gap-8 md:gap-16 border border-border rounded-3xl px-8 md:px-16 py-6 md:py-8 bg-white/40 backdrop-blur-md shadow-sm"
+          className="inline-flex flex-wrap justify-center gap-6 md:gap-14 border border-white/10 rounded-3xl px-6 md:px-12 py-5 md:py-7 glass-card shadow-2xl"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
         >
-          {stats.map((stat, i) => (
+          {[
+            { target: eventsData.length, suffix: '+', label: 'Flagship Events' },
+            { target: projectsData.length, suffix: '+', label: 'AI Projects' },
+            { target: membersData.length, suffix: '', label: 'Office Bearers' },
+            { target: 350, suffix: '+', label: 'Tech Community' },
+          ].map((stat, i) => (
             <motion.div
               key={stat.label}
-              className="flex flex-col items-center"
-              initial={{ opacity: 0, y: 20 }}
+              className="flex flex-col items-center min-w-[100px]"
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
                 duration: 0.5,
-                delay: 0.9 + i * 0.1,
+                delay: 0.8 + i * 0.1,
                 ease: [0.22, 1, 0.36, 1],
               }}
             >
-              <div className="text-3xl md:text-4xl font-display font-bold text-primary">
-                {stat.value}
+              <div className="text-2xl sm:text-3xl md:text-4xl font-display font-extrabold bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400 bg-clip-text text-transparent">
+                <StatCounter target={stat.target} suffix={stat.suffix} />
               </div>
-              <div className="text-sm font-semibold tracking-wider uppercase text-text-muted mt-2">
+              <div className="text-[11px] sm:text-xs font-semibold tracking-wider uppercase text-text-secondary mt-1">
                 {stat.label}
               </div>
             </motion.div>

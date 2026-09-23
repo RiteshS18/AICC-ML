@@ -4,9 +4,9 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 const col1 = [
   {
     id: '01',
-    question: 'What is AI Coding Club?',
+    question: 'What is AIML Coding Club?',
     answer:
-      'AI Coding Club (AICC) is a student-run tech community focused on Artificial Intelligence, Machine Learning, and Full-Stack Development. We run workshops, hackathons, and real-world projects to help members grow.',
+      'AIML Coding Club is a student-run tech community focused on Artificial Intelligence, Machine Learning, and Full-Stack Development. We run workshops, hackathons, and real-world projects to help members grow.',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
         <circle cx="12" cy="12" r="10" /><path d="M12 16v-4M12 8h.01" />
@@ -17,7 +17,7 @@ const col1 = [
     id: '02',
     question: 'Do I need prior experience to join?',
     answer:
-      'Absolutely not! AICC welcomes everyone — from complete beginners to seasoned coders. All you need is curiosity and a willingness to learn. We will guide you every step of the way.',
+      'Absolutely not! AIML Coding Club welcomes everyone — from complete beginners to seasoned coders. All you need is curiosity and a willingness to learn. We will guide you every step of the way.',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />
@@ -39,7 +39,7 @@ const col1 = [
     id: '04',
     question: 'Is there a membership fee?',
     answer:
-      'No! Joining the AI Coding Club is completely free. We believe in open access to knowledge, community, and innovation, so there are no fees whatsoever.',
+      'No! Joining AIML Coding Club is completely free. We believe in open access to knowledge, community, and innovation, so there are no fees whatsoever.',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
         <rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
@@ -86,7 +86,7 @@ const col2 = [
     id: '08',
     question: 'Is the club environment inclusive?',
     answer:
-      'Absolutely. AICC is committed to fostering a safe, respectful, and diverse environment for all members regardless of background, skill level, or identity. Everyone belongs here.',
+      'Absolutely. AIML Coding Club is committed to fostering a safe, respectful, and diverse environment for all members regardless of background, skill level, or identity. Everyone belongs here.',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -107,30 +107,30 @@ function FAQItem({ item, index, colIndex }) {
       transition={{ duration: 0.5, delay: index * 0.07 + colIndex * 0.04, ease: [0.22, 1, 0.36, 1] }}
       className="group relative cursor-default"
     >
-      <div className="absolute top-0 left-0 right-0 h-px bg-slate-100" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-white/10" />
       <motion.div
-        className="absolute inset-0 rounded-lg bg-white"
+        className="absolute inset-0 rounded-xl bg-white/[0.04] border border-white/5"
         animate={{ opacity: hovered ? 1 : 0 }}
         transition={{ duration: 0.25 }}
       />
-      <div className="relative px-0 py-5 lg:py-6">
+      <div className="relative px-3 py-5 lg:py-6">
         <div className="flex items-center gap-4">
           <motion.span
-            animate={{ color: hovered ? '#1e293b' : '#94a3b8' }}
+            animate={{ color: hovered ? '#818cf8' : '#64748b' }}
             transition={{ duration: 0.25 }}
             className="font-display font-black text-sm tracking-wider min-w-[2rem]"
           >
             {item.id}
           </motion.span>
           <motion.h3
-            animate={{ color: hovered ? '#0f172a' : '#1e293b' }}
+            animate={{ color: hovered ? '#ffffff' : '#e2e8f0' }}
             transition={{ duration: 0.25 }}
             className="flex-1 font-display font-bold text-base md:text-lg leading-snug"
           >
             {item.question}
           </motion.h3>
           <motion.span
-            animate={{ color: hovered ? '#1e293b' : '#cbd5e1', rotate: hovered ? 15 : 0 }}
+            animate={{ color: hovered ? '#818cf8' : '#64748b', rotate: hovered ? 15 : 0 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="flex-shrink-0"
           >
@@ -154,7 +154,7 @@ function FAQItem({ item, index, colIndex }) {
           )}
         </AnimatePresence>
       </div>
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-slate-100" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-white/10" />
     </motion.div>
   );
 }
@@ -164,10 +164,10 @@ export default function MLFAQ() {
   const isInView = useInView(sectionRef, { once: true, amount: 0.15 });
 
   return (
-    <section id="faq" className="relative bg-white py-20 md:py-28 overflow-hidden">
+    <section id="faq" className="relative bg-[#0a0a0f] py-20 md:py-28 overflow-hidden">
       <div
-        className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full opacity-30"
-        style={{ background: 'radial-gradient(ellipse at center, #ede9fe 0%, transparent 70%)' }}
+        className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full opacity-20"
+        style={{ background: 'radial-gradient(ellipse at center, rgba(99, 102, 241, 0.3) 0%, transparent 70%)' }}
       />
       <div className="max-w-7xl mx-auto px-6">
         <div ref={sectionRef} className="text-center mb-16 md:mb-20">
@@ -199,9 +199,9 @@ export default function MLFAQ() {
             className="font-display font-black leading-none tracking-tight"
             style={{ fontSize: 'clamp(2.4rem, 5vw, 4.2rem)' }}
           >
-            <span className="text-transparent" style={{ WebkitTextStroke: '2px #111111' }}>Everything </span>
-            <span className="text-black">you need to </span>
-            <span className="text-transparent" style={{ WebkitTextStroke: '2px #111111' }}>know.</span>
+            <span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255, 255, 255, 0.5)' }}>Everything </span>
+            <span className="text-white">you need to </span>
+            <span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255, 255, 255, 0.5)' }}>know.</span>
           </h2>
         </div>
 
@@ -214,7 +214,7 @@ export default function MLFAQ() {
           <div className="hidden lg:block absolute left-1/2 -translate-x-px" style={{ top: 0, bottom: 0 }}>
             <motion.div
               className="w-px h-full"
-              style={{ background: 'linear-gradient(to bottom, transparent, #e2e8f0 15%, #e2e8f0 85%, transparent)' }}
+              style={{ background: 'linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.12) 15%, rgba(255, 255, 255, 0.12) 85%, transparent)' }}
               initial={{ scaleY: 0, opacity: 0 }}
               whileInView={{ scaleY: 1, opacity: 1 }}
               viewport={{ once: true, amount: 0.2 }}

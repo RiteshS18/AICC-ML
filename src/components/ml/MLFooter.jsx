@@ -47,7 +47,7 @@ function handleSmoothScroll(e, href) {
 
 export default function MLFooter() {
   const logoSrc = '/aiml-logo.jpg';
-  const titleText = 'AI&ML Coding Club';
+  const titleText = 'AIML Coding Club';
 
   return (
     <footer className="bg-dark text-white pt-10 pb-6 text-sm">

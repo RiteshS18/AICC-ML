@@ -49,12 +49,13 @@ function PhotoRow({ images, direction = 1, scrollYProgress }) {
             borderRadius: '16px',
             overflow: 'hidden',
             flexShrink: 0,
-            boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.4)',
+            border: '1px solid rgba(255,255,255,0.08)',
           }}
         >
           <img
             src={src}
-            alt="AICC Highlight"
+            alt="AIML Coding Club Highlight"
             loading="lazy"
             style={{
               width: '100%',
@@ -80,7 +81,7 @@ export default function MLHighlights() {
   const scale = useTransform(scrollYProgress, [0, 0.4], [1.15, 1]);
   const gridOpacity = useTransform(scrollYProgress, [0, 0.4], [0.35, 1]);
   const gridFilter = useTransform(scrollYProgress, [0.5, 0.7], ['blur(0px)', 'blur(16px)']);
-  const overlayOpacity = useTransform(scrollYProgress, [0.5, 0.7], [0, 0.6]);
+  const overlayOpacity = useTransform(scrollYProgress, [0.5, 0.7], [0, 0.75]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
   const textY = useTransform(scrollYProgress, [0, 0.3], ['0%', '-20%']);
   const buttonOpacity = useTransform(scrollYProgress, [0.5, 0.7], [0, 1]);
@@ -92,7 +93,7 @@ export default function MLHighlights() {
       id="highlights"
       ref={containerRef}
       style={{
-        backgroundColor: '#ffffff',
+        backgroundColor: '#0a0a0f',
         position: 'relative',
         height: '400vh',
         zIndex: 20,
@@ -136,7 +137,7 @@ export default function MLHighlights() {
             style={{
               position: 'absolute',
               inset: 0,
-              backgroundColor: '#ffffff',
+              backgroundColor: '#0a0a0f',
               pointerEvents: 'none',
               zIndex: 1,
               opacity: overlayOpacity,
@@ -147,7 +148,7 @@ export default function MLHighlights() {
             style={{
               position: 'absolute',
               inset: 0,
-              background: 'radial-gradient(circle at center, rgba(255,255,255,1) 0%, rgba(255,255,255,0.6) 40%, rgba(255,255,255,0) 80%)',
+              background: 'radial-gradient(circle at center, rgba(10,10,15,1) 0%, rgba(10,10,15,0.7) 40%, rgba(10,10,15,0) 80%)',
               zIndex: 1,
               pointerEvents: 'none',
               opacity: textOpacity,
@@ -170,10 +171,10 @@ export default function MLHighlights() {
             className="font-display font-black leading-none tracking-tight mb-4"
             style={{ fontSize: 'clamp(2.4rem, 5vw, 4.2rem)' }}
           >
-            <span className="text-black">AI&amp;ML Coding Club's </span>
+            <span className="text-white">AIML Coding Club's </span>
             <span
               className="text-transparent"
-              style={{ WebkitTextStroke: '2px #111111' }}
+              style={{ WebkitTextStroke: '2px rgba(255, 255, 255, 0.5)' }}
             >
               Highlights.
             </span>
@@ -195,26 +196,26 @@ export default function MLHighlights() {
           }}
           className="flex flex-col sm:flex-row items-center justify-center gap-8 w-full px-4"
         >
-          <Link to="/ml/gallery" className="group relative w-72 h-80 rounded-3xl overflow-hidden shadow-2xl bg-white flex flex-col hover:-translate-y-2 transition-transform duration-300">
-            <div className="h-2/3 w-full relative overflow-hidden bg-gray-100">
+          <Link to="/gallery" className="group relative w-72 h-80 rounded-3xl overflow-hidden shadow-2xl glass-card border border-white/15 flex flex-col hover:-translate-y-2 transition-all duration-300">
+            <div className="h-2/3 w-full relative overflow-hidden bg-[#161622]">
               <img src="/hackathon/hackathon1.webp" alt="Gallery" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
             </div>
-            <div className="h-1/3 w-full flex items-center justify-center bg-white/95 backdrop-blur-sm">
-              <span className="text-xl font-display font-bold text-slate-900 flex items-center gap-2">
+            <div className="h-1/3 w-full flex items-center justify-center bg-[#12121a]/95 backdrop-blur-sm border-t border-white/10">
+              <span className="text-xl font-display font-bold text-white flex items-center gap-2">
                 View Gallery
-                <ArrowUpRight className="w-5 h-5 text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                <ArrowUpRight className="w-5 h-5 text-primary-light group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </span>
             </div>
           </Link>
           
-          <Link to="/ml/members" className="group relative w-72 h-80 rounded-3xl overflow-hidden shadow-2xl bg-white flex flex-col hover:-translate-y-2 transition-transform duration-300">
-            <div className="h-2/3 w-full relative overflow-hidden bg-gray-100">
+          <Link to="/members" className="group relative w-72 h-80 rounded-3xl overflow-hidden shadow-2xl glass-card border border-white/15 flex flex-col hover:-translate-y-2 transition-all duration-300">
+            <div className="h-2/3 w-full relative overflow-hidden bg-[#161622]">
               <img src="/Members/Frame.jpg" alt="Members" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
             </div>
-            <div className="h-1/3 w-full flex items-center justify-center bg-white/95 backdrop-blur-sm">
-              <span className="text-xl font-display font-bold text-slate-900 flex items-center gap-2">
+            <div className="h-1/3 w-full flex items-center justify-center bg-[#12121a]/95 backdrop-blur-sm border-t border-white/10">
+              <span className="text-xl font-display font-bold text-white flex items-center gap-2">
                 Our Members
-                <ArrowUpRight className="w-5 h-5 text-accent group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                <ArrowUpRight className="w-5 h-5 text-accent-light group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </span>
             </div>
           </Link>

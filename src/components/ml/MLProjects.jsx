@@ -1,116 +1,102 @@
-import { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { ExternalLink, Code2, Users, Sparkles } from 'lucide-react';
 import { projectsData } from '../../data/projects';
 
 export default function MLProjects() {
-  const sectionRef = useRef(null);
-  const [isDesktop, setIsDesktop] = useState(true);
-
-  // Use all projects without filtering
-  const filteredProjects = projectsData;
-
-  useEffect(() => {
-    const check = () => setIsDesktop(window.innerWidth >= 1024);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start start', 'end end'],
-  });
-
-  const xTransform = useTransform(scrollYProgress, [0, 1], ['0%', '-54.5%']);
-  const x = isDesktop ? xTransform : 0;
-
   return (
-    <section 
-      id="projects" 
-      ref={sectionRef} 
-      className="relative bg-white" 
-      style={{ height: isDesktop ? '300vh' : 'auto', padding: isDesktop ? 0 : '6rem 0' }}
-    >
-      <div className={isDesktop ? "sticky top-0 h-[100dvh] flex flex-col justify-center overflow-hidden" : ""}>
-        <div className="max-w-7xl mx-auto w-full px-6 md:px-10">
-          
-          {/* Title */}
-          <div className="text-center mb-16">
-            <h2
-              className="font-display font-black leading-none tracking-tight mb-4"
-              style={{ fontSize: 'clamp(2.4rem, 5vw, 4.2rem)' }}
-            >
-              <span className="text-black">AI&amp;ML Guided </span>
-              <span
-                className="text-transparent"
-                style={{ WebkitTextStroke: '2px #111111' }}
-              >
-                Projects.
-              </span>
-            </h2>
+    <section id="projects" className="py-24 lg:py-32 relative overflow-hidden">
+      {/* Background ambient glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl pointer-events-none -z-10" />
+
+      <div className="max-w-6xl mx-auto px-6">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-xs font-semibold text-primary mb-4">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Student Innovations</span>
           </div>
 
-          <motion.div style={{ x }} className={isDesktop ? "w-full lg:w-[190%]" : "w-full"}>
-            <div className={`grid gap-6 ${isDesktop ? 'grid-cols-6' : 'grid-cols-1 sm:grid-cols-2'}`}>
-              {filteredProjects.map((project, index) => (
-                <div key={project.id} className="h-full">
-                  <a
-                    href={project.link || "#"}
-                    className="group flex flex-col bg-slate-50 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 hover:-translate-y-2 border border-slate-100 h-full cursor-pointer block"
-                  >
-                    {/* Image Section */}
-                    <div className="w-full h-48 relative overflow-hidden bg-slate-200 shrink-0">
-                      <img 
-                        src={project.image} 
-                        alt={project.title} 
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
-                      />
+          <h2
+            className="font-display font-black tracking-tight mb-4"
+            style={{ fontSize: 'clamp(2.2rem, 5vw, 3.8rem)' }}
+          >
+            <span className="text-white">Featured </span>
+            <span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255, 255, 255, 0.5)' }}>
+              Projects.
+            </span>
+          </h2>
+          <p className="text-text-secondary max-w-2xl mx-auto text-base md:text-lg">
+            Intelligent solutions and AI-powered platforms engineered by our club members.
+          </p>
+        </div>
+
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          {projectsData.map((project, index) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.6, delay: index * 0.15 }}
+              className="glass-card glass-card-hover rounded-2xl overflow-hidden flex flex-col group border border-white/10 hover:border-primary/40"
+            >
+              {/* Image Banner */}
+              <div className="w-full h-56 relative overflow-hidden bg-[#161622]">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#12121a] via-transparent to-transparent opacity-80" />
+
+                {/* Tech Badges */}
+                {project.techStack && (
+                  <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+                    {project.techStack.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-2.5 py-1 rounded-full text-xs font-semibold bg-black/60 backdrop-blur-md text-white/90 border border-white/15"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Content */}
+              <div className="p-6 md:p-8 flex flex-col flex-1">
+                <h3 className="text-2xl font-bold font-display text-white group-hover:text-primary-light transition-colors mb-3">
+                  {project.title}
+                </h3>
+
+                <p className="text-text-secondary text-sm md:text-base leading-relaxed mb-6 flex-1">
+                  {project.shortDescription}
+                </p>
+
+                {/* Team Members */}
+                {project.team && project.team.length > 0 && (
+                  <div className="pt-4 border-t border-white/10 mt-auto">
+                    <div className="flex items-center gap-1.5 text-xs text-text-muted mb-2 font-medium">
+                      <Users className="w-3.5 h-3.5" />
+                      <span>Developed by</span>
                     </div>
-
-                    {/* Content Section */}
-                    <div className="p-5 flex flex-col flex-1">
-                      <div className="mb-3">
-                        <h3 className="text-xl font-bold font-display text-slate-900 leading-snug">
-                          {project.title}
-                        </h3>
-                      </div>
-                      
-                      <p className="text-slate-600 text-sm mb-5 flex-1 line-clamp-3">
-                        {project.shortDescription}
-                      </p>
-
-                      {/* Team Members */}
-                      {project.team && project.team.length > 0 && (
-                        <div className="mt-auto pt-4 border-t border-slate-200">
-                          <p className="text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-2">Developed By</p>
-                          <div className="flex flex-wrap gap-1.5">
-                            {project.team.map((member, i) => (
-                              member === "Jaisanth K" ? (
-                                <a 
-                                  key={i} 
-                                  href="https://jaisanth.tech" 
-                                  target="_blank" 
-                                  rel="noopener noreferrer"
-                                  className="px-2 py-0.5 bg-indigo-50 text-indigo-700 hover:text-indigo-900 text-[10px] font-semibold rounded-md border border-indigo-100 hover:bg-indigo-100 transition-colors cursor-pointer"
-                                >
-                                  {member}
-                                </a>
-                              ) : (
-                                <span key={i} className="px-2 py-0.5 bg-indigo-50 text-indigo-700 text-[10px] font-semibold rounded-md border border-indigo-100">
-                                  {member}
-                                </span>
-                              )
-                            ))}
-                          </div>
-                        </div>
-                      )}
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.team.map((member, i) => (
+                        <span
+                          key={i}
+                          className="px-2.5 py-1 rounded-lg text-xs font-medium bg-white/[0.04] text-slate-300 border border-white/10"
+                        >
+                          {member}
+                        </span>
+                      ))}
                     </div>
-                  </a>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

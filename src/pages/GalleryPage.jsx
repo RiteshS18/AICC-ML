@@ -39,7 +39,7 @@ const media = [
   { type: 'image', src: '/hcs/HCS1(3).webp', alt: 'HCS Celebration', category: 'HCS', colSpan: 1, rowSpan: 1 },
   { type: 'image', src: '/hcs/HCS1(4).webp', alt: 'HCS Ceremony', category: 'HCS', colSpan: 2, rowSpan: 2 },
 
-  // ─── Life @ AICC (8 photos) ───
+  // ─── Life @ AIML Coding Club (8 photos) ───
   { type: 'image', src: '/life/23-24_1.webp', alt: 'Club Life 2023', category: 'Life', colSpan: 2, rowSpan: 2 },
   { type: 'image', src: '/life/23-24_2.webp', alt: 'Team Meetup 2023', category: 'Life', colSpan: 1, rowSpan: 1 },
   { type: 'image', src: '/life/24-25_1.webp', alt: 'Club Celebration 2024', category: 'Life', colSpan: 1, rowSpan: 1 },
@@ -107,16 +107,17 @@ function useCountUp(target, duration = 1500) {
   return count;
 }
 
-function StatBadge({ icon: Icon, value, label }) {
-  const animatedValue = useCountUp(value);
+function StatBadge(props) {
+  const animatedValue = useCountUp(props.value);
+  const Icon = props.icon;
   return (
-    <div className="flex items-center gap-3 bg-white/80 backdrop-blur-sm border border-slate-200/60 rounded-2xl px-5 py-3 shadow-sm">
-      <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, var(--color-primary), var(--color-accent))' }}>
+    <div className="flex items-center gap-3 glass-card px-5 py-3 border border-white/10">
+      <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-primary to-accent">
         <Icon className="w-5 h-5 text-white" />
       </div>
       <div>
-        <p className="text-2xl font-display font-black text-slate-900 leading-none">{animatedValue}</p>
-        <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mt-0.5">{label}</p>
+        <p className="text-2xl font-display font-black text-white leading-none">{animatedValue}</p>
+        <p className="text-xs font-semibold text-text-secondary uppercase tracking-wider mt-0.5">{props.label}</p>
       </div>
     </div>
   );
@@ -132,15 +133,6 @@ export default function GalleryPage() {
   );
 
   const selectedMedia = selectedIndex !== null ? filtered[selectedIndex] : null;
-
-  // Category counts
-  const categoryCounts = useMemo(() => {
-    const counts = {};
-    categories.forEach(cat => {
-      counts[cat] = cat === 'All' ? media.length : media.filter(m => m.category === cat).length;
-    });
-    return counts;
-  }, []);
 
   const totalPhotos = media.filter(m => m.type === 'image').length;
   const totalVideos = media.filter(m => m.type === 'video').length;
@@ -166,7 +158,7 @@ export default function GalleryPage() {
 
   return (
     <motion.div
-      className="min-h-screen bg-off-white"
+      className="min-h-screen bg-[#0a0a0f] text-white pt-16"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
@@ -178,14 +170,24 @@ export default function GalleryPage() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-6"
+          className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-6"
         >
-          <h1 className="text-5xl md:text-7xl font-display font-black tracking-tight text-slate-900 leading-none">
-            Our <span className="text-transparent" style={{ WebkitTextStroke: '2px #111111' }}>Moments.</span> @ AICC
-          </h1>
+          <div>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-black tracking-tight text-white leading-tight">
+              Our <span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255, 255, 255, 0.5)' }}>Moments.</span>
+            </h1>
+            <p className="text-lg sm:text-xl font-medium text-text-secondary mt-2">
+              Life and memories @ AIML Coding Club
+            </p>
+          </div>
+
+          {/* Stats Bar */}
+          <div className="flex flex-wrap gap-3">
+            <StatBadge icon={Camera} value={totalPhotos} label="Photos" />
+            <StatBadge icon={Video} value={totalVideos} label="Videos" />
+            <StatBadge icon={Layers} value={media.length} label="Moments" />
+          </div>
         </motion.div>
-
-
 
         {/* ═══════ Category Filter Pills ═══════ */}
         <motion.div
@@ -200,11 +202,11 @@ export default function GalleryPage() {
               onClick={() => { setActiveCategory(category); setSelectedIndex(null); }}
               className="relative px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer"
               style={{
-                color: activeCategory === category ? '#ffffff' : '#64748b',
+                color: activeCategory === category ? '#ffffff' : '#94a3b8',
                 background: activeCategory === category
                   ? 'linear-gradient(135deg, var(--color-primary), var(--color-accent))'
-                  : 'rgba(255,255,255,0.8)',
-                border: activeCategory === category ? '1px solid transparent' : '1px solid #e2e8f0',
+                  : 'rgba(255,255,255,0.05)',
+                border: activeCategory === category ? '1px solid transparent' : '1px solid rgba(255,255,255,0.1)',
                 boxShadow: activeCategory === category ? '0 4px 15px var(--color-primary-shadow)' : 'none',
               }}
             >

@@ -196,11 +196,11 @@ function EventInfoPanel({ event, photoIndex, totalEventPhotos }) {
         {statusLabels[event.status] || event.status}
       </span>
 
-      <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-bold text-slate-900 leading-[1.05]">
+      <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-bold text-white leading-[1.05]">
         {event.title}
       </h3>
 
-      <div className="flex flex-wrap items-center gap-x-4 lg:gap-x-6 gap-y-2 text-sm lg:text-base font-medium text-slate-500">
+      <div className="flex flex-wrap items-center gap-x-4 lg:gap-x-6 gap-y-2 text-sm lg:text-base font-medium text-text-secondary">
         {event.time && (
           <div className="flex items-center gap-2">
             <CalendarDays className="w-5 h-5 text-primary flex-shrink-0" />
@@ -215,13 +215,13 @@ function EventInfoPanel({ event, photoIndex, totalEventPhotos }) {
         )}
       </div>
 
-      <p className="text-slate-500 text-sm lg:text-base leading-relaxed max-w-lg line-clamp-3 lg:line-clamp-4">
+      <p className="text-text-secondary text-sm lg:text-base leading-relaxed max-w-lg line-clamp-3 lg:line-clamp-4">
         {event.description}
       </p>
 
       <div className="flex items-center gap-4 lg:gap-6 mt-1">
         <Link
-          to={`/ml/event/${event.id}`}
+          to={`/event/${event.id}`}
           className="btn-moon inline-flex items-center gap-2"
           style={{ fontSize: '0.95rem', padding: '10px 24px' }}
         >
@@ -299,18 +299,18 @@ export default function MLEvents() {
     <section
       id="events"
       ref={sectionRef}
-      className="relative bg-white"
+      className="relative bg-[#0a0a0f]"
       style={{ height: `calc(100svh + ${totalPhotos * CARD_SCROLL_PX}px)` }}
     >
       <div className="sticky top-0 h-[100svh] flex flex-col overflow-hidden">
         {/* Title */}
-        <div className="flex-shrink-0 pt-10 pb-4 text-center">
+        <div className="flex-shrink-0 pt-16 pb-4 text-center">
           <h2
             className="font-display font-black leading-none tracking-tight"
             style={{ fontSize: 'clamp(2.4rem, 5vw, 4.2rem)' }}
           >
-            <span className="text-black">What We </span>
-            <span className="text-transparent" style={{ WebkitTextStroke: '2px #111111' }}>Do.</span>
+            <span className="text-white">Our </span>
+            <span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255, 255, 255, 0.5)' }}>Events.</span>
           </h2>
         </div>
 
