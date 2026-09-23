@@ -56,19 +56,10 @@ const fadeUp = {
 };
 
 export default function MLHero() {
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsExpanded(prev => !prev);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-28 pb-16"
     >
       {/* Particle Background */}
       <ParticleCanvas particleCount={60} />
@@ -82,96 +73,49 @@ export default function MLHero() {
       >
         {/* Logos */}
         <div className="flex justify-center items-center gap-6 mb-6">
-            <div className="flex flex-col items-center gap-1.5">
-              <motion.img 
-                src="/aiml-logo.jpg" 
-                alt="AIML Coding Club Logo" 
-                className="w-28 h-28 object-contain rounded-full drop-shadow-lg" 
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ scale: 1.1, rotate: 3 }}
-              />
-              <span className="text-[11px] font-bold tracking-widest uppercase text-primary mt-1">
+          <div className="flex flex-col items-center gap-1.5">
+            <motion.img 
+              src="/aiml-logo.jpg" 
+              alt="AIML Coding Club Logo" 
+              className="w-28 h-28 object-contain rounded-full drop-shadow-lg ring-2 ring-primary/30" 
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ scale: 1.1, rotate: 3 }}
+            />
+            <span className="text-[11px] font-bold tracking-widest uppercase text-primary mt-1">
               LEARN AND LEAD
-              </span>
-            </div>
+            </span>
+          </div>
         </div>
 
         {/* Eyebrow */}
         <motion.p
           variants={fadeUp}
-          className="text-sm text-text-muted tracking-widest uppercase mb-6"
+          className="text-sm text-text-muted tracking-widest uppercase mb-4"
         >
-          Kongu Engineering College · AI Department
+          Kongu Engineering College · Autonomous
         </motion.p>
 
-        {/* Animated Club Name */}
-        <motion.div
-          className="flex flex-col items-center justify-center relative mb-8 w-full max-w-[90vw] overflow-hidden px-2 md:px-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-        >
-          <div 
-            className="font-display font-bold text-text flex items-center justify-center tracking-tight"
-            style={{ fontSize: 'clamp(1.75rem, 6vw, 6rem)' }}
-          >
-            <span>AI</span>
-            
-            <motion.span
-              className="overflow-hidden inline-flex whitespace-nowrap"
-              initial={{ width: 0, opacity: 0 }}
-              animate={{ width: isExpanded ? "auto" : 0, opacity: isExpanded ? 1 : 0 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            >
-              &amp;ML
-            </motion.span>
-            
-            <motion.span
-              className="overflow-hidden inline-flex"
-              initial={{ width: 0, opacity: 0 }}
-              animate={{ width: isExpanded ? "0.25em" : 0, opacity: isExpanded ? 1 : 0 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            />
-
-            <span>C</span>
-
-            <motion.span
-              className="overflow-hidden inline-flex whitespace-nowrap"
-              initial={{ width: 0, opacity: 0 }}
-              animate={{ width: isExpanded ? "auto" : 0, opacity: isExpanded ? 1 : 0 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            >
-              oding
-            </motion.span>
-
-            <motion.span
-              className="overflow-hidden inline-flex"
-              initial={{ width: 0, opacity: 0 }}
-              animate={{ width: isExpanded ? "0.25em" : 0, opacity: isExpanded ? 1 : 0 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            />
-
-            <span>C</span>
-
-            <motion.span
-              className="overflow-hidden inline-flex whitespace-nowrap"
-              initial={{ width: 0, opacity: 0 }}
-              animate={{ width: isExpanded ? "auto" : 0, opacity: isExpanded ? 1 : 0 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            >
-              lub
-            </motion.span>
-          </div>
-        </motion.div>
-
+        {/* Hero Title */}
         <motion.div
           variants={fadeUp}
-          className="text-xl md:text-2xl font-display font-bold mb-6 drop-shadow-sm bg-gradient-to-r from-primary-light to-accent-light bg-clip-text text-transparent"
+          className="mb-4"
         >
-          A Department of AIML Initiative
+          <h1 className="font-display font-extrabold text-text tracking-tight text-4xl sm:text-6xl md:text-7xl lg:text-8xl">
+            <span className="bg-gradient-to-r from-primary-light via-indigo-300 to-accent-light bg-clip-text text-transparent drop-shadow-sm">
+              AIML
+            </span>{' '}
+            <span>Coding Club</span>
+          </h1>
         </motion.div>
+
+        <motion.p
+          variants={fadeUp}
+          className="text-base sm:text-lg md:text-xl font-medium mb-6 text-primary-light/90 tracking-wide"
+        >
+          Department of Artificial Intelligence &amp; Machine Learning Initiative
+        </motion.p>
 
         {/* Subtext */}
         <motion.p
