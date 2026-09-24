@@ -88,6 +88,8 @@
    Obsidian, warm onyx, luminous ivory text, shimmering gold
    ═══════════════════════════════════════════════════════════════════════════ */
 
+:root[data-theme="dark"],
+html[data-theme="dark"],
 [data-theme="dark"] {
   color-scheme: dark;
 
