@@ -196,26 +196,26 @@ function EventInfoPanel({ event, photoIndex, totalEventPhotos }) {
         {statusLabels[event.status] || event.status}
       </span>
 
-      <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-bold text-white leading-[1.05]">
+      <h3 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-display font-bold leading-[1.05]" style={{ color: 'var(--text)' }}>
         {event.title}
       </h3>
 
-      <div className="flex flex-wrap items-center gap-x-4 lg:gap-x-6 gap-y-2 text-sm lg:text-base font-medium text-text-secondary">
+      <div className="flex flex-wrap items-center gap-x-4 lg:gap-x-6 gap-y-2 text-sm lg:text-base font-medium" style={{ color: 'var(--text-secondary)' }}>
         {event.time && (
           <div className="flex items-center gap-2">
-            <CalendarDays className="w-5 h-5 text-primary flex-shrink-0" />
+            <CalendarDays className="w-5 h-5 flex-shrink-0" style={{ color: 'var(--gold-text)' }} />
             <span>{event.time}</span>
           </div>
         )}
         {event.venue && (
           <div className="flex items-center gap-2">
-            <MapPin className="w-5 h-5 text-primary flex-shrink-0" />
+            <MapPin className="w-5 h-5 flex-shrink-0" style={{ color: 'var(--gold-text)' }} />
             <span>{event.venue}</span>
           </div>
         )}
       </div>
 
-      <p className="text-text-secondary text-sm lg:text-base leading-relaxed max-w-lg line-clamp-3 lg:line-clamp-4">
+      <p className="text-sm lg:text-base leading-relaxed max-w-lg line-clamp-3 lg:line-clamp-4" style={{ color: 'var(--text-secondary)' }}>
         {event.description}
       </p>
 
@@ -237,7 +237,7 @@ function EventInfoPanel({ event, photoIndex, totalEventPhotos }) {
                 className="h-2 rounded-full transition-all duration-300"
                 style={{
                   width: i === photoIndex ? 24 : 8,
-                  background: i === photoIndex ? 'var(--color-primary)' : 'var(--color-border)'
+                  background: i === photoIndex ? 'var(--gold)' : 'var(--border)'
                 }}
               />
             ))}
@@ -299,8 +299,11 @@ export default function MLEvents() {
     <section
       id="events"
       ref={sectionRef}
-      className="relative bg-[#0a0a0f]"
-      style={{ height: `calc(100svh + ${totalPhotos * CARD_SCROLL_PX}px)` }}
+      className="relative"
+      style={{
+        height: `calc(100svh + ${totalPhotos * CARD_SCROLL_PX}px)`,
+        backgroundColor: 'var(--bg)',
+      }}
     >
       <div className="sticky top-0 h-[100svh] flex flex-col overflow-hidden">
         {/* Title */}
@@ -309,8 +312,8 @@ export default function MLEvents() {
             className="font-display font-black leading-none tracking-tight"
             style={{ fontSize: 'clamp(2.4rem, 5vw, 4.2rem)' }}
           >
-            <span className="text-white">Our </span>
-            <span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255, 255, 255, 0.5)' }}>Events.</span>
+            <span style={{ color: 'var(--text)' }}>Our </span>
+            <span className="text-hollow">Events.</span>
           </h2>
         </div>
 
@@ -342,13 +345,21 @@ export default function MLEvents() {
               animate={{ opacity: currentGlobal > 0 ? 0 : 1 }}
               transition={{ duration: 0.5 }}
             >
-              <span className="text-xs font-medium text-slate-500 bg-slate-100/60 backdrop-blur-sm px-3 py-1 rounded-full">
+              <span
+                className="text-xs font-medium backdrop-blur-sm px-3 py-1 rounded-full"
+                style={{
+                  backgroundColor: 'var(--surface-2)',
+                  color: 'var(--text-muted)',
+                  border: '1px solid var(--border)',
+                }}
+              >
                 Scroll to explore
               </span>
               <motion.div
                 animate={{ y: [0, 6, 0] }}
                 transition={{ repeat: Infinity, duration: 1.4, ease: 'easeInOut' }}
-                className="w-0.5 h-4 bg-slate-400 rounded-full"
+                className="w-0.5 h-4 rounded-full"
+                style={{ backgroundColor: 'var(--gold)' }}
               />
             </motion.div>
           </div>

@@ -6,7 +6,6 @@ import {
   X,
   Sparkles,
   ChevronRight,
-  ExternalLink,
   Users,
   Camera,
   CalendarDays,
@@ -18,6 +17,7 @@ import {
   Home as HomeIcon,
 } from 'lucide-react';
 import { FaLinkedinIn, FaInstagram } from 'react-icons/fa';
+import ThemeToggle from '../ui/ThemeToggle';
 
 const navLinks = [
   { id: 'home', label: 'Home', isPage: false, path: '/', icon: HomeIcon },
@@ -38,7 +38,7 @@ export default function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Scroll detection for navbar background effect
+  // Scroll detection for navbar background + shrink
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -168,11 +168,15 @@ export default function Navbar() {
   return (
     <header
       role="banner"
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-[#0a0a0f]/85 backdrop-blur-xl border-b border-white/10 shadow-xl shadow-black/40 py-3'
-          : 'bg-gradient-to-b from-[#0a0a0f]/90 via-[#0a0a0f]/40 to-transparent py-4'
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      style={{
+        backgroundColor: scrolled ? 'var(--nav-bg)' : 'transparent',
+        borderBottom: scrolled ? '1px solid var(--nav-border)' : '1px solid transparent',
+        backdropFilter: scrolled ? 'blur(20px)' : 'none',
+        WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
+        boxShadow: scrolled ? '0 4px 24px -4px var(--shadow-color)' : 'none',
+        padding: scrolled ? '8px 0' : '14px 0',
+      }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
@@ -182,28 +186,55 @@ export default function Navbar() {
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="flex items-center gap-3 group cursor-pointer"
             aria-label="AIML Coding Club Home"
+            style={{ textDecoration: 'none' }}
           >
             <div className="relative">
-              <div className="w-10 h-10 rounded-xl overflow-hidden border border-white/20 p-0.5 bg-[#12121a] shadow-md group-hover:border-primary/60 transition-colors">
+              <div
+                className="w-10 h-10 rounded-xl overflow-hidden p-0.5 transition-all duration-300"
+                style={{
+                  border: '1.5px solid var(--border)',
+                  backgroundColor: 'var(--surface)',
+                }}
+              >
                 <img
                   src="/aiml-logo.jpg"
                   alt="AIML Coding Club Logo"
                   className="w-full h-full object-cover rounded-lg transform group-hover:scale-105 transition-transform duration-300"
+                  width={36}
+                  height={36}
                 />
               </div>
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-accent rounded-xl blur opacity-0 group-hover:opacity-30 transition-opacity duration-300 -z-10" />
+              {/* Gold glow on hover */}
+              <div
+                className="absolute -inset-0.5 rounded-xl blur opacity-0 group-hover:opacity-40 transition-opacity duration-300 -z-10"
+                style={{ background: 'var(--gold-gradient)' }}
+              />
             </div>
 
             <div className="flex flex-col">
               <div className="flex items-center gap-1.5">
-                <span className="font-display font-extrabold text-lg tracking-tight bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400 bg-clip-text text-transparent">
+                <span
+                  className="font-display font-extrabold text-lg tracking-tight"
+                  style={{
+                    background: 'var(--gold-gradient)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                  }}
+                >
                   AIML
                 </span>
-                <span className="font-display font-semibold text-base tracking-tight text-white/90">
+                <span
+                  className="font-display font-semibold text-base tracking-tight"
+                  style={{ color: 'var(--text)' }}
+                >
                   Coding Club
                 </span>
               </div>
-              <span className="text-[10px] tracking-wider uppercase text-text-secondary/70 font-medium">
+              <span
+                className="text-[10px] tracking-wider uppercase font-medium"
+                style={{ color: 'var(--text-muted)' }}
+              >
                 Kongu Engineering College
               </span>
             </div>
@@ -213,7 +244,11 @@ export default function Navbar() {
           <nav
             role="navigation"
             aria-label="Main Navigation"
-            className="hidden lg:flex items-center gap-1 xl:gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md"
+            className="hidden lg:flex items-center gap-1 xl:gap-1.5 px-3 py-1.5 rounded-full backdrop-blur-md"
+            style={{
+              backgroundColor: 'color-mix(in srgb, var(--surface) 80%, transparent)',
+              border: '1px solid var(--border)',
+            }}
           >
             {navLinks.map((link) => {
               const isActive =
@@ -224,17 +259,25 @@ export default function Navbar() {
                 <button
                   key={link.id}
                   onClick={() => handleNavClick(link)}
-                  className={`relative px-3.5 py-1.5 rounded-full text-xs xl:text-sm font-medium transition-all duration-200 cursor-pointer ${
-                    isActive
-                      ? 'text-white'
-                      : 'text-text-secondary hover:text-white hover:bg-white/[0.06]'
-                  }`}
+                  className="relative px-3 py-1.5 rounded-full text-xs xl:text-sm font-medium transition-all duration-200 cursor-pointer"
+                  style={{
+                    color: isActive ? 'var(--gold-text)' : 'var(--text-secondary)',
+                    fontWeight: isActive ? 600 : 500,
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) e.currentTarget.style.color = 'var(--text)';
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) e.currentTarget.style.color = 'var(--text-secondary)';
+                  }}
                 >
                   {link.label}
+                  {/* Gold underline active indicator */}
                   {isActive && (
                     <motion.div
-                      layoutId="navbar-active-pill"
-                      className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/30 to-accent/30 border border-primary/40 -z-10"
+                      layoutId="navbar-active-underline"
+                      className="absolute -bottom-0.5 left-2 right-2 h-[2px] rounded-full"
+                      style={{ background: 'var(--gold-gradient)' }}
                       transition={{ type: 'spring', stiffness: 450, damping: 32 }}
                     />
                   )}
@@ -243,14 +286,19 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Desktop Right Side CTA & Socials */}
-          <div className="hidden lg:flex items-center gap-3">
-            <div className="flex items-center gap-1 text-text-secondary mr-1">
+          {/* Desktop Right Side: Theme Toggle + Socials + CTA */}
+          <div className="hidden lg:flex items-center gap-2.5">
+            <ThemeToggle />
+
+            <div className="flex items-center gap-1 mr-1" style={{ color: 'var(--text-muted)' }}>
               <a
                 href="https://www.linkedin.com/company/ai-coding-club-kec/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-white/10 hover:text-white transition-colors"
+                className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
+                style={{ color: 'var(--text-muted)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--gold-text)'; e.currentTarget.style.backgroundColor = 'var(--surface-2)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-muted)'; e.currentTarget.style.backgroundColor = 'transparent'; }}
                 aria-label="AIML Club LinkedIn"
               >
                 <FaLinkedinIn className="w-3.5 h-3.5" />
@@ -259,7 +307,10 @@ export default function Navbar() {
                 href="https://www.instagram.com/ai_codingclub/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-white/10 hover:text-white transition-colors"
+                className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
+                style={{ color: 'var(--text-muted)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--gold-text)'; e.currentTarget.style.backgroundColor = 'var(--surface-2)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-muted)'; e.currentTarget.style.backgroundColor = 'transparent'; }}
                 aria-label="AIML Club Instagram"
               >
                 <FaInstagram className="w-3.5 h-3.5" />
@@ -268,26 +319,33 @@ export default function Navbar() {
 
             <button
               onClick={handleJoinClick}
-              className="relative inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-md shadow-primary/20 hover:shadow-primary/40 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+              className="btn-gold text-xs !py-2 !px-4 !rounded-xl"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>Join Us</span>
             </button>
           </div>
 
-          {/* Mobile Hamburger Button */}
+          {/* Mobile: Theme Toggle + Join + Hamburger */}
           <div className="flex items-center gap-2 lg:hidden">
+            <ThemeToggle className="!w-9 !h-9" />
+
             <button
               onClick={handleJoinClick}
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-primary/20 border border-primary/40"
+              className="btn-gold text-xs !py-1.5 !px-3 !rounded-lg !min-h-[36px]"
             >
-              <Sparkles className="w-3 h-3 text-primary" />
+              <Sparkles className="w-3 h-3" />
               <span>Join</span>
             </button>
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="w-10 h-10 rounded-xl flex items-center justify-center bg-white/[0.06] border border-white/10 text-white hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
+              className="w-10 h-10 rounded-xl flex items-center justify-center transition-colors cursor-pointer"
+              style={{
+                backgroundColor: 'var(--surface)',
+                border: '1px solid var(--border)',
+                color: 'var(--text)',
+              }}
               aria-expanded={mobileMenuOpen}
               aria-label={mobileMenuOpen ? 'Close Menu' : 'Open Navigation Menu'}
             >
@@ -305,7 +363,11 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:hidden overflow-hidden bg-[#0a0a0f]/98 backdrop-blur-2xl border-b border-white/10 shadow-2xl"
+            className="lg:hidden overflow-hidden backdrop-blur-2xl"
+            style={{
+              backgroundColor: 'var(--nav-bg)',
+              borderBottom: '1px solid var(--border)',
+            }}
           >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-4">
               <nav className="grid grid-cols-2 gap-2" aria-label="Mobile Navigation">
@@ -322,13 +384,18 @@ export default function Navbar() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: idx * 0.03, duration: 0.2 }}
                       onClick={() => handleNavClick(link)}
-                      className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-left text-sm font-medium transition-all cursor-pointer ${
-                        isActive
-                          ? 'bg-primary/20 text-white border border-primary/40 font-semibold'
-                          : 'bg-white/[0.03] text-text-secondary hover:text-white hover:bg-white/[0.08] border border-transparent'
-                      }`}
+                      className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-left text-sm transition-all cursor-pointer"
+                      style={{
+                        backgroundColor: isActive ? 'var(--gold-subtle)' : 'var(--surface)',
+                        color: isActive ? 'var(--gold-text)' : 'var(--text-secondary)',
+                        border: isActive ? '1px solid var(--border-hover)' : '1px solid var(--border)',
+                        fontWeight: isActive ? 600 : 500,
+                      }}
                     >
-                      <Icon className={`w-4 h-4 ${isActive ? 'text-primary' : 'text-text-secondary/70'}`} />
+                      <Icon
+                        className="w-4 h-4"
+                        style={{ color: isActive ? 'var(--gold-text)' : 'var(--gold-deep)' }}
+                      />
                       <span className="truncate">{link.label}</span>
                     </motion.button>
                   );
@@ -336,13 +403,21 @@ export default function Navbar() {
               </nav>
 
               {/* Mobile Drawer Bottom Section */}
-              <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+              <div
+                className="pt-4 flex items-center justify-between"
+                style={{ borderTop: '1px solid var(--border)' }}
+              >
                 <div className="flex items-center gap-2">
                   <a
                     href="https://www.linkedin.com/company/ai-coding-club-kec/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-xl flex items-center justify-center bg-white/[0.05] border border-white/10 text-text-secondary hover:text-white"
+                    className="w-9 h-9 rounded-xl flex items-center justify-center"
+                    style={{
+                      backgroundColor: 'var(--surface)',
+                      border: '1px solid var(--border)',
+                      color: 'var(--text-muted)',
+                    }}
                     aria-label="LinkedIn"
                   >
                     <FaLinkedinIn className="w-4 h-4" />
@@ -351,7 +426,12 @@ export default function Navbar() {
                     href="https://www.instagram.com/ai_codingclub/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-xl flex items-center justify-center bg-white/[0.05] border border-white/10 text-text-secondary hover:text-white"
+                    className="w-9 h-9 rounded-xl flex items-center justify-center"
+                    style={{
+                      backgroundColor: 'var(--surface)',
+                      border: '1px solid var(--border)',
+                      color: 'var(--text-muted)',
+                    }}
                     aria-label="Instagram"
                   >
                     <FaInstagram className="w-4 h-4" />
@@ -360,7 +440,7 @@ export default function Navbar() {
 
                 <button
                   onClick={handleJoinClick}
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-primary to-accent shadow-md cursor-pointer"
+                  className="btn-gold text-xs !py-2.5 !px-5 !rounded-xl"
                 >
                   <Sparkles className="w-4 h-4" />
                   <span>Join AIML Club</span>

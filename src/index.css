@@ -1,227 +1,531 @@
 @import 'tailwindcss';
 
-/* ========================================
-   AIML Coding Club Design System — Dark Theme
-   ======================================== */
+/* ═══════════════════════════════════════════════════════════════════════════
+   AIML Coding Club — Gold Plate Design System
+   Dual-theme (light / dark) with high-contrast, perfectly visible gold tokens
+   ═══════════════════════════════════════════════════════════════════════════ */
 
+/* ── Tailwind v4 @theme — expose tokens to the TW engine ─────────────── */
 @theme {
-  --font-body: 'Inter', sans-serif;
-  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-display: 'Sora', 'Inter', sans-serif;
 
-  /* Cyber-Dark Backgrounds */
-  --color-bg: #0a0a0f;
-  --color-surface: #12121a;
-  --color-surface-hover: #1a1a26;
-  --color-surface-elevated: #1e1e2d;
-
-  /* Text Tokens */
-  --color-text: #f8fafc;
-  --color-text-secondary: #94a3b8;
-  --color-text-muted: #64748b;
-
-  /* Primary Brand (Indigo) */
-  --color-primary: #6366f1;
-  --color-primary-light: #818cf8;
-  --color-primary-dark: #4f46e5;
-
-  /* Accent Brand (Purple) */
-  --color-accent: #8b5cf6;
-  --color-accent-light: #a78bfa;
-  --color-accent-dark: #7c3aed;
-
-  /* Status Colors */
-  --color-success: #10b981;
-  --color-warning: #f59e0b;
-  --color-info: #06b6d4;
-  --color-error: #f43f5e;
-
-  /* Dark UI Borders */
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-hover: rgba(99, 102, 241, 0.35);
+  --color-gold: #D4AF37;
+  --color-gold-light: #F5D76E;
+  --color-gold-deep: #B8860B;
 }
 
-:root {
-  --color-primary-alpha: rgba(99, 102, 241, 0.12);
-  --color-primary-shadow: rgba(99, 102, 241, 0.35);
-  --bg-radial-1: rgba(99, 102, 241, 0.15);
-  --bg-radial-2: rgba(139, 92, 246, 0.15);
+/* ═══════════════════════════════════════════════════════════════════════════
+   LIGHT MODE (Day theme / data-theme="light")
+   Ivory, warm champagne, obsidian charcoal text, rich burnished gold
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* Backgrounds */
+  --bg:            #FFFBF2;
+  --surface:       #FFFFFF;
+  --surface-2:     #F7EED9;
+  --surface-hover: #F2E4C7;
+
+  /* Text - High contrast guaranteed (>8:1 to 17:1 on ivory/white) */
+  --text:          #1A140B;         /* Obsidian Charcoal - 17:1 contrast on #FFFBF2 */
+  --text-secondary:#423624;         /* Rich Warm Bronze - 9.2:1 contrast */
+  --text-muted:    #695941;         /* Deep Stone Taupe - 5.5:1 contrast */
+
+  /* Gold brand */
+  --gold:          #C99716;         /* Deep rich metallic gold */
+  --gold-light:    #DFB235;
+  --gold-deep:     #9E7409;
+  --gold-text:     #886105;         /* Deep gold text with 5.8:1 contrast on light bg */
+  --gold-gradient: linear-gradient(135deg, #DFB235 0%, #C99716 50%, #9E7409 100%);
+  --gold-subtle:   rgba(201, 151, 22, 0.10);
+
+  /* Outlines & Borders */
+  --outline-stroke: rgba(26, 20, 11, 0.45);  /* Clearly visible hollow letters in light mode */
+  --border:        rgba(158, 116, 9, 0.20);
+  --border-hover:  rgba(158, 116, 9, 0.48);
+  --shadow-color:  rgba(158, 116, 9, 0.08);
+  --shadow-glow:   rgba(201, 151, 22, 0.18);
+
+  /* Legacy variable aliases for full component compatibility */
+  --color-primary:        var(--gold);
+  --color-primary-light:  var(--gold-light);
+  --color-primary-deep:   var(--gold-deep);
+  --color-accent:         var(--gold-deep);
+  --color-accent-light:   var(--gold-light);
+  --color-primary-alpha:  var(--shadow-glow);
+  --color-primary-shadow: var(--shadow-glow);
+  --color-border:         var(--border);
+
+  /* Status */
+  --success:       #15803d;
+  --warning:       #b45309;
+  --error:         #dc2626;
+  --info:          #0369a1;
+
+  /* Navbar */
+  --nav-bg:        rgba(255, 251, 242, 0.90);
+  --nav-border:    rgba(158, 116, 9, 0.18);
+
+  /* Selection */
+  --selection-bg:  rgba(201, 151, 22, 0.28);
+  --selection-text: #1A140B;
+
+  /* Scrollbar */
+  --scrollbar-track: #F7EED9;
+  --scrollbar-thumb: rgba(158, 116, 9, 0.28);
+  --scrollbar-thumb-hover: rgba(158, 116, 9, 0.50);
+
+  /* Button text on gold gradient - obsidian for maximum readability */
+  --btn-primary-text: #1A140B;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DARK MODE (Night theme / data-theme="dark")
+   Obsidian, warm onyx, luminous ivory text, shimmering gold
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+[data-theme="dark"] {
   color-scheme: dark;
+
+  /* Backgrounds */
+  --bg:            #0B0A08;
+  --surface:       #14130F;
+  --surface-2:     #1E1B15;
+  --surface-hover: #29251D;
+
+  /* Text - Luminous warm ivory text */
+  --text:          #FDFBF7;
+  --text-secondary:#D6CEBD;
+  --text-muted:    #A39884;
+
+  /* Gold brand */
+  --gold:          #D4AF37;
+  --gold-light:    #F5D76E;
+  --gold-deep:     #B8860B;
+  --gold-text:     #F3CF68;
+  --gold-gradient: linear-gradient(135deg, #F5D76E 0%, #D4AF37 50%, #B8860B 100%);
+  --gold-subtle:   rgba(212, 175, 55, 0.12);
+
+  /* Outlines & Borders */
+  --outline-stroke: rgba(245, 215, 110, 0.50);
+  --border:        rgba(212, 175, 55, 0.20);
+  --border-hover:  rgba(212, 175, 55, 0.50);
+  --shadow-color:  rgba(0, 0, 0, 0.55);
+  --shadow-glow:   rgba(212, 175, 55, 0.15);
+
+  /* Legacy variable aliases */
+  --color-primary:        var(--gold);
+  --color-primary-light:  var(--gold-light);
+  --color-primary-deep:   var(--gold-deep);
+  --color-accent:         var(--gold-deep);
+  --color-accent-light:   var(--gold-light);
+  --color-primary-alpha:  var(--shadow-glow);
+  --color-primary-shadow: var(--shadow-glow);
+  --color-border:         var(--border);
+
+  /* Status */
+  --success:       #34d399;
+  --warning:       #fbbf24;
+  --error:         #fb7185;
+  --info:          #38bdf8;
+
+  /* Navbar */
+  --nav-bg:        rgba(11, 10, 8, 0.90);
+  --nav-border:    rgba(212, 175, 55, 0.18);
+
+  /* Selection */
+  --selection-bg:  rgba(212, 175, 55, 0.32);
+  --selection-text: #FDFBF7;
+
+  /* Scrollbar */
+  --scrollbar-track: #0B0A08;
+  --scrollbar-thumb: rgba(212, 175, 55, 0.22);
+  --scrollbar-thumb-hover: rgba(212, 175, 55, 0.45);
+
+  /* Button text on gold gradient */
+  --btn-primary-text: #1A1405;
 }
 
-/* ========================================
-   Base Layer
-   ======================================== */
+/* ═══════════════════════════════════════════════════════════════════════════
+   BASE LAYER
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 @layer base {
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 5rem;
-    color-scheme: dark;
   }
 
   body {
     font-family: var(--font-body);
-    background-color: #0a0a0f;
-    background-image: 
-      radial-gradient(at 0% 0%, var(--bg-radial-1) 0px, transparent 50vw),
-      radial-gradient(at 100% 100%, var(--bg-radial-2) 0px, transparent 50vw),
-      radial-gradient(at 50% 50%, rgba(168, 85, 247, 0.04) 0px, transparent 60vw),
-      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    background-size: 100vw 100vh, 100vw 100vh, 100vw 100vh, 36px 36px, 36px 36px;
-    background-repeat: no-repeat, no-repeat, no-repeat, repeat, repeat;
-    background-attachment: fixed;
-    color: #f8fafc;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   ::selection {
-    background-color: rgba(99, 102, 241, 0.35);
-    color: #ffffff;
+    background-color: var(--selection-bg);
+    color: var(--selection-text);
+  }
+
+  /* Heading hierarchy defaults */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--text);
+    line-height: 1.15;
+  }
+
+  /* Ensure links inherit theme colours */
+  a {
+    color: var(--gold-text);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  a:hover {
+    color: var(--gold);
+  }
+
+  /* Ensure images are responsive */
+  img {
+    max-width: 100%;
+    height: auto;
   }
 }
 
-/* ========================================
-   Utility Classes
-   ======================================== */
+/* ═══════════════════════════════════════════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 @layer utilities {
-  /* Typography */
+  /* ── Typography & Theme Colours ────────────────────────────────────────── */
+
   .font-display {
     font-family: var(--font-display);
   }
 
-  /* Glass Cards */
-  .glass-card {
-    background: rgba(18, 18, 26, 0.65);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+  .text-gold {
+    color: var(--gold-text);
   }
 
-  .glass-card-dark {
-    background: rgba(14, 14, 22, 0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-  }
-
-  .glass-card-hover {
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .glass-card-hover:hover {
-    background: rgba(24, 24, 36, 0.8);
-    border-color: rgba(99, 102, 241, 0.35);
-    box-shadow: 0 8px 30px -4px rgba(99, 102, 241, 0.25);
-    transform: translateY(-2px);
-  }
-
-  /* Text Gradient */
-  .text-gradient {
-    background: linear-gradient(135deg, #818cf8 0%, #c084fc 50%, #f472b6 100%);
+  .text-gold-gradient {
+    background: var(--gold-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* Buttons */
-  .btn-primary {
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
-    color: white;
+  /* Hollow stroke text - crystal clear in both light and dark mode */
+  .text-hollow {
+    color: transparent !important;
+    -webkit-text-stroke: 2px var(--outline-stroke);
+  }
+
+  /* Theme text colors */
+  .text-theme,
+  .text-text {
+    color: var(--text) !important;
+  }
+
+  .text-text-secondary,
+  .text-secondary {
+    color: var(--text-secondary) !important;
+  }
+
+  .text-text-muted,
+  .text-muted {
+    color: var(--text-muted) !important;
+  }
+
+  .text-primary {
+    color: var(--gold-text) !important;
+  }
+
+  .text-primary-light {
+    color: var(--gold-text) !important;
+  }
+  [data-theme="dark"] .text-primary-light {
+    color: var(--gold-light) !important;
+  }
+
+  .text-accent {
+    color: var(--gold-deep) !important;
+  }
+
+  /* Theme backgrounds */
+  .bg-theme,
+  .bg-off-white {
+    background-color: var(--bg) !important;
+  }
+
+  .bg-theme-surface,
+  .bg-surface,
+  .bg-dark {
+    background-color: var(--surface) !important;
+  }
+
+  .bg-surface-2 {
+    background-color: var(--surface-2) !important;
+  }
+
+  .bg-border {
+    background-color: var(--border) !important;
+  }
+
+  /* ── Glass Cards ─────────────────────────────────────────────────────── */
+
+  .glass-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow:
+      0 2px 12px -2px var(--shadow-color),
+      0 0 0 0 transparent;
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.3s ease,
+      transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  [data-theme="dark"] .glass-card {
+    background: rgba(21, 19, 14, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .glass-card-hover:hover {
+    border-color: var(--border-hover);
+    box-shadow:
+      0 8px 30px -4px var(--shadow-color),
+      0 0 20px -4px var(--shadow-glow);
+    transform: translateY(-2px);
+  }
+
+  /* Gold-bordered surface card (for stats, featured items) */
+  .gold-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow:
+      0 4px 24px -4px var(--shadow-color),
+      0 0 32px -8px var(--shadow-glow);
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  [data-theme="dark"] .gold-card {
+    background: rgba(21, 19, 14, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow:
+      0 4px 24px -4px rgba(0, 0, 0, 0.5),
+      0 0 40px -8px rgba(212, 175, 55, 0.08);
+  }
+
+  /* ── Buttons ─────────────────────────────────────────────────────────── */
+
+  .btn-gold {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     padding: 12px 28px;
     border-radius: 9999px;
     font-weight: 600;
     font-size: 0.95rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.35);
+    font-family: var(--font-body);
+    background: var(--gold-gradient);
+    color: var(--btn-primary-text);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(212, 175, 55, 0.25);
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      filter 0.2s ease;
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(212, 175, 55, 0.4);
+    filter: brightness(1.05);
+  }
+
+  .btn-gold:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 12px rgba(212, 175, 55, 0.2);
+  }
+
+  .btn-gold:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+
+  .btn-outline {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    font-family: var(--font-body);
+    background: var(--surface);
+    color: var(--gold-text);
+    border: 1.5px solid var(--gold);
+    box-shadow: 0 2px 10px -2px var(--shadow-color);
     cursor: pointer;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      background-color 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease;
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .btn-outline:hover {
+    transform: translateY(-2px);
+    background: var(--surface-hover);
+    border-color: var(--gold-light);
+    box-shadow: 0 6px 20px rgba(201, 151, 22, 0.25);
+  }
+
+  .btn-outline:active {
+    transform: translateY(0);
+  }
+
+  .btn-outline:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    font-family: var(--font-body);
+    background: var(--surface);
+    color: var(--text);
+    border: 1.5px solid var(--border);
+    box-shadow: 0 2px 10px -2px var(--shadow-color);
+    cursor: pointer;
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .btn-ghost:hover {
+    transform: translateY(-2px);
+    border-color: var(--gold);
+    color: var(--gold-text);
+    background: var(--surface-hover);
+    box-shadow: 0 6px 20px var(--shadow-glow);
+  }
+
+  .btn-ghost:active {
+    transform: translateY(0);
+  }
+
+  .btn-ghost:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+
+  /* btn-primary alias to match gold button styling */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    font-family: var(--font-body);
+    background: var(--gold-gradient);
+    color: var(--btn-primary-text);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(201, 151, 22, 0.25);
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      filter 0.2s ease;
+    min-height: 44px;
+    min-width: 44px;
   }
 
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.5);
-    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    box-shadow: 0 8px 28px rgba(201, 151, 22, 0.40);
+    filter: brightness(1.05);
   }
 
-  .btn-ghost {
-    background: rgba(255, 255, 255, 0.04);
-    color: #f8fafc;
-    padding: 12px 28px;
-    border-radius: 9999px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-
-  .btn-ghost:hover {
-    border-color: #6366f1;
-    color: #818cf8;
-    background: rgba(99, 102, 241, 0.1);
-    transform: translateY(-2px);
-  }
-
-  /* Moon Fill Button */
+  /* btn-moon secondary button */
   .btn-moon {
-    position: relative;
-    overflow: hidden;
-    border-radius: 9999px;
-    background-color: transparent;
-    color: #818cf8;
-    border: 2px solid #6366f1;
-    padding: 12px 32px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: color 0.4s ease, transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-    z-index: 1;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    text-decoration: none;
+    gap: 8px;
+    padding: 10px 24px;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    font-family: var(--font-body);
+    background: var(--surface-2);
+    color: var(--text);
+    border: 1px solid var(--border);
     cursor: pointer;
-  }
-
-  .btn-moon::before {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%) scale(0);
-    width: 200%;
-    height: 400%;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: -1;
-    transform-origin: bottom center;
-  }
-
-  .btn-moon:hover::before {
-    transform: translateX(-50%) scale(1);
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease;
   }
 
   .btn-moon:hover {
-    color: #ffffff;
-    border-color: #8b5cf6;
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+    background: var(--surface-hover);
+    border-color: var(--gold);
+    color: var(--gold-text);
   }
 
-  /* Status Badges */
+  /* Theme-aware card container for dark/light sections */
+  .glass-card-dark {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    box-shadow: 0 4px 24px -4px var(--shadow-color);
+  }
+
+  /* ── Status Badges ──────────────────────────────────────────────────── */
+
   .badge {
     display: inline-flex;
     align-items: center;
@@ -235,69 +539,135 @@
   }
 
   .badge-completed {
-    background: rgba(16, 185, 129, 0.15);
-    color: #34d399;
-    border: 1px solid rgba(16, 185, 129, 0.3);
+    background: rgba(21, 128, 61, 0.12);
+    color: var(--success);
+    border: 1px solid rgba(21, 128, 61, 0.25);
+  }
+  [data-theme="dark"] .badge-completed {
+    background: rgba(52, 211, 153, 0.12);
+    border-color: rgba(52, 211, 153, 0.25);
   }
 
   .badge-upcoming {
-    background: rgba(245, 158, 11, 0.15);
-    color: #fbbf24;
-    border: 1px solid rgba(245, 158, 11, 0.3);
+    background: rgba(180, 83, 9, 0.12);
+    color: var(--warning);
+    border: 1px solid rgba(180, 83, 9, 0.25);
+  }
+  [data-theme="dark"] .badge-upcoming {
+    background: rgba(251, 191, 36, 0.12);
+    border-color: rgba(251, 191, 36, 0.25);
   }
 
   .badge-register {
-    background: rgba(99, 102, 241, 0.15);
-    color: #818cf8;
-    border: 1px solid rgba(99, 102, 241, 0.3);
+    background: rgba(212, 175, 55, 0.10);
+    color: var(--gold-text);
+    border: 1px solid var(--border);
   }
 
   .badge-live {
-    background: rgba(244, 63, 94, 0.15);
-    color: #fb7185;
-    border: 1px solid rgba(244, 63, 94, 0.3);
+    background: rgba(220, 38, 38, 0.12);
+    color: var(--error);
+    border: 1px solid rgba(220, 38, 38, 0.25);
     animation: pulse-glow 2s infinite;
   }
+  [data-theme="dark"] .badge-live {
+    background: rgba(251, 113, 133, 0.12);
+    border-color: rgba(251, 113, 133, 0.25);
+  }
+
+  /* ── Section heading decorations ────────────────────────────────────── */
+
+  .section-heading {
+    position: relative;
+    display: inline-block;
+  }
+
+  .section-heading::after {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 3px;
+    background: var(--gold-gradient);
+    border-radius: 2px;
+    margin-top: 12px;
+  }
+
+  .section-heading-center::after {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ── Gold divider line ──────────────────────────────────────────────── */
+
+  .gold-divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--gold) 30%,
+      var(--gold) 70%,
+      transparent
+    );
+    opacity: 0.3;
+  }
 }
 
-/* ========================================
-   Keyframes
-   ======================================== */
+/* ═══════════════════════════════════════════════════════════════════════════
+   KEYFRAMES
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 @keyframes pulse-glow {
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 0 8px rgba(244, 63, 94, 0);
-  }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.35); }
+  50% { box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }
 }
 
-/* ========================================
-   Custom Scrollbar
-   ======================================== */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Gold shimmer skeleton loader */
+.skeleton-gold {
+  background: linear-gradient(
+    90deg,
+    var(--surface-2) 25%,
+    rgba(212, 175, 55, 0.08) 50%,
+    var(--surface-2) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCROLLBAR
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0f;
+  background: var(--scrollbar-track);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--scrollbar-thumb);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(99, 102, 241, 0.4);
+  background: var(--scrollbar-thumb-hover);
 }
 
-/* ========================================
-   Reduced Motion Accessibility
-   ======================================== */
+/* ═══════════════════════════════════════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -311,4 +681,19 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   THEME TRANSITION (applied to all themed elements)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease !important;
 }

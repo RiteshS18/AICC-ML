@@ -7,13 +7,23 @@
     <meta name="description" content="AIML Coding Club — Empowering students to learn, build, and innovate in AI and Machine Learning at Kongu Engineering College." />
     <link rel="icon" type="image/jpeg" href="/aiml-logo.jpg" />
 
+    <!-- Theme initialisation — runs BEFORE first paint to prevent FOUC -->
+    <script>
+      (function () {
+        var stored = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = stored || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+
     <!-- Google Fonts: Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Google Fonts: Inter + Syne + Plus Jakarta Sans -->
+    <!-- Google Fonts: Sora (display) + Inter (body) -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
   </head>

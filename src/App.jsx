@@ -10,8 +10,8 @@ const MLMembersPage = lazy(() => import('./pages/ml/MLMembersPage'))
 
 function PageLoader() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#0a0a0f]">
-      <div className="w-10 h-10 rounded-full border-2 border-primary/20 border-t-primary animate-spin" />
+    <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: 'var(--bg)' }}>
+      <div className="w-10 h-10 rounded-full border-2 animate-spin" style={{ borderColor: 'var(--border)', borderTopColor: 'var(--gold)' }} />
     </div>
   )
 }

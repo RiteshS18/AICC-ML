@@ -1,18 +1,47 @@
 import { useEffect, useRef } from 'react';
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Neural Constellation Canvas (Hero Background)
+// Gold Constellation Canvas (Hero Background)
 //
-// • Deep cyber-dark ambiance with indigo and violet neural nodes
-// • Dynamic synaptic connection lines between nearby nodes
-// • Interactive mouse attraction and repulsion network
-// • Optimized for 60fps performance and accessibility (prefers-reduced-motion)
+// • Warm gold-tinted neural nodes with synaptic connections
+// • Interactive mouse attraction/repulsion network
+// • Dynamic theme-aware: adapts to light/dark mode changes seamlessly
+// • 60fps performance, reduced-motion aware
 // ─────────────────────────────────────────────────────────────────────────────
 
-const NODE_COUNT = 110;
-const CONNECT_DIST = 115;
-const MOUSE_CONNECT_DIST = 160;
-const MOUSE_REPEL_DIST = 75;
+const NODE_COUNT = 85;
+const CONNECT_DIST = 120;
+const MOUSE_CONNECT_DIST = 150;
+const MOUSE_REPEL_DIST = 70;
+
+function getThemeColors() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  if (isDark) {
+    return {
+      colors: [
+        'rgba(245, 215, 110, 0.7)',
+        'rgba(212, 175, 55, 0.65)',
+        'rgba(253, 251, 247, 0.5)',
+        'rgba(184, 134, 11, 0.5)',
+        'rgba(230, 193, 90, 0.55)',
+      ],
+      lineColor: 'rgba(212, 175, 55,',
+      mouseLineColor: 'rgba(245, 215, 110,',
+    };
+  } else {
+    return {
+      colors: [
+        'rgba(184, 134, 11, 0.65)',
+        'rgba(201, 151, 22, 0.60)',
+        'rgba(158, 116, 9, 0.55)',
+        'rgba(136, 97, 5, 0.60)',
+        'rgba(223, 178, 53, 0.50)',
+      ],
+      lineColor: 'rgba(184, 134, 11,',
+      mouseLineColor: 'rgba(158, 116, 9,',
+    };
+  }
+}
 
 export default function ParticleCanvas({ className = '' }) {
   const canvasRef = useRef(null);
@@ -30,10 +59,8 @@ export default function ParticleCanvas({ className = '' }) {
     const mouse = { x: -9999, y: -9999 };
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Node colors: cyan/indigo/violet palette
-    const colors = ['#6366f1', '#818cf8', '#a78bfa', '#c084fc', '#38bdf8'];
+    let currentTheme = getThemeColors();
 
-    // Resize handler with devicePixelRatio support
     function handleResize() {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       width = canvas.offsetWidth;
@@ -47,19 +74,30 @@ export default function ParticleCanvas({ className = '' }) {
     const ro = new ResizeObserver(handleResize);
     ro.observe(canvas);
 
-    // Initialize nodes
-    const speedMultiplier = reducedMotion ? 0.2 : 0.65;
+    const speedMultiplier = reducedMotion ? 0.15 : 0.45;
     const nodes = Array.from({ length: NODE_COUNT }, () => ({
       x: Math.random() * (width || window.innerWidth),
       y: Math.random() * (height || window.innerHeight),
       vx: (Math.random() - 0.5) * speedMultiplier,
       vy: (Math.random() - 0.5) * speedMultiplier,
-      radius: Math.random() * 1.6 + 1.0,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      baseAlpha: Math.random() * 0.4 + 0.35,
+      radius: Math.random() * 1.6 + 0.8,
+      color: currentTheme.colors[Math.floor(Math.random() * currentTheme.colors.length)],
+      baseAlpha: Math.random() * 0.35 + 0.25,
     }));
 
-    // Mouse listeners
+    // Listen to theme mutations on document.documentElement
+    const themeObserver = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        if (m.attributeName === 'data-theme') {
+          currentTheme = getThemeColors();
+          nodes.forEach((n) => {
+            n.color = currentTheme.colors[Math.floor(Math.random() * currentTheme.colors.length)];
+          });
+        }
+      }
+    });
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
     function handleMouseMove(e) {
       const rect = canvas.getBoundingClientRect();
       mouse.x = e.clientX - rect.left;
@@ -74,21 +112,18 @@ export default function ParticleCanvas({ className = '' }) {
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('mouseleave', handleMouseLeave);
 
-    // Main animation loop
     function render() {
       ctx.clearRect(0, 0, width, height);
 
-      // 1. Update node positions & soft boundary wrap
       for (let i = 0; i < nodes.length; i++) {
         const n = nodes[i];
 
-        // Soft repulsion from cursor
         const mdx = n.x - mouse.x;
         const mdy = n.y - mouse.y;
         const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
 
         if (mdist < MOUSE_REPEL_DIST && mdist > 0.1) {
-          const repelForce = ((MOUSE_REPEL_DIST - mdist) / MOUSE_REPEL_DIST) * 1.8;
+          const repelForce = ((MOUSE_REPEL_DIST - mdist) / MOUSE_REPEL_DIST) * 1.5;
           n.x += (mdx / mdist) * repelForce;
           n.y += (mdy / mdist) * repelForce;
         }
@@ -102,7 +137,6 @@ export default function ParticleCanvas({ className = '' }) {
         if (n.y > height + 10) n.y = -10;
       }
 
-      // 2. Draw connections between nearby nodes
       for (let i = 0; i < nodes.length; i++) {
         const n1 = nodes[i];
 
@@ -113,32 +147,32 @@ export default function ParticleCanvas({ className = '' }) {
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < CONNECT_DIST) {
-            const alpha = (1 - dist / CONNECT_DIST) * 0.22;
+            const alpha = (1 - dist / CONNECT_DIST) * 0.18;
             ctx.beginPath();
             ctx.moveTo(n1.x, n1.y);
             ctx.lineTo(n2.x, n2.y);
-            ctx.strokeStyle = `rgba(129, 140, 248, ${alpha})`;
-            ctx.lineWidth = 0.85;
+            ctx.strokeStyle = `${currentTheme.lineColor} ${alpha})`;
+            ctx.lineWidth = 0.7;
             ctx.stroke();
           }
         }
 
-        // Connection to mouse cursor
+        // Mouse connection
         const mdx = n1.x - mouse.x;
         const mdy = n1.y - mouse.y;
         const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
 
         if (mdist < MOUSE_CONNECT_DIST) {
-          const mAlpha = (1 - mdist / MOUSE_CONNECT_DIST) * 0.45;
+          const mAlpha = (1 - mdist / MOUSE_CONNECT_DIST) * 0.4;
           ctx.beginPath();
           ctx.moveTo(n1.x, n1.y);
           ctx.lineTo(mouse.x, mouse.y);
-          ctx.strokeStyle = `rgba(167, 139, 250, ${mAlpha})`;
-          ctx.lineWidth = 1.1;
+          ctx.strokeStyle = `${currentTheme.mouseLineColor} ${mAlpha})`;
+          ctx.lineWidth = 0.9;
           ctx.stroke();
         }
 
-        // 3. Draw individual node
+        // Draw node
         ctx.beginPath();
         ctx.arc(n1.x, n1.y, n1.radius, 0, Math.PI * 2);
         ctx.fillStyle = n1.color;
@@ -155,6 +189,7 @@ export default function ParticleCanvas({ className = '' }) {
     return () => {
       cancelAnimationFrame(animId);
       ro.disconnect();
+      themeObserver.disconnect();
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseleave', handleMouseLeave);
     };
@@ -165,6 +200,7 @@ export default function ParticleCanvas({ className = '' }) {
       ref={canvasRef}
       className={`absolute inset-0 z-0 pointer-events-auto ${className}`}
       style={{ display: 'block' }}
+      aria-hidden="true"
     />
   );
 }

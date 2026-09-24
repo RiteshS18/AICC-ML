@@ -107,35 +107,36 @@ function FAQItem({ item, index, colIndex }) {
       transition={{ duration: 0.5, delay: index * 0.07 + colIndex * 0.04, ease: [0.22, 1, 0.36, 1] }}
       className="group relative cursor-default"
     >
-      <div className="absolute top-0 left-0 right-0 h-px bg-white/10" />
+      <div className="absolute top-0 left-0 right-0 h-px" style={{ backgroundColor: 'var(--border)' }} />
       <motion.div
-        className="absolute inset-0 rounded-xl bg-white/[0.04] border border-white/5"
+        className="absolute inset-0 rounded-xl"
+        style={{ backgroundColor: 'var(--surface-hover)' }}
         animate={{ opacity: hovered ? 1 : 0 }}
         transition={{ duration: 0.25 }}
       />
       <div className="relative px-3 py-5 lg:py-6">
         <div className="flex items-center gap-4">
-          <motion.span
-            animate={{ color: hovered ? '#818cf8' : '#64748b' }}
-            transition={{ duration: 0.25 }}
-            className="font-display font-black text-sm tracking-wider min-w-[2rem]"
+          <span
+            className="font-display font-black text-sm tracking-wider min-w-[2rem] transition-colors"
+            style={{ color: hovered ? 'var(--gold)' : 'var(--gold-text)' }}
           >
             {item.id}
-          </motion.span>
-          <motion.h3
-            animate={{ color: hovered ? '#ffffff' : '#e2e8f0' }}
-            transition={{ duration: 0.25 }}
-            className="flex-1 font-display font-bold text-base md:text-lg leading-snug"
+          </span>
+          <h3
+            className="flex-1 font-display font-bold text-base md:text-lg leading-snug transition-colors"
+            style={{ color: hovered ? 'var(--gold-text)' : 'var(--text)' }}
           >
             {item.question}
-          </motion.h3>
-          <motion.span
-            animate={{ color: hovered ? '#818cf8' : '#64748b', rotate: hovered ? 15 : 0 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="flex-shrink-0"
+          </h3>
+          <span
+            className="flex-shrink-0 transition-transform duration-300"
+            style={{
+              color: hovered ? 'var(--gold)' : 'var(--text-muted)',
+              transform: hovered ? 'rotate(15deg)' : 'none',
+            }}
           >
             {item.icon}
-          </motion.span>
+          </span>
         </div>
         <AnimatePresence>
           {hovered && (
@@ -147,14 +148,14 @@ function FAQItem({ item, index, colIndex }) {
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
               className="overflow-hidden"
             >
-              <p className="mt-3 ml-[2.875rem] text-sm md:text-base text-text-secondary leading-relaxed max-w-md pr-2">
+              <p className="mt-3 ml-[2.875rem] text-sm md:text-base leading-relaxed max-w-md pr-2" style={{ color: 'var(--text-secondary)' }}>
                 {item.answer}
               </p>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-white/10" />
+      <div className="absolute bottom-0 left-0 right-0 h-px" style={{ backgroundColor: 'var(--border)' }} />
     </motion.div>
   );
 }
@@ -164,23 +165,24 @@ export default function MLFAQ() {
   const isInView = useInView(sectionRef, { once: true, amount: 0.15 });
 
   return (
-    <section id="faq" className="relative bg-[#0a0a0f] py-20 md:py-28 overflow-hidden">
+    <section id="faq" className="relative py-20 md:py-28 overflow-hidden" style={{ backgroundColor: 'var(--bg)' }}>
       <div
-        className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full opacity-20"
-        style={{ background: 'radial-gradient(ellipse at center, rgba(99, 102, 241, 0.3) 0%, transparent 70%)' }}
+        className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[400px] rounded-full opacity-30"
+        style={{ background: 'radial-gradient(ellipse at center, var(--shadow-glow) 0%, transparent 70%)' }}
       />
       <div className="max-w-7xl mx-auto px-6">
         <div ref={sectionRef} className="text-center mb-16 md:mb-20">
           <div className="flex items-center justify-center gap-3 mb-4">
             <motion.div
               className="h-px rounded-full"
-              style={{ background: 'linear-gradient(to right, var(--color-primary), var(--color-accent))' }}
+              style={{ background: 'var(--gold-gradient)' }}
               initial={{ width: 0, opacity: 0 }}
               animate={isInView ? { width: 28, opacity: 1 } : {}}
               transition={{ duration: 0.5 }}
             />
             <motion.p
-              className="text-primary text-xs font-bold tracking-[0.22em] uppercase"
+              className="text-xs font-bold tracking-[0.22em] uppercase"
+              style={{ color: 'var(--gold-text)' }}
               initial={{ opacity: 0, y: 8 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.45, delay: 0.15 }}
@@ -189,7 +191,7 @@ export default function MLFAQ() {
             </motion.p>
             <motion.div
               className="h-px rounded-full"
-              style={{ background: 'linear-gradient(to right, var(--color-accent), var(--color-primary))' }}
+              style={{ background: 'var(--gold-gradient)' }}
               initial={{ width: 0, opacity: 0 }}
               animate={isInView ? { width: 28, opacity: 1 } : {}}
               transition={{ duration: 0.5 }}
@@ -199,9 +201,9 @@ export default function MLFAQ() {
             className="font-display font-black leading-none tracking-tight"
             style={{ fontSize: 'clamp(2.4rem, 5vw, 4.2rem)' }}
           >
-            <span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255, 255, 255, 0.5)' }}>Everything </span>
-            <span className="text-white">you need to </span>
-            <span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255, 255, 255, 0.5)' }}>know.</span>
+            <span className="text-hollow">Everything </span>
+            <span style={{ color: 'var(--text)' }}>you need to </span>
+            <span className="text-hollow">know.</span>
           </h2>
         </div>
 
@@ -214,7 +216,7 @@ export default function MLFAQ() {
           <div className="hidden lg:block absolute left-1/2 -translate-x-px" style={{ top: 0, bottom: 0 }}>
             <motion.div
               className="w-px h-full"
-              style={{ background: 'linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.12) 15%, rgba(255, 255, 255, 0.12) 85%, transparent)' }}
+              style={{ background: 'linear-gradient(to bottom, transparent, var(--border) 15%, var(--border) 85%, transparent)' }}
               initial={{ scaleY: 0, opacity: 0 }}
               whileInView={{ scaleY: 1, opacity: 1 }}
               viewport={{ once: true, amount: 0.2 }}

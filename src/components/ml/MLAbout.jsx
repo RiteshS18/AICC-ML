@@ -66,7 +66,7 @@ export default function MLAbout() {
   const titleWords = ['About', 'AI', '&', 'ML', 'Coding', 'Club'];
 
   return (
-    <section id="about" ref={sectionRef} className="py-24 lg:py-32 bg-off-white">
+    <section id="about" ref={sectionRef} className="py-24 lg:py-32" style={{ backgroundColor: 'var(--bg)' }}>
       <div className="max-w-6xl mx-auto px-6">
 
         {/* ── Section Header ── */}
@@ -75,13 +75,14 @@ export default function MLAbout() {
           <div className="flex items-center justify-center gap-3 mb-5">
             <motion.div
               className="h-px rounded-full"
-              style={{ background: 'linear-gradient(to right, var(--color-primary), var(--color-accent))' }}
+              style={{ background: 'var(--gold-gradient)' }}
               initial={{ width: 0, opacity: 0 }}
               animate={isInView ? { width: 24, opacity: 1 } : {}}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             />
             <motion.span
-              className="uppercase text-xs tracking-[0.22em] font-semibold text-primary"
+              className="uppercase text-xs tracking-[0.22em] font-semibold"
+              style={{ color: 'var(--gold-text)' }}
               initial={{ opacity: 0, y: 6 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.45, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
@@ -90,14 +91,14 @@ export default function MLAbout() {
             </motion.span>
             <motion.div
               className="h-px rounded-full"
-              style={{ background: 'linear-gradient(to right, var(--color-accent), var(--color-primary))' }}
+              style={{ background: 'var(--gold-gradient)' }}
               initial={{ width: 0, opacity: 0 }}
               animate={isInView ? { width: 24, opacity: 1 } : {}}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             />
           </div>
 
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-text tracking-tight leading-tight">
+          <h2 className="text-4xl md:text-5xl font-display font-bold tracking-tight leading-tight" style={{ color: 'var(--text)' }}>
             {titleWords.map((word, i) => (
               <motion.span
                 key={word + i}
@@ -125,8 +126,8 @@ export default function MLAbout() {
               <TiltCard key={card.title} index={i} isInView={isInView}>
 
                 <motion.div
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center text-white flex-shrink-0"
-                  style={{ background: 'linear-gradient(135deg, var(--color-primary), var(--color-accent))' }}
+                  className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
+                  style={{ background: 'var(--gold-gradient)', color: 'var(--btn-primary-text)' }}
                   initial={{ opacity: 0, scale: 0.6 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
                   transition={{
@@ -140,7 +141,8 @@ export default function MLAbout() {
 
                 <div className="mt-6 group">
                   <motion.h3
-                    className="text-xl font-display font-bold text-text inline-block relative"
+                    className="text-xl font-display font-bold inline-block relative"
+                    style={{ color: 'var(--text)' }}
                     initial={{ opacity: 0, x: -10 }}
                     animate={isInView ? { opacity: 1, x: 0 } : {}}
                     transition={{
@@ -152,7 +154,7 @@ export default function MLAbout() {
                     {card.title}
                     <motion.span
                       className="absolute left-0 -bottom-0.5 h-px rounded-full"
-                      style={{ background: 'linear-gradient(to right, var(--color-primary), var(--color-accent))' }}
+                      style={{ background: 'var(--gold-gradient)' }}
                       initial={{ width: '0%' }}
                       animate={isInView ? { width: '100%' } : {}}
                       transition={{
@@ -165,7 +167,8 @@ export default function MLAbout() {
                 </div>
 
                 <motion.p
-                  className="text-text-secondary mt-4 leading-relaxed"
+                  className="mt-4 leading-relaxed"
+                  style={{ color: 'var(--text-secondary)' }}
                   initial={{ opacity: 0 }}
                   animate={isInView ? { opacity: 1 } : {}}
                   transition={{

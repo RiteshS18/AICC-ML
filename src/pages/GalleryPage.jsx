@@ -111,13 +111,26 @@ function StatBadge(props) {
   const animatedValue = useCountUp(props.value);
   const Icon = props.icon;
   return (
-    <div className="flex items-center gap-3 glass-card px-5 py-3 border border-white/10">
-      <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-primary to-accent">
-        <Icon className="w-5 h-5 text-white" />
+    <div
+      className="flex items-center gap-3 glass-card px-5 py-3 rounded-2xl shadow-sm"
+      style={{
+        backgroundColor: 'var(--surface)',
+        border: '1px solid var(--border)',
+      }}
+    >
+      <div
+        className="w-10 h-10 rounded-xl flex items-center justify-center shadow-sm"
+        style={{ background: 'var(--gold-gradient)', color: 'var(--btn-primary-text)' }}
+      >
+        <Icon className="w-5 h-5" style={{ color: 'var(--btn-primary-text)' }} />
       </div>
       <div>
-        <p className="text-2xl font-display font-black text-white leading-none">{animatedValue}</p>
-        <p className="text-xs font-semibold text-text-secondary uppercase tracking-wider mt-0.5">{props.label}</p>
+        <p className="text-2xl font-display font-black leading-none" style={{ color: 'var(--text)' }}>
+          {animatedValue}
+        </p>
+        <p className="text-xs font-semibold uppercase tracking-wider mt-0.5" style={{ color: 'var(--text-muted)' }}>
+          {props.label}
+        </p>
       </div>
     </div>
   );
@@ -158,7 +171,8 @@ export default function GalleryPage() {
 
   return (
     <motion.div
-      className="min-h-screen bg-[#0a0a0f] text-white pt-16"
+      className="min-h-screen pt-16"
+      style={{ backgroundColor: 'var(--bg)', color: 'var(--text)' }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
@@ -173,10 +187,13 @@ export default function GalleryPage() {
           className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-6"
         >
           <div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-black tracking-tight text-white leading-tight">
-              Our <span className="text-transparent" style={{ WebkitTextStroke: '2px rgba(255, 255, 255, 0.5)' }}>Moments.</span>
+            <h1
+              className="text-4xl sm:text-5xl md:text-6xl font-display font-black tracking-tight leading-tight"
+              style={{ color: 'var(--text)' }}
+            >
+              Our <span className="text-hollow">Moments.</span>
             </h1>
-            <p className="text-lg sm:text-xl font-medium text-text-secondary mt-2">
+            <p className="text-lg sm:text-xl font-medium mt-2" style={{ color: 'var(--text-secondary)' }}>
               Life and memories @ AIML Coding Club
             </p>
           </div>
@@ -202,12 +219,12 @@ export default function GalleryPage() {
               onClick={() => { setActiveCategory(category); setSelectedIndex(null); }}
               className="relative px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 cursor-pointer"
               style={{
-                color: activeCategory === category ? '#ffffff' : '#94a3b8',
+                color: activeCategory === category ? 'var(--btn-primary-text)' : 'var(--text-secondary)',
                 background: activeCategory === category
-                  ? 'linear-gradient(135deg, var(--color-primary), var(--color-accent))'
-                  : 'rgba(255,255,255,0.05)',
-                border: activeCategory === category ? '1px solid transparent' : '1px solid rgba(255,255,255,0.1)',
-                boxShadow: activeCategory === category ? '0 4px 15px var(--color-primary-shadow)' : 'none',
+                  ? 'var(--gold-gradient)'
+                  : 'var(--surface-2)',
+                border: activeCategory === category ? '1px solid transparent' : '1px solid var(--border)',
+                boxShadow: activeCategory === category ? '0 4px 15px var(--shadow-glow)' : 'none',
               }}
             >
               {category}

@@ -20,16 +20,17 @@ export default function EventDetails() {
   if (!event) {
     return (
       <motion.div
-        className="min-h-screen flex flex-col items-center justify-center bg-[#0a0a0f] text-white px-6 text-center"
+        className="min-h-screen flex flex-col items-center justify-center px-6 text-center"
+        style={{ backgroundColor: 'var(--bg)', color: 'var(--text)' }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
       >
-        <h2 className="text-3xl font-display font-bold text-white mb-4">
+        <h2 className="text-3xl font-display font-bold mb-4" style={{ color: 'var(--text)' }}>
           Event not found
         </h2>
         <button
           onClick={() => navigate('/')}
-          className="btn-primary"
+          className="btn-gold"
         >
           Go Home
         </button>
@@ -43,7 +44,8 @@ export default function EventDetails() {
 
   return (
     <motion.div
-      className="min-h-screen bg-[#0a0a0f] text-white"
+      className="min-h-screen"
+      style={{ backgroundColor: 'var(--bg)', color: 'var(--text)' }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -51,26 +53,37 @@ export default function EventDetails() {
       {/* Back Button */}
       <button
         onClick={() => navigate('/')}
-        className="fixed top-6 left-6 z-50 glass-card px-4 py-2 flex items-center gap-2 text-text-secondary hover:bg-white/10 hover:text-white transition-all duration-200 cursor-pointer"
+        className="fixed top-6 left-6 z-50 glass-card px-4 py-2 flex items-center gap-2 transition-all duration-200 cursor-pointer shadow-md"
+        style={{
+          backgroundColor: 'var(--surface)',
+          border: '1px solid var(--border)',
+          color: 'var(--text)',
+        }}
       >
-        <ArrowLeft className="w-4 h-4" />
+        <ArrowLeft className="w-4 h-4" style={{ color: 'var(--gold-text)' }} />
         <span className="text-sm font-medium">Back</span>
       </button>
 
       {/* Hero Banner */}
-      <div className="relative w-full h-[50vh] md:h-[60vh] overflow-hidden bg-[#12121a]">
+      <div className="relative w-full h-[50vh] md:h-[60vh] overflow-hidden" style={{ backgroundColor: 'var(--surface-2)' }}>
         <img
           src={event.poster}
           alt={event.title}
-          className="w-full h-full object-cover opacity-80"
+          className="w-full h-full object-cover opacity-90"
         />
         {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/60 to-transparent" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(to top, var(--bg) 0%, color-mix(in srgb, var(--bg) 65%, transparent) 50%, transparent 100%)',
+          }}
+        />
 
         {/* Title overlay */}
         <div className="absolute bottom-0 left-0 right-0 px-6 md:px-8 pb-6 md:pb-8">
           <motion.h1
-            className="text-4xl md:text-6xl font-display font-bold text-white"
+            className="text-4xl md:text-6xl font-display font-bold"
+            style={{ color: 'var(--text)' }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -99,14 +112,28 @@ export default function EventDetails() {
             transition={{ duration: 0.5, delay: 0.5 }}
           >
             {event.time && (
-              <div className="glass-card px-4 py-2 flex items-center gap-2 text-sm text-text-secondary">
-                <CalendarDays className="w-4 h-4 text-primary" />
+              <div
+                className="glass-card px-4 py-2 flex items-center gap-2 text-sm"
+                style={{
+                  backgroundColor: 'var(--surface)',
+                  border: '1px solid var(--border)',
+                  color: 'var(--text-secondary)',
+                }}
+              >
+                <CalendarDays className="w-4 h-4" style={{ color: 'var(--gold-text)' }} />
                 {event.time}
               </div>
             )}
             {event.venue && (
-              <div className="glass-card px-4 py-2 flex items-center gap-2 text-sm text-text-secondary">
-                <MapPin className="w-4 h-4 text-primary" />
+              <div
+                className="glass-card px-4 py-2 flex items-center gap-2 text-sm"
+                style={{
+                  backgroundColor: 'var(--surface)',
+                  border: '1px solid var(--border)',
+                  color: 'var(--text-secondary)',
+                }}
+              >
+                <MapPin className="w-4 h-4" style={{ color: 'var(--gold-text)' }} />
                 {event.venue}
               </div>
             )}
@@ -124,7 +151,11 @@ export default function EventDetails() {
           {/* About Card */}
           {event.description && (
             <motion.div
-              className="glass-card p-8 border border-white/10"
+              className="glass-card p-8"
+              style={{
+                backgroundColor: 'var(--surface)',
+                border: '1px solid var(--border)',
+              }}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -133,13 +164,13 @@ export default function EventDetails() {
               <div className="flex items-center gap-3 mb-4">
                 <div
                   className="w-8 h-0.5 rounded-full"
-                  style={{ background: 'linear-gradient(to right, var(--color-primary), var(--color-accent))' }}
+                  style={{ background: 'var(--gold-gradient)' }}
                 />
-                <h3 className="text-xl font-display font-semibold text-white">
+                <h3 className="text-xl font-display font-semibold" style={{ color: 'var(--text)' }}>
                   About
                 </h3>
               </div>
-              <p className="text-text-secondary leading-relaxed">
+              <p className="leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                 {event.description}
               </p>
             </motion.div>
@@ -148,7 +179,11 @@ export default function EventDetails() {
           {/* How It's Conducted Card */}
           {conductDetails && (
             <motion.div
-              className="glass-card p-8 border border-white/10"
+              className="glass-card p-8"
+              style={{
+                backgroundColor: 'var(--surface)',
+                border: '1px solid var(--border)',
+              }}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -157,13 +192,13 @@ export default function EventDetails() {
               <div className="flex items-center gap-3 mb-4">
                 <div
                   className="w-8 h-0.5 rounded-full"
-                  style={{ background: 'linear-gradient(to right, var(--color-primary), var(--color-accent))' }}
+                  style={{ background: 'var(--gold-gradient)' }}
                 />
-                <h3 className="text-xl font-display font-semibold text-white">
+                <h3 className="text-xl font-display font-semibold" style={{ color: 'var(--text)' }}>
                   How It&apos;s Conducted
                 </h3>
               </div>
-              <p className="text-text-secondary leading-relaxed">
+              <p className="leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                 {conductDetails}
               </p>
             </motion.div>
@@ -183,7 +218,7 @@ export default function EventDetails() {
               href={event.registrationLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-primary"
+              className="btn-gold"
             >
               Register Now
             </a>
@@ -198,7 +233,7 @@ export default function EventDetails() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <h3 className="text-2xl font-display font-semibold text-white mt-16 mb-8">
+            <h3 className="text-2xl font-display font-semibold mt-16 mb-8" style={{ color: 'var(--text)' }}>
               Event Gallery
             </h3>
             <div
@@ -208,7 +243,8 @@ export default function EventDetails() {
               {event.photos.map((photo, i) => (
                 <motion.div
                   key={i}
-                  className="snap-start flex-shrink-0 w-72 md:w-96 h-48 md:h-64 rounded-2xl overflow-hidden border border-white/10"
+                  className="snap-start flex-shrink-0 w-72 md:w-96 h-48 md:h-64 rounded-2xl overflow-hidden"
+                  style={{ border: '1px solid var(--border)' }}
                   initial={{ opacity: 0, scale: 0.95 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}

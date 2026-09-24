@@ -93,7 +93,7 @@ export default function MLHighlights() {
       id="highlights"
       ref={containerRef}
       style={{
-        backgroundColor: '#0a0a0f',
+        backgroundColor: 'var(--bg)',
         position: 'relative',
         height: '400vh',
         zIndex: 20,
@@ -137,7 +137,7 @@ export default function MLHighlights() {
             style={{
               position: 'absolute',
               inset: 0,
-              backgroundColor: '#0a0a0f',
+              backgroundColor: 'var(--bg)',
               pointerEvents: 'none',
               zIndex: 1,
               opacity: overlayOpacity,
@@ -148,7 +148,7 @@ export default function MLHighlights() {
             style={{
               position: 'absolute',
               inset: 0,
-              background: 'radial-gradient(circle at center, rgba(10,10,15,1) 0%, rgba(10,10,15,0.7) 40%, rgba(10,10,15,0) 80%)',
+              background: 'radial-gradient(circle at center, var(--bg) 0%, color-mix(in srgb, var(--bg) 75%, transparent) 40%, transparent 80%)',
               zIndex: 1,
               pointerEvents: 'none',
               opacity: textOpacity,
@@ -171,11 +171,8 @@ export default function MLHighlights() {
             className="font-display font-black leading-none tracking-tight mb-4"
             style={{ fontSize: 'clamp(2.4rem, 5vw, 4.2rem)' }}
           >
-            <span className="text-white">AIML Coding Club's </span>
-            <span
-              className="text-transparent"
-              style={{ WebkitTextStroke: '2px rgba(255, 255, 255, 0.5)' }}
-            >
+            <span style={{ color: 'var(--text)' }}>AIML Coding Club's </span>
+            <span className="text-hollow">
               Highlights.
             </span>
           </h2>
@@ -196,26 +193,52 @@ export default function MLHighlights() {
           }}
           className="flex flex-col sm:flex-row items-center justify-center gap-8 w-full px-4"
         >
-          <Link to="/gallery" className="group relative w-72 h-80 rounded-3xl overflow-hidden shadow-2xl glass-card border border-white/15 flex flex-col hover:-translate-y-2 transition-all duration-300">
-            <div className="h-2/3 w-full relative overflow-hidden bg-[#161622]">
+          <Link
+            to="/gallery"
+            className="group relative w-72 h-80 rounded-3xl overflow-hidden shadow-2xl glass-card flex flex-col hover:-translate-y-2 transition-all duration-300"
+            style={{
+              backgroundColor: 'var(--surface)',
+              border: '1px solid var(--border)',
+            }}
+          >
+            <div className="h-2/3 w-full relative overflow-hidden" style={{ backgroundColor: 'var(--surface-2)' }}>
               <img src="/hackathon/hackathon1.webp" alt="Gallery" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
             </div>
-            <div className="h-1/3 w-full flex items-center justify-center bg-[#12121a]/95 backdrop-blur-sm border-t border-white/10">
-              <span className="text-xl font-display font-bold text-white flex items-center gap-2">
+            <div
+              className="h-1/3 w-full flex items-center justify-center backdrop-blur-sm"
+              style={{
+                backgroundColor: 'var(--surface)',
+                borderTop: '1px solid var(--border)',
+              }}
+            >
+              <span className="text-xl font-display font-bold flex items-center gap-2" style={{ color: 'var(--text)' }}>
                 View Gallery
-                <ArrowUpRight className="w-5 h-5 text-primary-light group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" style={{ color: 'var(--gold-text)' }} />
               </span>
             </div>
           </Link>
           
-          <Link to="/members" className="group relative w-72 h-80 rounded-3xl overflow-hidden shadow-2xl glass-card border border-white/15 flex flex-col hover:-translate-y-2 transition-all duration-300">
-            <div className="h-2/3 w-full relative overflow-hidden bg-[#161622]">
+          <Link
+            to="/members"
+            className="group relative w-72 h-80 rounded-3xl overflow-hidden shadow-2xl glass-card flex flex-col hover:-translate-y-2 transition-all duration-300"
+            style={{
+              backgroundColor: 'var(--surface)',
+              border: '1px solid var(--border)',
+            }}
+          >
+            <div className="h-2/3 w-full relative overflow-hidden" style={{ backgroundColor: 'var(--surface-2)' }}>
               <img src="/Members/Frame.jpg" alt="Members" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
             </div>
-            <div className="h-1/3 w-full flex items-center justify-center bg-[#12121a]/95 backdrop-blur-sm border-t border-white/10">
-              <span className="text-xl font-display font-bold text-white flex items-center gap-2">
+            <div
+              className="h-1/3 w-full flex items-center justify-center backdrop-blur-sm"
+              style={{
+                backgroundColor: 'var(--surface)',
+                borderTop: '1px solid var(--border)',
+              }}
+            >
+              <span className="text-xl font-display font-bold flex items-center gap-2" style={{ color: 'var(--text)' }}>
                 Our Members
-                <ArrowUpRight className="w-5 h-5 text-accent-light group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" style={{ color: 'var(--gold-text)' }} />
               </span>
             </div>
           </Link>

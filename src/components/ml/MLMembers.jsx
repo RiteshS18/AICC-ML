@@ -62,16 +62,15 @@ function MemberCard({ member, index }) {
             <div
               className="w-full h-full flex items-center justify-center transition-transform duration-500 group-hover:scale-105"
               style={{
-                background: isClassCard
-                  ? 'linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 50%, #ddd6fe 100%)'
-                  : 'linear-gradient(135deg, #eef2ff 0%, #e0e7ff 50%, #ede9fe 100%)',
+                backgroundColor: 'var(--surface-2)',
+                border: '1px solid var(--border)',
               }}
             >
               <span
                 className="font-display font-bold select-none"
                 style={{
                   fontSize: isClassCard ? 'clamp(0.75rem, 2.5vw, 1.1rem)' : 'clamp(1.5rem, 4vw, 2.5rem)',
-                  color: isClassCard ? 'var(--color-primary)' : 'var(--color-accent)',
+                  color: 'var(--gold-text)',
                   letterSpacing: isClassCard ? '0.05em' : '0.04em',
                   textAlign: 'center',
                   lineHeight: 1.3,
@@ -85,7 +84,7 @@ function MemberCard({ member, index }) {
         </div>
 
         <div className="transition-transform duration-300 group-hover:-translate-y-0.5">
-          <p className="text-sm font-semibold text-text text-center truncate">
+          <p className="text-sm font-semibold text-center truncate" style={{ color: 'var(--text)' }}>
             {member.name}
           </p>
         </div>
@@ -115,16 +114,14 @@ function GroupHeader({ position, isFirst, count }) {
       transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
       className={`flex items-center gap-3 mb-6 ${isFirst ? 'mt-12' : 'mt-10'}`}
     >
-      <div className="w-2 h-2 rounded-full bg-gradient-to-r from-primary to-accent flex-shrink-0" />
-      <h3 className="text-lg font-display font-semibold text-text whitespace-nowrap">
+      <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: 'var(--gold-gradient)' }} />
+      <h3 className="text-lg font-display font-semibold whitespace-nowrap" style={{ color: 'var(--text)' }}>
         {displayTitle}
       </h3>
-      <div className="flex-1 h-px bg-border" />
+      <div className="flex-1 h-px" style={{ backgroundColor: 'var(--border)' }} />
     </motion.div>
   );
 }
-
-
 
 export default function MLMembers() {
   const filtered = members;
@@ -139,7 +136,7 @@ export default function MLMembers() {
     ['Secretary', 'Additional Secretary'].includes(position);
 
   return (
-    <section id="members" className="pt-24 pb-24 lg:pt-28 lg:pb-32">
+    <section id="members" className="pt-24 pb-24 lg:pt-28 lg:pb-32" style={{ backgroundColor: 'var(--bg)' }}>
       <div className="max-w-6xl mx-auto px-6">
         {/* Title Row */}
         <motion.div
@@ -149,14 +146,21 @@ export default function MLMembers() {
           className="flex items-end justify-between flex-wrap gap-4 mb-2"
         >
           <div>
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-text">
+            <h2 className="text-3xl md:text-4xl font-display font-bold" style={{ color: 'var(--text)' }}>
               Office Bearers
             </h2>
-            <p className="text-sm text-text-secondary mt-1">
+            <p className="text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>
               Meet the minds driving AIML Coding Club for 2026–27
             </p>
           </div>
-          <span className="px-3.5 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/20">
+          <span
+            className="px-3.5 py-1 rounded-full text-xs font-semibold"
+            style={{
+              backgroundColor: 'var(--gold-subtle)',
+              color: 'var(--gold-text)',
+              border: '1px solid var(--border)',
+            }}
+          >
             2026–27
           </span>
         </motion.div>
@@ -166,7 +170,8 @@ export default function MLMembers() {
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
-          className="h-px bg-border mb-8 origin-left"
+          className="h-px mb-8 origin-left"
+          style={{ backgroundColor: 'var(--border)' }}
         />
 
         {/* Members Grid */}

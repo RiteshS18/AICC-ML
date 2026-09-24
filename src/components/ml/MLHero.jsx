@@ -60,9 +60,10 @@ export default function MLHero() {
     <section
       id="home"
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-28 pb-16"
+      style={{ backgroundColor: 'var(--bg)' }}
     >
       {/* Particle Background */}
-      <ParticleCanvas particleCount={60} />
+      <ParticleCanvas />
 
       {/* Content */}
       <motion.div
@@ -71,19 +72,28 @@ export default function MLHero() {
         initial="hidden"
         animate="visible"
       >
-        {/* Logos */}
+        {/* Logo */}
         <div className="flex justify-center items-center gap-6 mb-6">
           <div className="flex flex-col items-center gap-1.5">
-            <motion.img 
-              src="/aiml-logo.jpg" 
-              alt="AIML Coding Club Logo" 
-              className="w-28 h-28 object-contain rounded-full drop-shadow-lg ring-2 ring-primary/30" 
+            <motion.img
+              src="/aiml-logo.jpg"
+              alt="AIML Coding Club Logo"
+              className="w-28 h-28 object-contain rounded-full"
+              width={112}
+              height={112}
+              style={{
+                boxShadow: '0 0 24px -4px var(--shadow-glow)',
+                border: '2px solid var(--border)',
+              }}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ scale: 1.1, rotate: 3 }}
+              whileHover={{ scale: 1.08, rotate: 3 }}
             />
-            <span className="text-[11px] font-bold tracking-widest uppercase text-primary mt-1">
+            <span
+              className="text-[11px] font-bold tracking-widest uppercase mt-1"
+              style={{ color: 'var(--gold-text)' }}
+            >
               LEARN AND LEAD
             </span>
           </div>
@@ -92,27 +102,36 @@ export default function MLHero() {
         {/* Eyebrow */}
         <motion.p
           variants={fadeUp}
-          className="text-sm text-text-muted tracking-widest uppercase mb-4"
+          className="text-sm tracking-widest uppercase mb-4"
+          style={{ color: 'var(--text-muted)' }}
         >
           Kongu Engineering College · Autonomous
         </motion.p>
 
-        {/* Hero Title */}
+        {/* Hero Title — always readable in both modes */}
         <motion.div
           variants={fadeUp}
           className="mb-4"
         >
-          <h1 className="font-display font-extrabold text-text tracking-tight text-4xl sm:text-6xl md:text-7xl lg:text-8xl">
-            <span className="bg-gradient-to-r from-primary-light via-indigo-300 to-accent-light bg-clip-text text-transparent drop-shadow-sm">
+          <h1 className="font-display font-extrabold tracking-tight text-4xl sm:text-6xl md:text-7xl lg:text-8xl">
+            <span
+              style={{
+                background: 'var(--gold-gradient)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
               AIML
             </span>{' '}
-            <span>Coding Club</span>
+            <span style={{ color: 'var(--text)' }}>Coding Club</span>
           </h1>
         </motion.div>
 
         <motion.p
           variants={fadeUp}
-          className="text-base sm:text-lg md:text-xl font-medium mb-6 text-primary-light/90 tracking-wide"
+          className="text-base sm:text-lg md:text-xl font-medium mb-6 tracking-wide"
+          style={{ color: 'var(--gold-text)' }}
         >
           Department of Artificial Intelligence &amp; Machine Learning Initiative
         </motion.p>
@@ -120,10 +139,11 @@ export default function MLHero() {
         {/* Subtext */}
         <motion.p
           variants={fadeUp}
-          className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-8"
+          className="text-lg md:text-xl max-w-2xl mx-auto mb-8"
+          style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}
         >
           Empowering students to learn, build, and innovate in AI and coding
-          through workshops, hackathons, and collaborative projects. More than just a club, 
+          through workshops, hackathons, and collaborative projects. More than just a club,
           we share a great interaction and bond like a family.
         </motion.p>
 
@@ -132,10 +152,10 @@ export default function MLHero() {
           variants={fadeUp}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
         >
-          <a href="#about" className="btn-primary">
+          <a href="#about" className="btn-gold">
             Explore Club
           </a>
-          <Link to="/gallery" className="btn-moon">
+          <Link to="/gallery" className="btn-outline">
             View Gallery
           </Link>
           <Link to="/members" className="btn-ghost">
@@ -143,9 +163,9 @@ export default function MLHero() {
           </Link>
         </motion.div>
 
-        {/* Stats Row in Bordered Box */}
+        {/* Stats Row — Gold bordered card */}
         <motion.div
-          className="inline-flex flex-wrap justify-center gap-6 md:gap-14 border border-white/10 rounded-3xl px-6 md:px-12 py-5 md:py-7 glass-card shadow-2xl"
+          className="inline-flex flex-wrap justify-center gap-6 md:gap-14 gold-card px-6 md:px-12 py-5 md:py-7"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
@@ -167,10 +187,21 @@ export default function MLHero() {
                 ease: [0.22, 1, 0.36, 1],
               }}
             >
-              <div className="text-2xl sm:text-3xl md:text-4xl font-display font-extrabold bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400 bg-clip-text text-transparent">
+              <div
+                className="text-2xl sm:text-3xl md:text-4xl font-display font-extrabold"
+                style={{
+                  background: 'var(--gold-gradient)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
                 <StatCounter target={stat.target} suffix={stat.suffix} />
               </div>
-              <div className="text-[11px] sm:text-xs font-semibold tracking-wider uppercase text-text-secondary mt-1">
+              <div
+                className="text-[11px] sm:text-xs font-semibold tracking-wider uppercase mt-1"
+                style={{ color: 'var(--text-muted)' }}
+              >
                 {stat.label}
               </div>
             </motion.div>
@@ -180,12 +211,13 @@ export default function MLHero() {
 
       {/* Scroll Indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 scroll-indicator"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.8, duration: 0.6 }}
+        style={{ animation: 'float 2.5s ease-in-out infinite' }}
       >
-        <ChevronDown className="w-6 h-6 text-text-muted" />
+        <ChevronDown className="w-6 h-6" style={{ color: 'var(--gold)' }} />
       </motion.div>
     </section>
   );
