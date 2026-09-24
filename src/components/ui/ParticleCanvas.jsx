@@ -62,17 +62,31 @@ export default function ParticleCanvas({ className = '' }) {
     let currentTheme = getThemeColors();
 
     function handleResize() {
+      const parent = canvas.parentElement;
+      if (!parent) return;
+
+      const rect = parent.getBoundingClientRect();
+      const w = Math.floor(rect.width);
+      const h = Math.floor(rect.height);
+      if (w <= 0 || h <= 0) return;
+
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      width = canvas.offsetWidth;
-      height = canvas.offsetHeight;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if (width !== w || height !== h) {
+        width = w;
+        height = h;
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
     }
     handleResize();
 
+    const parent = canvas.parentElement;
     const ro = new ResizeObserver(handleResize);
-    ro.observe(canvas);
+    if (parent) {
+      ro.observe(parent);
+    }
+    window.addEventListener('resize', handleResize);
 
     const speedMultiplier = reducedMotion ? 0.15 : 0.45;
     const nodes = Array.from({ length: NODE_COUNT }, () => ({
@@ -190,6 +204,7 @@ export default function ParticleCanvas({ className = '' }) {
       cancelAnimationFrame(animId);
       ro.disconnect();
       themeObserver.disconnect();
+      window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseleave', handleMouseLeave);
     };
@@ -198,8 +213,18 @@ export default function ParticleCanvas({ className = '' }) {
   return (
     <canvas
       ref={canvasRef}
-      className={`absolute inset-0 z-0 pointer-events-auto ${className}`}
-      style={{ display: 'block' }}
+      className={`absolute inset-0 w-full h-full pointer-events-auto z-0 ${className}`}
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        maxWidth: '100%',
+        maxHeight: '100%',
+        display: 'block',
+        backgroundColor: 'transparent',
+      }}
       aria-hidden="true"
     />
   );
